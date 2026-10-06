@@ -1,4 +1,5 @@
 import CapabilityStrip from '@/components/modules/home/CapabilityStrip';
+import CTA from '@/components/modules/home/CTA';
 import Hero from '@/components/modules/home/Hero';
 import HowItWorks from '@/components/modules/home/HowItWorks';
 import Operations from '@/components/modules/home/Operations';
@@ -14,6 +15,7 @@ export default function HomePage() {
       <HowItWorks></HowItWorks>
       <TrackingPreview />
       <Operations></Operations>
+      <CTA></CTA>
     </div>
   );
 }
