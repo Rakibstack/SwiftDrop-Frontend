@@ -16,8 +16,8 @@ const Hero = () => {
     <section className="relative overflow-hidden">
       {/* Background decoration */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -right-40 -top-40 size-[500px] rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute -left-40 bottom-0 size-[400px] rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute -right-40 -top-40 size-[500px] rounded-full bg-primary/8 blur-3xl" />
+        <div className="absolute -left-40 bottom-0 size-[400px] rounded-full bg-primary/8 blur-3xl" />
       </div>
 
       <div className="mx-auto grid min-h-[calc(100vh-76px)] max-w-7xl items-center gap-14 px-5 py-16 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20 lg:px-8 lg:py-20">
@@ -60,7 +60,7 @@ const Hero = () => {
               )}
             >
               Start Shipping
-              <ArrowRight className="ml-2 size-4 transition-transform duration-200 group-hover:translate-x-1" />
+              <ArrowRight className="ml-2 size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
 
             <Link
@@ -146,7 +146,7 @@ const Hero = () => {
             <div className="flex items-center gap-3">
               <span className="relative flex size-2.5">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary/50" />
-                <span className="relative inline-flex size-2.5 rounded-full bg-primary" />
+                <span className="absolute inline-flex size-2.5 rounded-full bg-primary" />
               </span>
 
               <div>
