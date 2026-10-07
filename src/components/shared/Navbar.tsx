@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import {
   ArrowUpRight,
   Bell,
@@ -9,6 +11,7 @@ import {
   CircleHelp,
   CreditCard,
   LayoutDashboard,
+  Loader2,
   LogOut,
   MapPin,
   Menu,
@@ -31,10 +34,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
-
-interface NavbarProps {
-  isAuthenticated?: boolean;
-}
+import { useCurrentUser, useLogout } from "@/hooks";
+import { UserProfile } from "@/types";
+import { useQueryClient } from "@tanstack/react-query";
+import Image from "next/image";
 
 const solutions = [
   {
@@ -76,8 +79,44 @@ const resources = [
   },
 ];
 
-const Navbar = ({ isAuthenticated = true }: NavbarProps) => {
+// const getUserInitials = (name: string) => {
+//   return (
+//     name
+//       .trim()
+//       .split(/\s+/)
+//       .slice(0, 2)
+//       .map((part) => part.charAt(0).toUpperCase())
+//       .join("") || "U"
+//   );
+// };
+
+const formatRole = (role: UserProfile["role"]) => {
+  return role.charAt(0) + role.slice(1).toLowerCase();
+};
+
+const getDashboardRoute = (role: UserProfile["role"]) => {
+  switch (role) {
+    case "MERCHANT":
+      return "/merchant/dashboard";
+
+    case "RIDER":
+      return "/rider/dashboard";
+
+    case "ADMIN":
+      return "/admin/dashboard";
+
+    default:
+      return "/";
+  }
+};
+
+const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const { data, isLoading } = useCurrentUser();
+
+  const currentUser = data?.data;
+  const isAuthenticated = !!currentUser;
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
@@ -108,8 +147,10 @@ const Navbar = ({ isAuthenticated = true }: NavbarProps) => {
 
         {/* Desktop Actions */}
         <div className="hidden items-center gap-2 lg:flex">
-          {isAuthenticated ? (
-            <AuthenticatedActions />
+          {isLoading ? (
+            <NavbarActionsSkeleton />
+          ) : isAuthenticated && currentUser ? (
+            <AuthenticatedActions user={currentUser} />
           ) : (
             <GuestActions />
           )}
@@ -125,18 +166,15 @@ const Navbar = ({ isAuthenticated = true }: NavbarProps) => {
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((previous) => !previous)}
         >
-          {mobileOpen ? (
-            <X className="size-5" />
-          ) : (
-            <Menu className="size-5" />
-          )}
+          {mobileOpen ? <X className="size-5" /> : <Menu className="size-5" />}
         </Button>
       </div>
 
       {/* Mobile Navigation */}
       {mobileOpen && (
         <MobileNavigation
-          isAuthenticated={isAuthenticated}
+          user={currentUser}
+          isLoading={isLoading}
           onClose={() => setMobileOpen(false)}
         />
       )}
@@ -144,9 +182,15 @@ const Navbar = ({ isAuthenticated = true }: NavbarProps) => {
   );
 };
 
-/* -------------------------------------------------------------------------- */
-/* Guest Actions */
-/* -------------------------------------------------------------------------- */
+const NavbarActionsSkeleton = () => {
+  return (
+    <div className="flex items-center gap-2">
+      <div className="size-10 animate-pulse rounded-full bg-secondary" />
+
+      <div className="h-10 w-24 animate-pulse rounded-xl bg-secondary" />
+    </div>
+  );
+};
 
 const GuestActions = () => {
   return (
@@ -174,10 +218,6 @@ const GuestActions = () => {
     </>
   );
 };
-
-/* -------------------------------------------------------------------------- */
-/* Solutions Menu */
-/* -------------------------------------------------------------------------- */
 
 const SolutionsMenu = () => {
   return (
@@ -281,8 +321,40 @@ const ResourcesMenu = () => {
   );
 };
 
+/* -------------------------------------------------------------------------- */
+/* Authenticated Actions */
+/* -------------------------------------------------------------------------- */
 
-const AuthenticatedActions = () => {
+interface AuthenticatedActionsProps {
+  user: UserProfile;
+}
+
+const AuthenticatedActions = ({ user }: AuthenticatedActionsProps) => {
+  const router = useRouter();
+
+  const { mutate: logout, isPending: isLoggingOut } = useLogout();
+  const queryClient = useQueryClient();
+
+  // const initials = getUserInitials(user.name);
+  const role = formatRole(user.role);
+  const dashboardRoute = getDashboardRoute(user.role);
+
+  const handleLogout = () => {
+    logout(undefined, {
+      onSuccess: () => {
+        toast.success("Logged out successfully.");
+        queryClient.removeQueries({ queryKey: ["current-user"] });
+
+        router.push("/login");
+        router.refresh();
+      },
+
+      onError: (error: any) => {
+        toast.error(error.message || "Failed to logout.");
+      },
+    });
+  };
+
   return (
     <div className="flex items-center gap-2">
       {/* Notification */}
@@ -307,17 +379,27 @@ const AuthenticatedActions = () => {
             />
           }
         >
-          <span className="flex size-8 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
-            RH
+          <span className="flex size-8 items-center justify-center overflow-hidden rounded-full bg-secondary">
+            {user.imageUrl ? (
+              <Image
+                src={user.imageUrl}
+                alt={user.name}
+                width={32}
+                height={32}
+                className="size-full object-cover"
+              />
+            ) : (
+              <UserRound className="size-4 text-muted-foreground" />
+            )}
           </span>
 
           <span className="hidden text-left xl:block">
-            <span className="block text-sm font-semibold leading-4">
-              Rakibul
+            <span className="block max-w-28 truncate text-sm font-semibold leading-4">
+              {user.name}
             </span>
 
             <span className="block text-[11px] text-muted-foreground">
-              Merchant
+              {role}
             </span>
           </span>
 
@@ -329,42 +411,81 @@ const AuthenticatedActions = () => {
           sideOffset={10}
           className="w-64 rounded-2xl border-border/70 bg-background/95 p-2 shadow-xl backdrop-blur-xl"
         >
-          {/* User information MUST be inside Group */}
           <DropdownMenuGroup>
+            {/* User Information */}
             <DropdownMenuLabel className="px-3 py-3">
               <div className="flex items-center gap-3">
-                <span className="flex size-10 items-center justify-center rounded-full bg-primary text-sm font-bold text-primary-foreground">
-                  RH
+                <span className="flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-full bg-secondary">
+                  {user.imageUrl ? (
+                    <Image
+                      width={40}
+                      height={40}
+                      src={user.imageUrl}
+                      alt={user.name}
+                      className="size-full object-cover"
+                    />
+                  ) : (
+                    <UserRound className="size-5 text-muted-foreground" />
+                  )}
                 </span>
 
                 <div className="min-w-0">
                   <p className="truncate text-sm font-semibold text-foreground">
-                    Rakibul Hassan
+                    {user.name}
                   </p>
 
                   <p className="truncate text-xs font-normal text-muted-foreground">
-                    rakib@example.com
+                    {user.email}
                   </p>
+
+                  <span className="mt-1 inline-flex rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-primary">
+                    {role}
+                  </span>
                 </div>
               </div>
             </DropdownMenuLabel>
 
+            {/* Dashboard */}
             <DropdownMenuItem
-              render={<Link href="/dashboard" />}
+              render={<Link href={dashboardRoute} />}
               className="rounded-xl px-3 py-2.5"
             >
               <LayoutDashboard className="size-4" />
               Dashboard
             </DropdownMenuItem>
 
-            <DropdownMenuItem
-              render={<Link href="/shipments" />}
-              className="rounded-xl px-3 py-2.5"
-            >
-              <Package className="size-4" />
-              My Shipments
-            </DropdownMenuItem>
+            {/* Role specific link */}
+            {user.role === "MERCHANT" && (
+              <DropdownMenuItem
+                render={<Link href="/merchant/shipments" />}
+                className="rounded-xl px-3 py-2.5"
+              >
+                <Package className="size-4" />
+                My Shipments
+              </DropdownMenuItem>
+            )}
 
+            {user.role === "RIDER" && (
+              <DropdownMenuItem
+                render={<Link href="/rider/deliveries" />}
+                className="rounded-xl px-3 py-2.5"
+              >
+                <Truck className="size-4" />
+                My Deliveries
+              </DropdownMenuItem>
+            )}
+
+            {user.role === "ADMIN" && (
+              <DropdownMenuItem
+                render={<Link href="/admin/shipments" />}
+                className="rounded-xl px-3 py-2.5"
+              >
+                <Package className="size-4" />
+                Shipments
+              </DropdownMenuItem>
+            )}
+
+            {/* Common */}
             <DropdownMenuItem
               render={<Link href="/profile" />}
               className="rounded-xl px-3 py-2.5"
@@ -384,10 +505,20 @@ const AuthenticatedActions = () => {
 
           <DropdownMenuSeparator />
 
+          {/* Logout */}
           <DropdownMenuGroup>
-            <DropdownMenuItem className="rounded-xl px-3 py-2.5 text-destructive focus:text-destructive">
-              <LogOut className="size-4" />
-              Logout
+            <DropdownMenuItem
+              disabled={isLoggingOut}
+              onClick={handleLogout}
+              className="rounded-xl px-3 py-2.5 text-destructive focus:text-destructive"
+            >
+              {isLoggingOut ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : (
+                <LogOut className="size-4" />
+              )}
+
+              {isLoggingOut ? "Logging out..." : "Logout"}
             </DropdownMenuItem>
           </DropdownMenuGroup>
         </DropdownMenuContent>
@@ -401,23 +532,23 @@ const AuthenticatedActions = () => {
 /* -------------------------------------------------------------------------- */
 
 interface MobileNavigationProps {
-  isAuthenticated: boolean;
+  user?: UserProfile;
+  isLoading: boolean;
   onClose: () => void;
 }
 
 const MobileNavigation = ({
-  isAuthenticated,
+  user,
+  isLoading,
   onClose,
 }: MobileNavigationProps) => {
+  const isAuthenticated = !!user;
+
   return (
     <div className="border-t border-border/60 bg-background lg:hidden">
       <div className="mx-auto max-w-7xl px-5 py-5 sm:px-6">
         <nav className="flex flex-col gap-1">
-          <MobileLink
-            href="#solutions"
-            label="Solutions"
-            onClick={onClose}
-          />
+          <MobileLink href="#solutions" label="Solutions" onClick={onClose} />
 
           <MobileLink
             href="#how-it-works"
@@ -439,17 +570,32 @@ const MobileNavigation = ({
         </nav>
 
         <div className="mt-5 border-t border-border/60 pt-5">
-          {isAuthenticated ? (
-            <Link
-              href="/dashboard"
-              onClick={onClose}
-              className={cn(
-                buttonVariants(),
-                "w-full rounded-xl",
-              )}
-            >
-              Open Dashboard
-            </Link>
+          {isLoading ? (
+            <div className="h-11 w-full animate-pulse rounded-xl bg-secondary" />
+          ) : isAuthenticated && user ? (
+            <div className="space-y-2">
+              <div className="flex items-center gap-3 rounded-xl border border-border bg-secondary/40 p-3">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+                  {getUserInitials(user.name)}
+                </span>
+
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-semibold">{user.name}</p>
+
+                  <p className="text-xs text-muted-foreground">
+                    {formatRole(user.role)}
+                  </p>
+                </div>
+              </div>
+
+              <Link
+                href={getDashboardRoute(user.role)}
+                onClick={onClose}
+                className={cn(buttonVariants(), "w-full rounded-xl")}
+              >
+                Open Dashboard
+              </Link>
+            </div>
           ) : (
             <div className="grid grid-cols-2 gap-2">
               <Link
@@ -466,10 +612,7 @@ const MobileNavigation = ({
               <Link
                 href="/register"
                 onClick={onClose}
-                className={cn(
-                  buttonVariants(),
-                  "rounded-xl",
-                )}
+                className={cn(buttonVariants(), "rounded-xl")}
               >
                 Get Started
               </Link>
@@ -481,17 +624,17 @@ const MobileNavigation = ({
   );
 };
 
+/* -------------------------------------------------------------------------- */
+/* Mobile Link */
+/* -------------------------------------------------------------------------- */
+
 interface MobileLinkProps {
   href: string;
   label: string;
   onClick: () => void;
 }
 
-const MobileLink = ({
-  href,
-  label,
-  onClick,
-}: MobileLinkProps) => {
+const MobileLink = ({ href, label, onClick }: MobileLinkProps) => {
   return (
     <Link
       href={href}

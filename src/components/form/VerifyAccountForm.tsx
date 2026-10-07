@@ -17,7 +17,7 @@ import { cn } from "@/lib/utils";
 
 import { useResendVerificationOtp, useVerifyEmail } from "@/hooks";
 
-const RESEND_COOLDOWN = 20;
+const RESEND_COOLDOWN = 120;
 type VerifyAccountMode = "merchant" | "rider";
 
 interface VerifyAccountFormProps {

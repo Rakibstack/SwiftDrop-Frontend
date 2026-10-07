@@ -1,5 +1,12 @@
-import { registerMerchant, resendVerificationOtp, verifyEmail } from "@/api/auth.api";
-import { useMutation } from "@tanstack/react-query";
+import {
+  getCurrentUser,
+  loginUser,
+  logoutUser,
+  registerMerchant,
+  resendVerificationOtp,
+  verifyEmail,
+} from "@/api/auth.api";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useRegister() {
   return useMutation({
@@ -16,5 +23,25 @@ export function useVerifyEmail() {
 export function useResendVerificationOtp() {
   return useMutation({
     mutationFn: resendVerificationOtp,
+  });
+}
+
+export function useLogin() {
+  return useMutation({
+    mutationFn: loginUser,
+  });
+}
+
+export function useCurrentUser() {
+  return useQuery({
+    queryKey: ["current-user"],
+    queryFn: getCurrentUser,
+    retry: false,
+  });
+}
+
+export function useLogout() {
+  return useMutation({
+    mutationFn: logoutUser,
   });
 }

@@ -1,4 +1,5 @@
 import apiClient from "@/lib/apiClient";
+import { UserProfile } from "@/types/auth";
 import type {
   ApiResponse,
   ForgotPasswordPayload,
@@ -37,16 +38,21 @@ export const resendVerificationOtp = async (
   );
 };
 
-export const login = async (payload: LoginPayload) => {
-  return apiClient("/auth/login", {
+export const loginUser = async (payload: LoginPayload) => {
+  return apiClient<ApiResponse<null>>("/auth/login", {
     method: "POST",
     body: payload,
   });
 };
 
 export const getCurrentUser = async () => {
-  return apiClient("/auth/me", {
+  return apiClient<ApiResponse<UserProfile>>("/auth/me", {
     method: "GET",
+  });
+};
+export const logoutUser = async () => {
+  return apiClient<ApiResponse<null>>("/auth/logout", {
+    method: "POST",
   });
 };
 
