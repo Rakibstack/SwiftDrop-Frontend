@@ -7,8 +7,8 @@ const protectedRoutes = [
 ];
 
 const authRoutes = [
-//   "/login",
-//   "/register",
+  "/login",
+  "/register",
   "/apply-as-rider",
   "/verify-account",
   "/forgot-password",

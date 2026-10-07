@@ -62,15 +62,19 @@ export const refreshToken = async () => {
   });
 };
 
-export const forgotPassword = async (payload: ForgotPasswordPayload) => {
-  return apiClient("/auth/forgot-password", {
+export const forgotPassword = async (
+  payload: ForgotPasswordPayload,
+) => {
+  return apiClient<ApiResponse<null>>("/auth/forgot-password", {
     method: "POST",
     body: payload,
   });
 };
 
-export const resetPassword = async (payload: ResetPasswordPayload) => {
-  return apiClient("/auth/reset-password", {
+export const resetPassword = async (
+  payload: ResetPasswordPayload,
+) => {
+  return apiClient<ApiResponse<null>>("/auth/reset-password", {
     method: "POST",
     body: payload,
   });

@@ -1,16 +1,16 @@
-import Link from "next/link";
-import { ArrowLeft, KeyRound, ShieldCheck } from "lucide-react";
+
+import { KeyRound, ShieldCheck } from "lucide-react";
 
 import Logo from "@/components/shared/Logo";
-import ForgotPasswordForm from "@/components/form/ForgotPasswordForm";
+import ResetPasswordForm from "@/components/form/ResetPasswordForm";
 
-const ForgotPasswordPage = () => {
+const ResetPasswordPage = () => {
   return (
     <main className="min-h-screen bg-background">
       <div className="mx-auto grid min-h-screen max-w-7xl lg:grid-cols-2">
         {/* Left Panel */}
         <section className="relative hidden overflow-hidden bg-foreground p-10 text-background lg:flex lg:flex-col lg:justify-between">
-          <div className="absolute -right-32 -top-32 size-96 rounded-full bg-primary/20 blur-3xl" />
+          <div className="absolute -left-32 -top-32 size-96 rounded-full bg-primary/20 blur-3xl" />
 
           <div className="relative">
             <Logo />
@@ -18,22 +18,21 @@ const ForgotPasswordPage = () => {
 
           <div className="relative max-w-md">
             <div className="mb-6 flex size-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
-              <KeyRound className="size-6" />
+              <ShieldCheck className="size-6" />
             </div>
 
             <h1 className="text-4xl font-semibold tracking-tight xl:text-5xl">
-              Get back into your workspace.
+              Secure your account again.
             </h1>
 
             <p className="mt-5 text-sm leading-7 text-background/60">
-              Enter the email address associated with your SwiftDrop
-              account. We&apos;ll send you a secure verification code to
-              reset your password.
+              Choose a strong password and get back to managing your
+              shipments, riders, payments, and deliveries.
             </p>
 
             <div className="mt-8 flex items-center gap-3 text-sm text-background/70">
-              <ShieldCheck className="size-5 text-primary" />
-              Secure password recovery
+              <KeyRound className="size-5 text-primary" />
+              Your account stays protected
             </div>
           </div>
 
@@ -49,30 +48,22 @@ const ForgotPasswordPage = () => {
               <Logo />
             </div>
 
-            <Link
-              href="/login"
-              className="mb-8 inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <ArrowLeft className="size-4" />
-              Back to login
-            </Link>
-
             <div className="mb-8">
               <div className="mb-5 flex size-12 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                 <KeyRound className="size-5" />
               </div>
 
               <h2 className="text-3xl font-semibold tracking-tight">
-                Forgot your password?
+                Create a new password
               </h2>
 
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                No worries. Enter your email and we&apos;ll send you a
-                verification code to create a new password.
+                Enter the verification code sent to your email and
+                choose a new password for your account.
               </p>
             </div>
 
-            <ForgotPasswordForm />
+            <ResetPasswordForm />
           </div>
         </section>
       </div>
@@ -80,4 +71,4 @@ const ForgotPasswordPage = () => {
   );
 };
 
-export default ForgotPasswordPage;
+export default ResetPasswordPage;
