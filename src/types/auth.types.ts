@@ -31,3 +31,8 @@ export interface ResetPasswordPayload {
 export interface GoogleLoginPayload {
   idToken: string;
 }
+export interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+}
