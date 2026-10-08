@@ -6,9 +6,12 @@ import type {
   GoogleLoginPayload,
   LoginPayload,
   RegisterMerchantPayload,
+  ResendRiderVerificationOtpPayload,
   ResetPasswordPayload,
   VerifyEmailPayload,
+  VerifyRiderPayload,
 } from "@/types/auth.types";
+import { IApplyAsRiderPayload } from "@/validation/rider.schema";
 
 export const registerMerchant = async (payload: RegisterMerchantPayload) => {
   return apiClient<ApiResponse<null>>("/auth/register", {
@@ -17,25 +20,33 @@ export const registerMerchant = async (payload: RegisterMerchantPayload) => {
   });
 };
 
-export const verifyEmail = async (
-  payload: VerifyEmailPayload,
-) => {
+export const verifyEmail = async (payload: VerifyEmailPayload) => {
   return apiClient<ApiResponse<null>>("/auth/verify-email", {
     method: "POST",
     body: payload,
   });
 };
 
-export const resendVerificationOtp = async (
-  payload: {email: string},
+export const resendVerificationOtp = async (payload: { email: string }) => {
+  return apiClient<ApiResponse<null>>("/auth/resend-verification-otp", {
+    method: "POST",
+    body: payload,
+  });
+};
+export const verifyRider = async (payload: VerifyRiderPayload) => {
+  return apiClient<ApiResponse<null>>("/rider/verify-rider-email", {
+    method: "POST",
+    body: payload,
+  });
+};
+
+export const resendRiderVerificationOtp = async (
+  payload: ResendRiderVerificationOtpPayload,
 ) => {
-  return apiClient<ApiResponse<null>>(
-    "/auth/resend-verification-otp",
-    {
-      method: "POST",
-      body: payload,
-    },
-  );
+  return apiClient<ApiResponse<null>>("/rider/resend-verification-otp", {
+    method: "POST",
+    body: payload,
+  });
 };
 
 export const loginUser = async (payload: LoginPayload) => {
@@ -55,6 +66,12 @@ export const logoutUser = async () => {
     method: "POST",
   });
 };
+export const applyAsRider = async (payload: IApplyAsRiderPayload) => {
+  return apiClient<ApiResponse<null>>("/rider/apply-as-rider", {
+    method: "POST",
+    body: payload,
+  });
+};
 
 export const refreshToken = async () => {
   return apiClient("/auth/refresh-token", {
@@ -62,18 +79,14 @@ export const refreshToken = async () => {
   });
 };
 
-export const forgotPassword = async (
-  payload: ForgotPasswordPayload,
-) => {
+export const forgotPassword = async (payload: ForgotPasswordPayload) => {
   return apiClient<ApiResponse<null>>("/auth/forgot-password", {
     method: "POST",
     body: payload,
   });
 };
 
-export const resetPassword = async (
-  payload: ResetPasswordPayload,
-) => {
+export const resetPassword = async (payload: ResetPasswordPayload) => {
   return apiClient<ApiResponse<null>>("/auth/reset-password", {
     method: "POST",
     body: payload,

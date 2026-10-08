@@ -3,11 +3,10 @@
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { GoogleLogin } from "@react-oauth/google";
-import { FcGoogle } from "react-icons/fc";
 import { useGoogleOAuth } from "@/hooks";
 
 export default function GoogleLoginComponent() {
-  const { mutate: googleLogin, isPending } = useGoogleOAuth();
+  const { mutate: googleLogin } = useGoogleOAuth();
   const router = useRouter();
 
   const handleGoogleSuccess = (credentialResponse: { credential?: string }) => {

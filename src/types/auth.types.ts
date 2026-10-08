@@ -36,3 +36,12 @@ export interface ApiResponse<T> {
   message: string;
   data: T;
 }
+
+export interface VerifyRiderPayload {
+  email: string;
+  otp: string;
+}
+
+export interface ResendRiderVerificationOtpPayload {
+  email: string;
+}

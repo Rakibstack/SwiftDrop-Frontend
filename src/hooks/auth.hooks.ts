@@ -1,13 +1,16 @@
 import {
+  applyAsRider,
   forgotPassword,
   getCurrentUser,
   googleLogin,
   loginUser,
   logoutUser,
   registerMerchant,
+  resendRiderVerificationOtp,
   resendVerificationOtp,
   resetPassword,
   verifyEmail,
+  verifyRider,
 } from "@/api/auth.api";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -37,6 +40,22 @@ export function useLogin() {
 export function useGoogleOAuth() {
   return useMutation({
     mutationFn: googleLogin,
+  });
+}
+export function useApplyAsRider() {
+  return useMutation({
+    mutationFn: applyAsRider,
+  });
+}
+export function useVerifyRider() {
+  return useMutation({
+    mutationFn: verifyRider,
+  });
+}
+
+export function useResendRiderVerificationOtp() {
+  return useMutation({
+    mutationFn: resendRiderVerificationOtp,
   });
 }
 

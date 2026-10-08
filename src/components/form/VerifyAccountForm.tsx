@@ -15,7 +15,13 @@ import {
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-import { useResendVerificationOtp, useVerifyEmail } from "@/hooks";
+import {
+  useResendRiderVerificationOtp,
+  useResendVerificationOtp,
+  useVerifyEmail,
+  useVerifyRider,
+} from "@/hooks";
+import { ApiResponse } from "@/types/auth.types";
 
 const RESEND_COOLDOWN = 120;
 type VerifyAccountMode = "merchant" | "rider";
@@ -41,9 +47,22 @@ const VerifyAccountForm = ({ mode }: VerifyAccountFormProps) => {
   const [otp, setOtp] = useState("");
   const [resendTimer, setResendTimer] = useState(RESEND_COOLDOWN);
 
-  const { mutate: verifyAccount, isPending: isVerifying } = useVerifyEmail();
-  const { mutate: resendOtp, isPending: isResending } =
+  const { mutate: verifyMerchant, isPending: isMerchantVerifying } =
+    useVerifyEmail();
+
+  const { mutate: verifyRider, isPending: isRiderVerifying } = useVerifyRider();
+
+  const { mutate: resendMerchantOtp, isPending: isMerchantResending } =
     useResendVerificationOtp();
+
+  const { mutate: resendRiderOtp, isPending: isRiderResending } =
+    useResendRiderVerificationOtp();
+
+  const isVerifying =
+    mode === "merchant" ? isMerchantVerifying : isRiderVerifying;
+
+  const isResending =
+    mode === "merchant" ? isMerchantResending : isRiderResending;
 
   useEffect(() => {
     if (!email) {
@@ -68,33 +87,39 @@ const VerifyAccountForm = ({ mode }: VerifyAccountFormProps) => {
 
     if (otp.length !== 6) {
       toast.error("Please enter the 6-digit verification code.");
-
       return;
     }
 
-    verifyAccount(
-      {
-        email,
-        otp,
-      },
-      {
-        onSuccess: () => {
-          toast.success(
-            mode === "merchant"
-              ? "Merchant account verified successfully."
-              : "Rider account verified successfully.",
-          );
+    const payload = {
+      email,
+      otp,
+    };
 
-          router.push("/login");
-        },
+    const handleSuccess = () => {
+      toast.success(
+        mode === "merchant"
+          ? "Merchant account verified successfully."
+          : "Rider application verified successfully. Please Wait for Admin approval.",
+      );
 
-        onError: (error) => {
-          toast.error(
-            error.message || "Verification failed. Please try again.",
-          );
-        },
-      },
-    );
+      router.push("/login");
+    };
+
+    const handleError = (error: Error) => {
+      toast.error(error.message || "Verification failed. Please try again.");
+    };
+
+    if (mode === "merchant") {
+      verifyMerchant(payload, {
+        onSuccess: handleSuccess,
+        onError: handleError,
+      });
+    } else {
+      verifyRider(payload, {
+        onSuccess: handleSuccess,
+        onError: handleError,
+      });
+    }
   };
 
   const handleResendOtp = () => {
@@ -107,25 +132,32 @@ const VerifyAccountForm = ({ mode }: VerifyAccountFormProps) => {
       return;
     }
 
-    resendOtp(
-      {
-        email,
-      },
-      {
-        onSuccess: (response) => {
-          toast.success(
-            response.message || "A new verification code has been sent.",
-          );
+    const payload = { email };
 
-          setOtp("");
-          setResendTimer(RESEND_COOLDOWN);
-        },
+    const handleSuccess = (response: ApiResponse<null>) => {
+      toast.success(
+        response.message || "A new verification code has been sent.",
+      );
 
-        onError: (error) => {
-          toast.error(error.message || "Failed to resend verification code.");
-        },
-      },
-    );
+      setOtp("");
+      setResendTimer(RESEND_COOLDOWN);
+    };
+
+    const handleError = (error: Error) => {
+      toast.error(error.message || "Failed to resend verification code.");
+    };
+
+    if (mode === "merchant") {
+      resendMerchantOtp(payload, {
+        onSuccess: handleSuccess,
+        onError: handleError,
+      });
+    } else {
+      resendRiderOtp(payload, {
+        onSuccess: handleSuccess,
+        onError: handleError,
+      });
+    }
   };
 
   return (
