@@ -1,9 +1,6 @@
-import React from 'react';
+import { AuthGuard } from "@/components/auth/auth-guard";
+import React from "react";
 
 export default function layout({ children }: { children: React.ReactNode }) {
-  return (
-    <div>
-        {children}
-    </div>
-  );
+  return <AuthGuard>{children}</AuthGuard>;
 }
