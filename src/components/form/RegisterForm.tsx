@@ -20,6 +20,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { merchantRegisterSchema } from "@/validation/auth.schema";
 import { useRegister } from "@/hooks";
+import GoogleLoginComponent from "../modules/google-login/GoogleLogin";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -379,6 +380,8 @@ const RegisterForm = () => {
             </>
           )}
         </button>
+    
+          <GoogleLoginComponent></GoogleLoginComponent>
 
         <div className="text-center text-sm text-muted-foreground">
           Already have an account?{" "}

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Eye, EyeOff, Loader2, LockKeyhole, Mail } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { useForm } from "@tanstack/react-form";
 
@@ -14,6 +14,7 @@ import DemoLoginCards, {
 } from "@/components/form/DemoLoginCards";
 import { DEMO_ACCOUNTS } from "@/constants/demoAccounts";
 import { useLogin } from "@/hooks/auth.hooks";
+import GoogleLoginComponent from "../modules/google-login/GoogleLogin";
 import { merchantLoginSchema } from "@/validation/auth.schema";
 
 const LoginForm = () => {
@@ -21,13 +22,15 @@ const LoginForm = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [activeDemoRole, setActiveDemoRole] = useState<DemoRole | null>(null);
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/";
 
   const { mutate: loginUser, isPending } = useLogin();
 
   const handleLoginSuccess = () => {
     toast.success("Welcome back to SwiftDrop!");
 
-    router.push("/");
+    router.push(redirectTo);
     router.refresh();
   };
 
@@ -64,7 +67,7 @@ const LoginForm = () => {
   const form = useForm({
     defaultValues: {
       email: "",
-      password: "",
+      password: "R@kibdev!",
     },
 
     validators: {
@@ -220,6 +223,10 @@ const LoginForm = () => {
           )}
         </Button>
       </form>
+      <div className="mt-5">
+        
+      <GoogleLoginComponent></GoogleLoginComponent>
+      </div>
 
       {/* Demo Login */}
       <div className="my-8 flex items-center gap-4">
