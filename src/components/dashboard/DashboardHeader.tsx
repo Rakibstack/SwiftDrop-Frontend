@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -11,15 +10,13 @@ interface DashboardHeaderProps {
   onMenuClick: () => void;
 }
 
-const DashboardHeader = ({
-  onMenuClick,
-}: DashboardHeaderProps) => {
+const DashboardHeader = ({ onMenuClick }: DashboardHeaderProps) => {
   const { data } = useCurrentUser();
 
   const user = data?.data;
 
   return (
-    <header className="flex h-18 items-center justify-between border-b border-border bg-background/95 px-4 backdrop-blur sm:px-6">
+    <header className="sticky top-0 z-50 flex h-18 shrink-0 items-center justify-between border-b border-border bg-background/95 px-4 backdrop-blur sm:px-6">
       {/* Mobile menu */}
       <Button
         type="button"
@@ -75,9 +72,7 @@ const DashboardHeader = ({
           </div>
 
           <div className="hidden max-w-32 sm:block">
-            <p className="truncate text-xs font-semibold">
-              {user?.name}
-            </p>
+            <p className="truncate text-xs font-semibold">{user?.name}</p>
 
             <p className="truncate text-[10px] text-muted-foreground">
               {user?.email}
