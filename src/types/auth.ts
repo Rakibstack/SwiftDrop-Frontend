@@ -1,9 +1,10 @@
+import { UserRole } from "./user.type";
 
 export interface UserProfile {
   id: string;
   name: string;
   email: string;
-  role: "MERCHANT" | "RIDER" | "ADMIN";
+  role: UserRole;
   emailVerified: boolean;
   isActive: boolean;
   imageUrl?: string | null;

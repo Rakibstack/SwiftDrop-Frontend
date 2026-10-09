@@ -1,10 +1,9 @@
 import { RoleGuard } from "@/components/auth/role-guard";
 import DashboardShell from "@/components/dashboard/DashboardShell";
-import React from "react";
 
-export default function layout({ children }: { children: React.ReactNode }) {
+export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <RoleGuard roles={["ADMIN"]}>
+    <RoleGuard roles={["MERCHANT"]}>
       <DashboardShell>{children}</DashboardShell>
     </RoleGuard>
   );

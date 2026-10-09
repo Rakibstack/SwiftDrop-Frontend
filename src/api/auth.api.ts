@@ -1,7 +1,6 @@
 import apiClient from "@/lib/apiClient";
-import { UserProfile } from "@/types/auth";
+import { ApiResponse, UserProfile } from "@/types/auth";
 import type {
-  ApiResponse,
   ForgotPasswordPayload,
   GoogleLoginPayload,
   LoginPayload,
