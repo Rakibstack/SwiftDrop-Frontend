@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ShipmentQuery } from "@/types/shipment.types";
-import { createShipment, getMerchantShipments } from "@/api/shipment.api";
+import { createShipment, getMerchantShipmentById, getMerchantShipments } from "@/api/shipment.api";
 
 export const merchantShipmentKeys = {
   all: ["merchant-shipments"] as const,
@@ -27,5 +27,15 @@ export function useCreateShipment() {
     onSuccess: () => {
       return queryClient.invalidateQueries({ queryKey: merchantShipmentKeys.all });
     },
+  });
+}
+
+
+export function useShipmentDetails(shipmentId: string) {
+  return useQuery({
+    queryKey: merchantShipmentKeys.detail(shipmentId),
+    queryFn: () => getMerchantShipmentById(shipmentId),
+    enabled: Boolean(shipmentId),
+    staleTime: 30_000,
   });
 }
