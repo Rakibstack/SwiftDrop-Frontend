@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -33,6 +32,8 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useCurrentUser } from "@/hooks";
+import Image from "next/image";
+import Link from "next/link";
 
 type MerchantProfile = {
   businessName?: string | null;
@@ -42,8 +43,8 @@ type MerchantProfile = {
 
 type ProfileUser = {
   id?: string;
-  name?: string ;
-  email?: string 
+  name?: string;
+  email?: string;
   role?: string;
   status?: string;
   imageUrl?: string | null;
@@ -148,17 +149,14 @@ export default function ProfilePage() {
 
   const merchant = user?.merchantProfile;
 
-  const businessName =
-    merchant?.businessName ?? user?.businessName ?? "";
+  const businessName = merchant?.businessName ?? user?.businessName ?? "";
 
-  const businessPhone =
-    merchant?.businessPhone ?? user?.businessPhone ?? "";
+  const businessPhone = merchant?.businessPhone ?? user?.businessPhone ?? "";
 
   const businessAddress =
     merchant?.businessAddress ?? user?.businessAddress ?? "";
 
-  const profileImage =
-    user?.imageUrl ?? null;
+  const profileImage = user?.imageUrl ?? null;
 
   const [editOpen, setEditOpen] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
@@ -224,13 +222,11 @@ export default function ProfilePage() {
     }
 
     if (phone && !/^01[3-9]\d{8}$/.test(phone)) {
-      errors.businessPhone =
-        "Enter a valid Bangladeshi mobile number.";
+      errors.businessPhone = "Enter a valid Bangladeshi mobile number.";
     }
 
     if (address && (address.length < 5 || address.length > 300)) {
-      errors.businessAddress =
-        "Address must be between 5 and 300 characters.";
+      errors.businessAddress = "Address must be between 5 and 300 characters.";
     }
 
     setFieldErrors(errors);
@@ -303,7 +299,10 @@ export default function ProfilePage() {
 
           <div className="flex items-center gap-3">
             <div className="flex size-12 items-center justify-center rounded-2xl bg-orange-500 text-white shadow-lg shadow-orange-500/20">
-              <CircleUserRound className="size-6" />
+              <Link href={"/"}>
+                {" "}
+                <CircleUserRound className="size-6" />
+              </Link>
             </div>
             <div>
               <h1 className="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
@@ -339,9 +338,11 @@ export default function ProfilePage() {
               <div className="absolute -inset-1 rounded-[30px] bg-gradient-to-br from-orange-400 to-orange-700 opacity-80 blur-sm" />
               <div className="relative size-full overflow-hidden rounded-[26px] border border-white/20 bg-slate-800">
                 {displayImage ? (
-                  <img
+                  <Image
                     src={displayImage}
                     alt={`${displayName} profile`}
+                    width={500}
+                    height={500}
                     className="size-full object-cover"
                   />
                 ) : (
@@ -419,9 +420,7 @@ export default function ProfilePage() {
               </div>
               <div>
                 <p className="text-xs text-slate-400">Account access</p>
-                <p className="mt-0.5 text-sm font-semibold">
-                  Role protected
-                </p>
+                <p className="mt-0.5 text-sm font-semibold">Role protected</p>
               </div>
             </div>
           </div>

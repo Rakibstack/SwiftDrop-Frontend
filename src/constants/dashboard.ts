@@ -38,11 +38,11 @@ export const dashboardNavigation: Record<UserRole, DashboardNavItem[]> = {
       href: "/merchant/shipments/create",
       icon: ClipboardList,
     },
-    {
-      title: "Tracking",
-      href: "/merchant/tracking",
-      icon: Truck,
-    },
+    // {
+    //   title: "Tracking",
+    //   href: "/merchant/#tracking",
+    //   icon: Truck,
+    // },
     {
       title: "Payments",
       href: "/merchant/payments",

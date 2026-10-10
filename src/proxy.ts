@@ -4,6 +4,7 @@ const protectedRoutes = [
   "/merchant",
   "/rider",
   "/admin",
+  "/profile",
 ];
 
 const authRoutes = [
