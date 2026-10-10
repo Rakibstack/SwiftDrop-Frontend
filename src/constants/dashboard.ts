@@ -65,16 +65,7 @@ export const dashboardNavigation: Record<UserRole, DashboardNavItem[]> = {
       href: "/rider/deliveries/active",
       icon: Bike,
     },
-    {
-      title: "Delivery History",
-      href: "/rider/deliveries/history",
-      icon: ClipboardList,
-    },
-    {
-      title: "Earnings",
-      href: "/rider/earnings",
-      icon: WalletCards,
-    },
+
   ],
 
   ADMIN: [
