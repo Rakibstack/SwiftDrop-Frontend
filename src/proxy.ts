@@ -1,11 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
-const protectedRoutes = [
-  "/merchant",
-  "/rider",
-  "/admin",
-  "/profile",
-];
+const protectedRoutes = ["/merchant", "/rider", "/admin", "/profile"];
 
 const authRoutes = [
   "/login",

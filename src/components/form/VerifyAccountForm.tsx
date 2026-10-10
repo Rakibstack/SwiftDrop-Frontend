@@ -1,27 +1,24 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { Loader2, MailCheck, RefreshCw } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-
+import { buttonVariants } from "@/components/ui/button";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-
-import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-
 import {
   useResendRiderVerificationOtp,
   useResendVerificationOtp,
   useVerifyEmail,
   useVerifyRider,
 } from "@/hooks";
-import { ApiResponse } from "@/types/auth.types";
+import { cn } from "@/lib/utils";
+import { ApiResponse } from "@/types";
 
 const RESEND_COOLDOWN = 120;
 type VerifyAccountMode = "merchant" | "rider";

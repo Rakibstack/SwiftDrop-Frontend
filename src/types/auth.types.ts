@@ -1,4 +1,3 @@
-
 export interface RegisterMerchantPayload {
   name: string;
   email: string;

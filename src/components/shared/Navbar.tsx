@@ -1,9 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   ArrowUpRight,
   Bell,
@@ -21,7 +18,11 @@ import {
   UserRound,
   X,
 } from "lucide-react";
-
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 import Logo from "@/components/shared/Logo";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -33,11 +34,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { cn } from "@/lib/utils";
 import { useCurrentUser, useLogout } from "@/hooks";
-import { UserProfile } from "@/types";
-import { useQueryClient } from "@tanstack/react-query";
-import Image from "next/image";
+import { cn } from "@/lib/utils";
+import type { UserProfile } from "@/types";
 
 const solutions = [
   {
@@ -324,7 +323,6 @@ const AuthenticatedActions = ({ user }: AuthenticatedActionsProps) => {
   const { mutate: logout, isPending: isLoggingOut } = useLogout();
   const queryClient = useQueryClient();
 
-  // const initials = getUserInitials(user.name);
   const role = formatRole(user.role);
   const dashboardRoute = getDashboardRoute(user.role);
 
@@ -564,10 +562,6 @@ const MobileNavigation = ({
           ) : isAuthenticated && user ? (
             <div className="space-y-2">
               <div className="flex items-center gap-3 rounded-xl border border-border bg-secondary/40 p-3">
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
-                  {getUserInitials(user.name)}
-                </span>
-
                 <div className="min-w-0">
                   <p className="truncate text-sm font-semibold">{user.name}</p>
 

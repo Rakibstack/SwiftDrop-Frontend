@@ -1,7 +1,6 @@
 import Link from "next/link";
-
-import Logo from "@/components/shared/Logo";
 import LoginForm from "@/components/form/LoginForm";
+import Logo from "@/components/shared/Logo";
 
 const LoginPage = () => {
   return (
@@ -38,8 +37,8 @@ const LoginPage = () => {
               </h1>
 
               <p className="mt-6 max-w-md text-sm leading-7 text-background/60">
-                Manage shipments, payments, riders and delivery operations
-                from one powerful logistics workspace.
+                Manage shipments, payments, riders and delivery operations from
+                one powerful logistics workspace.
               </p>
 
               {/* Product preview */}
@@ -98,8 +97,8 @@ const LoginPage = () => {
             </div>
 
             <p className="text-xs text-background/35">
-              © {new Date().getFullYear()} SwiftDrop. Built for modern
-              logistics teams.
+              © {new Date().getFullYear()} SwiftDrop. Built for modern logistics
+              teams.
             </p>
           </div>
         </section>
@@ -123,8 +122,7 @@ const LoginPage = () => {
               </h2>
 
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Access your logistics workspace and keep every delivery
-                moving.
+                Access your logistics workspace and keep every delivery moving.
               </p>
             </div>
 
@@ -132,7 +130,6 @@ const LoginPage = () => {
             <div className="mt-8">
               <LoginForm />
             </div>
-
 
             {/* Register CTA */}
             <p className="mt-8 text-center text-xs text-muted-foreground">

@@ -1,8 +1,6 @@
-
 import { KeyRound, ShieldCheck } from "lucide-react";
-
-import Logo from "@/components/shared/Logo";
 import ResetPasswordForm from "@/components/form/ResetPasswordForm";
+import Logo from "@/components/shared/Logo";
 
 const ResetPasswordPage = () => {
   return (
@@ -26,8 +24,8 @@ const ResetPasswordPage = () => {
             </h1>
 
             <p className="mt-5 text-sm leading-7 text-background/60">
-              Choose a strong password and get back to managing your
-              shipments, riders, payments, and deliveries.
+              Choose a strong password and get back to managing your shipments,
+              riders, payments, and deliveries.
             </p>
 
             <div className="mt-8 flex items-center gap-3 text-sm text-background/70">
@@ -58,8 +56,8 @@ const ResetPasswordPage = () => {
               </h2>
 
               <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Enter the verification code sent to your email and
-                choose a new password for your account.
+                Enter the verification code sent to your email and choose a new
+                password for your account.
               </p>
             </div>
 

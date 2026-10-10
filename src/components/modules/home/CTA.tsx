@@ -1,6 +1,5 @@
-
-import Link from "next/link";
 import { ArrowRight, PackageCheck, Sparkles } from "lucide-react";
+import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -31,8 +30,8 @@ const CTA = () => {
               </h2>
 
               <p className="mt-6 max-w-2xl text-base leading-7 text-background/60 sm:text-lg sm:leading-8">
-                Create shipments, manage payments, coordinate riders, and
-                track every delivery from one connected logistics platform.
+                Create shipments, manage payments, coordinate riders, and track
+                every delivery from one connected logistics platform.
               </p>
 
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">

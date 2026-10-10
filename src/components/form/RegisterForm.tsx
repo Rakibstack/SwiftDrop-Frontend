@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm } from "@tanstack/react-form";
 import {
   ArrowRight,
@@ -14,12 +12,14 @@ import {
   Store,
   UserRound,
 } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { buttonVariants } from "@/components/ui/button";
+import { useRegister } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { merchantRegisterSchema } from "@/validation/auth.schema";
-import { useRegister } from "@/hooks";
 import GoogleLoginComponent from "../modules/google-login/GoogleLogin";
 
 const RegisterForm = () => {
@@ -380,8 +380,8 @@ const RegisterForm = () => {
             </>
           )}
         </button>
-    
-          <GoogleLoginComponent></GoogleLoginComponent>
+
+        <GoogleLoginComponent></GoogleLoginComponent>
 
         <div className="text-center text-sm text-muted-foreground">
           Already have an account?{" "}

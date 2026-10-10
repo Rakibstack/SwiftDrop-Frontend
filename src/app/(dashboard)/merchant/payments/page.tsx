@@ -1,8 +1,5 @@
-
 "use client";
 
-import Link from "next/link";
-import { useMemo, useState } from "react";
 import {
   ArrowDownRight,
   ArrowRight,
@@ -14,9 +11,10 @@ import {
   Search,
   Wallet,
 } from "lucide-react";
-
-import type { Payment } from "@/types/payment.types";
+import Link from "next/link";
+import { useMemo, useState } from "react";
 import { usePayments } from "@/hooks/payment.hooks";
+import type { Payment } from "@/types/payment.types";
 
 const PAGE_SIZE = 10;
 
@@ -129,8 +127,13 @@ function PaymentRow({ payment }: { payment: Payment }) {
 }
 
 export default function MerchantPaymentsPage() {
-  const { data: response, isPending, isError, refetch, isFetching } =
-    usePayments();
+  const {
+    data: response,
+    isPending,
+    isError,
+    refetch,
+    isFetching,
+  } = usePayments();
 
   const payments = response?.data ?? [];
 
@@ -228,9 +231,7 @@ export default function MerchantPaymentsPage() {
           disabled={isFetching}
           className="inline-flex h-10 items-center justify-center gap-2 self-start rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-orange-300 hover:text-orange-600 disabled:opacity-60 sm:self-auto"
         >
-          <RefreshCw
-            className={`size-4 ${isFetching ? "animate-spin" : ""}`}
-          />
+          <RefreshCw className={`size-4 ${isFetching ? "animate-spin" : ""}`} />
           Refresh
         </button>
       </section>
@@ -395,7 +396,10 @@ export default function MerchantPaymentsPage() {
             <div className="flex flex-col gap-3 border-t border-slate-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
               <p className="text-sm text-slate-500">
                 Showing{" "}
-                {Math.min((currentPage - 1) * PAGE_SIZE + 1, filteredPayments.length)}
+                {Math.min(
+                  (currentPage - 1) * PAGE_SIZE + 1,
+                  filteredPayments.length,
+                )}
                 {"–"}
                 {Math.min(currentPage * PAGE_SIZE, filteredPayments.length)} of{" "}
                 {filteredPayments.length}

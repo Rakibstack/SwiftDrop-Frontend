@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   Building2,
@@ -20,8 +19,10 @@ import {
   Truck,
   X,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "sonner";
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -32,8 +33,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useCurrentUser } from "@/hooks";
-import Image from "next/image";
-import Link from "next/link";
 
 type MerchantProfile = {
   businessName?: string | null;

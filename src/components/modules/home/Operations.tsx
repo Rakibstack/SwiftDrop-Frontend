@@ -184,15 +184,10 @@ const OperationCard = ({
         {/* Features */}
         <div className="mt-6 space-y-2.5">
           {features.map((feature) => (
-            <div
-              key={feature}
-              className="flex items-center gap-2.5 text-xs"
-            >
+            <div key={feature} className="flex items-center gap-2.5 text-xs">
               <CheckCircle2 className="size-3.5 shrink-0 text-primary" />
 
-              <span className="text-muted-foreground">
-                {feature}
-              </span>
+              <span className="text-muted-foreground">{feature}</span>
             </div>
           ))}
         </div>
@@ -215,13 +210,9 @@ const MerchantPreview = () => {
     <div className="rounded-2xl border border-border bg-background p-4">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-[9px] text-muted-foreground">
-            Active shipments
-          </p>
+          <p className="text-[9px] text-muted-foreground">Active shipments</p>
 
-          <p className="mt-1 text-2xl font-bold tracking-tight">
-            24
-          </p>
+          <p className="mt-1 text-2xl font-bold tracking-tight">24</p>
         </div>
 
         <div className="flex size-9 items-center justify-center rounded-xl bg-primary/10 text-primary">
@@ -311,9 +302,7 @@ const AdminPreview = () => {
           </div>
 
           <div>
-            <p className="text-[9px] font-semibold">
-              Network status
-            </p>
+            <p className="text-[9px] font-semibold">Network status</p>
 
             <p className="text-[8px] text-muted-foreground">
               All systems operational
@@ -339,13 +328,9 @@ interface AdminMetricProps {
 const AdminMetric = ({ value, label }: AdminMetricProps) => {
   return (
     <div className="rounded-xl bg-secondary/60 p-3">
-      <p className="text-sm font-bold tracking-tight">
-        {value}
-      </p>
+      <p className="text-sm font-bold tracking-tight">{value}</p>
 
-      <p className="mt-1 text-[8px] text-muted-foreground">
-        {label}
-      </p>
+      <p className="mt-1 text-[8px] text-muted-foreground">{label}</p>
     </div>
   );
 };
@@ -372,13 +357,9 @@ const OperationMetric = ({
       </div>
 
       <div>
-        <p className="text-sm font-semibold">
-          {value}
-        </p>
+        <p className="text-sm font-semibold">{value}</p>
 
-        <p className="mt-1 text-xs text-background/50">
-          {description}
-        </p>
+        <p className="mt-1 text-xs text-background/50">{description}</p>
       </div>
     </div>
   );
@@ -389,9 +370,7 @@ const OperationMetric = ({
 /* -------------------------------- */
 
 const Connector = () => {
-  return (
-    <div className="hidden h-px bg-white/10 lg:block" />
-  );
+  return <div className="hidden h-px bg-white/10 lg:block" />;
 };
 
 export default Operations;

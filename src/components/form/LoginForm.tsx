@@ -1,21 +1,20 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { Eye, EyeOff, Loader2, LockKeyhole, Mail } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { toast } from "sonner";
 import { useForm } from "@tanstack/react-form";
-
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Eye, EyeOff, Loader2, LockKeyhole, Mail } from "lucide-react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 import DemoLoginCards, {
   type DemoRole,
 } from "@/components/form/DemoLoginCards";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { DEMO_ACCOUNTS } from "@/constants/demoAccounts";
 import { useLogin } from "@/hooks/auth.hooks";
-import GoogleLoginComponent from "../modules/google-login/GoogleLogin";
 import { merchantLoginSchema } from "@/validation/auth.schema";
+import GoogleLoginComponent from "../modules/google-login/GoogleLogin";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -67,7 +66,7 @@ const LoginForm = () => {
   const form = useForm({
     defaultValues: {
       email: "",
-      password: "R@kibdev!",
+      password: "",
     },
 
     validators: {
@@ -224,8 +223,7 @@ const LoginForm = () => {
         </Button>
       </form>
       <div className="mt-5">
-        
-      <GoogleLoginComponent></GoogleLoginComponent>
+        <GoogleLoginComponent></GoogleLoginComponent>
       </div>
 
       {/* Demo Login */}

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   ArrowRight,
   CheckCircle2,
@@ -8,6 +7,7 @@ import {
   Search,
   Truck,
 } from "lucide-react";
+import Link from "next/link";
 
 const TrackingPreview = () => {
   return (

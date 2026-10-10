@@ -1,8 +1,7 @@
-import Link from "next/link";
 import { ArrowLeft, KeyRound, ShieldCheck } from "lucide-react";
-
-import Logo from "@/components/shared/Logo";
+import Link from "next/link";
 import ForgotPasswordForm from "@/components/form/ForgotPasswordForm";
+import Logo from "@/components/shared/Logo";
 
 const ForgotPasswordPage = () => {
   return (
@@ -26,9 +25,9 @@ const ForgotPasswordPage = () => {
             </h1>
 
             <p className="mt-5 text-sm leading-7 text-background/60">
-              Enter the email address associated with your SwiftDrop
-              account. We&apos;ll send you a secure verification code to
-              reset your password.
+              Enter the email address associated with your SwiftDrop account.
+              We&apos;ll send you a secure verification code to reset your
+              password.
             </p>
 
             <div className="mt-8 flex items-center gap-3 text-sm text-background/70">

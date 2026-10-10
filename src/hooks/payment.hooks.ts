@@ -1,7 +1,7 @@
 "use client";
 
-import { getMerchantPaymentById, getMerchantPayments } from "@/api/payment.api";
 import { useQuery } from "@tanstack/react-query";
+import { getMerchantPaymentById, getMerchantPayments } from "@/api/payment.api";
 
 export const paymentKeys = {
   all: ["merchant-payments"] as const,

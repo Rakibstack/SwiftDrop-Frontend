@@ -1,6 +1,6 @@
 import apiClient from "@/lib/apiClient";
 import type { ApiResponse } from "@/types/auth";
-import type { Rider, ReviewRiderPayload } from "@/types/rider.types";
+import type { ReviewRiderPayload, Rider } from "@/types/rider.types";
 
 const RIDER_BASE_PATH = "/rider";
 

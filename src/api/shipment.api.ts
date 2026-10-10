@@ -1,5 +1,5 @@
 import apiClient from "@/lib/apiClient";
-import { ApiResponse } from "@/types/auth";
+import type { ApiResponse } from "@/types/auth";
 import type {
   CreateShipmentPayload,
   Shipment,

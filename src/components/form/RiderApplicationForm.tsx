@@ -1,8 +1,5 @@
-
 "use client";
-import { useRouter } from "next/navigation";
 import { useForm } from "@tanstack/react-form";
-import { toast } from "sonner";
 import {
   Bike,
   CheckCircle2,
@@ -12,14 +9,12 @@ import {
   Phone,
   UserRound,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import {
-  Field,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/field";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 import { useApplyAsRider } from "@/hooks";
@@ -48,9 +43,7 @@ export default function RiderApplicationForm() {
     onSubmit: ({ value }) => {
       applyAsRider(value, {
         onSuccess: () => {
-          toast.success(
-            "Application submitted successfully!",
-          );
+          toast.success("Application submitted successfully!");
 
           const params = new URLSearchParams({
             email: value.email,
@@ -61,8 +54,7 @@ export default function RiderApplicationForm() {
 
         onError: (error: any) => {
           toast.error(
-            error?.message ||
-              "Something went wrong. Please try again.",
+            error?.message || "Something went wrong. Please try again.",
           );
         },
       });
@@ -82,9 +74,7 @@ export default function RiderApplicationForm() {
       <form.Field name="name">
         {(field) => (
           <Field>
-            <FieldLabel htmlFor="rider-name">
-              Full name
-            </FieldLabel>
+            <FieldLabel htmlFor="rider-name">Full name</FieldLabel>
 
             <div className="relative">
               <UserRound className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -94,17 +84,13 @@ export default function RiderApplicationForm() {
                 type="text"
                 placeholder="Enter your full name"
                 value={field.state.value}
-                onChange={(event) =>
-                  field.handleChange(event.target.value)
-                }
+                onChange={(event) => field.handleChange(event.target.value)}
                 className="h-11 rounded-xl pl-10"
               />
             </div>
 
             {field.state.meta.errors.length > 0 && (
-              <FieldError>
-                {field.state.meta.errors[0]?.message}
-              </FieldError>
+              <FieldError>{field.state.meta.errors[0]?.message}</FieldError>
             )}
           </Field>
         )}
@@ -114,9 +100,7 @@ export default function RiderApplicationForm() {
       <form.Field name="email">
         {(field) => (
           <Field>
-            <FieldLabel htmlFor="rider-email">
-              Email address
-            </FieldLabel>
+            <FieldLabel htmlFor="rider-email">Email address</FieldLabel>
 
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -126,17 +110,13 @@ export default function RiderApplicationForm() {
                 type="email"
                 placeholder="you@example.com"
                 value={field.state.value}
-                onChange={(event) =>
-                  field.handleChange(event.target.value)
-                }
+                onChange={(event) => field.handleChange(event.target.value)}
                 className="h-11 rounded-xl pl-10"
               />
             </div>
 
             {field.state.meta.errors.length > 0 && (
-              <FieldError>
-                {field.state.meta.errors[0]?.message}
-              </FieldError>
+              <FieldError>{field.state.meta.errors[0]?.message}</FieldError>
             )}
           </Field>
         )}
@@ -146,9 +126,7 @@ export default function RiderApplicationForm() {
       <form.Field name="phone">
         {(field) => (
           <Field>
-            <FieldLabel htmlFor="rider-phone">
-              Phone number
-            </FieldLabel>
+            <FieldLabel htmlFor="rider-phone">Phone number</FieldLabel>
 
             <div className="relative">
               <Phone className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
@@ -158,9 +136,7 @@ export default function RiderApplicationForm() {
                 type="tel"
                 placeholder="01XXXXXXXXX"
                 value={field.state.value}
-                onChange={(event) =>
-                  field.handleChange(event.target.value)
-                }
+                onChange={(event) => field.handleChange(event.target.value)}
                 className="h-11 rounded-xl pl-10"
               />
             </div>
@@ -170,9 +146,7 @@ export default function RiderApplicationForm() {
             </p>
 
             {field.state.meta.errors.length > 0 && (
-              <FieldError>
-                {field.state.meta.errors[0]?.message}
-              </FieldError>
+              <FieldError>{field.state.meta.errors[0]?.message}</FieldError>
             )}
           </Field>
         )}
@@ -182,9 +156,7 @@ export default function RiderApplicationForm() {
       <form.Field name="address">
         {(field) => (
           <Field>
-            <FieldLabel htmlFor="rider-address">
-              Current address
-            </FieldLabel>
+            <FieldLabel htmlFor="rider-address">Current address</FieldLabel>
 
             <div className="relative">
               <MapPin className="absolute left-3 top-3.5 size-4 text-muted-foreground" />
@@ -194,17 +166,13 @@ export default function RiderApplicationForm() {
                 type="text"
                 placeholder="Enter your current address"
                 value={field.state.value}
-                onChange={(event) =>
-                  field.handleChange(event.target.value)
-                }
+                onChange={(event) => field.handleChange(event.target.value)}
                 className="h-11 rounded-xl pl-10"
               />
             </div>
 
             {field.state.meta.errors.length > 0 && (
-              <FieldError>
-                {field.state.meta.errors[0]?.message}
-              </FieldError>
+              <FieldError>{field.state.meta.errors[0]?.message}</FieldError>
             )}
           </Field>
         )}
@@ -214,16 +182,12 @@ export default function RiderApplicationForm() {
       <form.Field name="vehicleType">
         {(field) => (
           <Field>
-            <FieldLabel>
-              Vehicle type
-            </FieldLabel>
+            <FieldLabel>Vehicle type</FieldLabel>
 
             <RadioGroup
               value={field.state.value}
               onValueChange={(value) =>
-                field.handleChange(
-                  value as "BIKE" | "MOTORCYCLE",
-                )
+                field.handleChange(value as "BIKE" | "MOTORCYCLE")
               }
               className="grid grid-cols-2 gap-3"
             >
@@ -231,18 +195,13 @@ export default function RiderApplicationForm() {
                 htmlFor="vehicle-bike"
                 className="flex cursor-pointer items-center gap-3 rounded-xl border border-border bg-card p-4 transition-colors hover:border-primary/50 hover:bg-secondary/40"
               >
-                <RadioGroupItem
-                  id="vehicle-bike"
-                  value="BIKE"
-                />
+                <RadioGroupItem id="vehicle-bike" value="BIKE" />
 
                 <div className="flex items-center gap-2">
                   <Bike className="size-4 text-primary" />
 
                   <div>
-                    <p className="text-sm font-medium">
-                      Bike
-                    </p>
+                    <p className="text-sm font-medium">Bike</p>
                     <p className="text-xs text-muted-foreground">
                       Bicycle delivery
                     </p>
@@ -254,18 +213,13 @@ export default function RiderApplicationForm() {
                 htmlFor="vehicle-motorcycle"
                 className="flex cursor-pointer items-center gap-3 rounded-xl border border-border bg-card p-4 transition-colors hover:border-primary/50 hover:bg-secondary/40"
               >
-                <RadioGroupItem
-                  id="vehicle-motorcycle"
-                  value="MOTORCYCLE"
-                />
+                <RadioGroupItem id="vehicle-motorcycle" value="MOTORCYCLE" />
 
                 <div className="flex items-center gap-2">
                   <Bike className="size-4 text-primary" />
 
                   <div>
-                    <p className="text-sm font-medium">
-                      Motorcycle
-                    </p>
+                    <p className="text-sm font-medium">Motorcycle</p>
                     <p className="text-xs text-muted-foreground">
                       Motorbike delivery
                     </p>
@@ -275,9 +229,7 @@ export default function RiderApplicationForm() {
             </RadioGroup>
 
             {field.state.meta.errors.length > 0 && (
-              <FieldError>
-                {field.state.meta.errors[0]?.message}
-              </FieldError>
+              <FieldError>{field.state.meta.errors[0]?.message}</FieldError>
             )}
           </Field>
         )}
@@ -299,17 +251,13 @@ export default function RiderApplicationForm() {
                 type="text"
                 placeholder="Enter your license number"
                 value={field.state.value}
-                onChange={(event) =>
-                  field.handleChange(event.target.value)
-                }
+                onChange={(event) => field.handleChange(event.target.value)}
                 className="h-11 rounded-xl pl-10"
               />
             </div>
 
             {field.state.meta.errors.length > 0 && (
-              <FieldError>
-                {field.state.meta.errors[0]?.message}
-              </FieldError>
+              <FieldError>{field.state.meta.errors[0]?.message}</FieldError>
             )}
           </Field>
         )}
@@ -320,14 +268,11 @@ export default function RiderApplicationForm() {
         <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-primary" />
 
         <div>
-          <p className="text-sm font-medium">
-            What happens next?
-          </p>
+          <p className="text-sm font-medium">What happens next?</p>
 
           <p className="mt-1 text-xs leading-5 text-muted-foreground">
-            We&apos;ll send a verification code to your email.
-            After verification, your rider application will be
-            submitted for review.
+            We&apos;ll send a verification code to your email. After
+            verification, your rider application will be submitted for review.
           </p>
         </div>
       </div>

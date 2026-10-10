@@ -1,4 +1,3 @@
-
-export * from './auth.types';
-export * from "./auth"
-export * from './user.type';
+export * from "./auth";
+export * from "./auth.types";
+export * from "./user.type";

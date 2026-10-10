@@ -1,6 +1,5 @@
-
-import Link from "next/link";
 import { ArrowLeft, ArrowRight, LockKeyhole } from "lucide-react";
+import Link from "next/link";
 
 import Logo from "@/components/shared/Logo";
 import { buttonVariants } from "@/components/ui/button";
@@ -94,8 +93,7 @@ const ForbiddenPage = () => {
         {/* Footer */}
         <footer className="relative z-10 px-5 py-6 text-center sm:px-8">
           <p className="text-[11px] text-muted-foreground">
-            © {new Date().getFullYear()} SwiftDrop. Built for better
-            deliveries.
+            © {new Date().getFullYear()} SwiftDrop. Built for better deliveries.
           </p>
         </footer>
       </div>

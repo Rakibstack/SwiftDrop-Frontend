@@ -1,7 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
 import {
   Activity,
   AlertTriangle,
@@ -21,6 +19,9 @@ import {
   Users,
   Wallet,
 } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+
 const overviewStats = [
   {
     title: "Total users",

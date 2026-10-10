@@ -1,6 +1,6 @@
+import type React from "react";
 import { RoleGuard } from "@/components/auth/role-guard";
 import DashboardShell from "@/components/dashboard/DashboardShell";
-import React from "react";
 
 export default function layout({ children }: { children: React.ReactNode }) {
   return (

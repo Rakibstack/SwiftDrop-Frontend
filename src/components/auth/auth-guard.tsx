@@ -1,8 +1,8 @@
 "use client";
 
-import { useCurrentUser } from "@/hooks";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useCurrentUser } from "@/hooks";
 import AuthLoading from "../shared/AuthLoading";
 
 export const AuthGuard = ({ children }: { children: React.ReactNode }) => {

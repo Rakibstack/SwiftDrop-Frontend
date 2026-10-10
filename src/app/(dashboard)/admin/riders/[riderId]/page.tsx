@@ -1,8 +1,5 @@
 "use client";
 
-import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useState } from "react";
 import {
   ArrowLeft,
   Bike,
@@ -17,9 +14,12 @@ import {
   UserRound,
   XCircle,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useReviewRider, useRiders } from "@/hooks/rider.hooks";
-import Image from "next/image";
 
 function formatDate(date?: string | null) {
   if (!date) return "Not available";

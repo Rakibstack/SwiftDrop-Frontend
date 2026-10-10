@@ -1,8 +1,10 @@
 import apiClient from "@/lib/apiClient";
 import type { ApiResponse } from "@/types/auth";
-import { Payment } from "@/types/payment.types";
-import { ICancelShipmentPayload, IShipmentIdPayload } from "@/validation/shipment.schem";
-
+import type { Payment } from "@/types/payment.types";
+import type {
+  ICancelShipmentPayload,
+  IShipmentIdPayload,
+} from "@/validation/shipment.schem";
 
 // Change this prefix if your payment router is mounted elsewhere.
 const PAYMENT_BASE_PATH = "/payment";
@@ -34,7 +36,6 @@ export async function cancelShipment(
   );
 }
 
-
 type PaymentListData = Payment[] | { data?: Payment[] };
 
 export async function getMerchantPayments() {
@@ -44,7 +45,7 @@ export async function getMerchantPayments() {
 
   const payments = Array.isArray(response.data)
     ? response.data
-    : response.data?.data ?? [];
+    : (response.data?.data ?? []);
 
   return {
     ...response,
@@ -58,9 +59,7 @@ export async function getMerchantPaymentById(paymentId: string) {
   );
 
   const payment =
-    "payment" in response.data
-      ? response.data.payment
-      : response.data;
+    "payment" in response.data ? response.data.payment : response.data;
 
   return {
     ...response,

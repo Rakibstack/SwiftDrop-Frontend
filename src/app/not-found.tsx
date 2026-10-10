@@ -1,15 +1,8 @@
-
+import { ArrowLeft, ArrowRight, MapPinOff, PackageSearch } from "lucide-react";
 import Link from "next/link";
-import {
-  ArrowLeft,
-  ArrowRight,
-  MapPinOff,
-  PackageSearch,
-} from "lucide-react";
-
+import Logo from "@/components/shared/Logo";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import Logo from "@/components/shared/Logo";
 
 const NotFound = () => {
   return (
@@ -53,8 +46,8 @@ const NotFound = () => {
           </h1>
 
           <p className="mx-auto mt-4 max-w-lg text-sm leading-6 text-muted-foreground sm:text-base">
-            The page you're looking for doesn't exist, may have moved, or
-            the address might be incorrect.
+            The page you're looking for doesn't exist, may have moved, or the
+            address might be incorrect.
           </p>
 
           {/* Actions */}

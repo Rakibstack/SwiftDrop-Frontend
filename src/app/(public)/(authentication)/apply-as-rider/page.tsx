@@ -1,14 +1,7 @@
+import { ArrowRight, Bike, Clock3, ShieldCheck, Truck } from "lucide-react";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Bike,
-  Clock3,
-  ShieldCheck,
-  Truck,
-} from "lucide-react";
-
-import Logo from "@/components/shared/Logo";
 import RiderApplicationForm from "@/components/form/RiderApplicationForm";
+import Logo from "@/components/shared/Logo";
 
 export default function ApplyAsRiderPage() {
   return (
@@ -50,8 +43,8 @@ export default function ApplyAsRiderPage() {
               </h1>
 
               <p className="mt-6 max-w-lg text-base leading-7 text-background/60">
-                Join SwiftDrop&apos;s delivery network and help
-                businesses move packages faster across the city.
+                Join SwiftDrop&apos;s delivery network and help businesses move
+                packages faster across the city.
               </p>
 
               <div className="mt-10 grid gap-4 sm:grid-cols-2">
@@ -63,8 +56,7 @@ export default function ApplyAsRiderPage() {
                   </p>
 
                   <p className="mt-1 text-xs leading-5 text-background/50">
-                    Manage your delivery workload around your
-                    availability.
+                    Manage your delivery workload around your availability.
                   </p>
                 </div>
 
@@ -76,23 +68,20 @@ export default function ApplyAsRiderPage() {
                   </p>
 
                   <p className="mt-1 text-xs leading-5 text-background/50">
-                    Work through a secure logistics platform built
-                    for modern delivery operations.
+                    Work through a secure logistics platform built for modern
+                    delivery operations.
                   </p>
                 </div>
               </div>
 
               <div className="mt-6 flex items-center gap-2 text-xs text-background/50">
                 <Clock3 className="size-4" />
-                <span>
-                  Application review starts after email verification.
-                </span>
+                <span>Application review starts after email verification.</span>
               </div>
             </div>
 
             <p className="text-xs text-background/30">
-              © {new Date().getFullYear()} SwiftDrop. All rights
-              reserved.
+              © {new Date().getFullYear()} SwiftDrop. All rights reserved.
             </p>
           </div>
         </section>
@@ -116,13 +105,12 @@ export default function ApplyAsRiderPage() {
               </h2>
 
               <p className="mt-3 max-w-lg text-sm leading-6 text-muted-foreground">
-                Tell us a little about yourself and your vehicle.
-                We&apos;ll verify your email before reviewing your
-                application.
+                Tell us a little about yourself and your vehicle. We&apos;ll
+                verify your email before reviewing your application.
               </p>
             </div>
 
-            <RiderApplicationForm/>
+            <RiderApplicationForm />
 
             <div className="mt-8 flex items-center justify-center gap-1.5 text-sm text-muted-foreground">
               Already have a rider account?

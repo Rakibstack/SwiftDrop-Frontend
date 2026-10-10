@@ -1,7 +1,3 @@
-import Image from "next/image";
-
-import Logo from "@/components/shared/Logo";
-import RegisterForm from "@/components/form/RegisterForm";
 import {
   CheckCircle2,
   CircleDot,
@@ -9,6 +5,9 @@ import {
   ShieldCheck,
   Truck,
 } from "lucide-react";
+import Image from "next/image";
+import RegisterForm from "@/components/form/RegisterForm";
+import Logo from "@/components/shared/Logo";
 
 const RegisterPage = () => {
   return (
@@ -99,9 +98,7 @@ const RegisterPage = () => {
                             </div>
 
                             <div>
-                              <p className="text-xs font-semibold">
-                                SD-20481
-                              </p>
+                              <p className="text-xs font-semibold">SD-20481</p>
                               <p className="mt-0.5 text-[10px] text-background/45">
                                 Gulshan → Mirpur
                               </p>
@@ -210,9 +207,7 @@ const RegisterPage = () => {
                     1
                   </span>
 
-                  <span className="text-xs font-semibold">
-                    Account
-                  </span>
+                  <span className="text-xs font-semibold">Account</span>
                 </div>
 
                 <div className="h-px w-8 bg-border" />
@@ -222,9 +217,7 @@ const RegisterPage = () => {
                     2
                   </span>
 
-                  <span className="text-xs font-medium">
-                    Verification
-                  </span>
+                  <span className="text-xs font-medium">Verification</span>
                 </div>
 
                 <div className="hidden h-px w-8 bg-border sm:block" />
@@ -234,9 +227,7 @@ const RegisterPage = () => {
                     3
                   </span>
 
-                  <span className="text-xs font-medium">
-                    Workspace
-                  </span>
+                  <span className="text-xs font-medium">Workspace</span>
                 </div>
               </div>
 
@@ -256,11 +247,7 @@ interface TrustPointProps {
   description: string;
 }
 
-const TrustPoint = ({
-  icon: Icon,
-  title,
-  description,
-}: TrustPointProps) => {
+const TrustPoint = ({ icon: Icon, title, description }: TrustPointProps) => {
   return (
     <div className="flex items-start gap-2.5">
       <Icon className="mt-0.5 size-4 shrink-0 text-primary" />
@@ -268,9 +255,7 @@ const TrustPoint = ({
       <div>
         <p className="text-[11px] font-semibold">{title}</p>
 
-        <p className="mt-0.5 text-[10px] text-background/35">
-          {description}
-        </p>
+        <p className="mt-0.5 text-[10px] text-background/35">{description}</p>
       </div>
     </div>
   );

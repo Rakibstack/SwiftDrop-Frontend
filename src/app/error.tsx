@@ -1,4 +1,3 @@
-
 "use client";
 
 import { AlertTriangle, ArrowLeft, RefreshCw } from "lucide-react";
@@ -36,9 +35,9 @@ const ErrorPage = ({ error, reset }: ErrorPageProps) => {
         </h1>
 
         <p className="mx-auto mt-4 max-w-md text-sm leading-6 text-muted-foreground sm:text-base">
-          Something unexpected happened while processing your request.
-          Please try again. If the problem continues, return to the
-          SwiftDrop home page.
+          Something unexpected happened while processing your request. Please
+          try again. If the problem continues, return to the SwiftDrop home
+          page.
         </p>
 
         {/* Actions */}

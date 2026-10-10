@@ -1,5 +1,5 @@
 import apiClient from "@/lib/apiClient";
-import { ApiResponse, UserProfile } from "@/types/auth";
+import type { ApiResponse, UserProfile } from "@/types/auth";
 import type {
   ForgotPasswordPayload,
   GoogleLoginPayload,
@@ -10,7 +10,7 @@ import type {
   VerifyEmailPayload,
   VerifyRiderPayload,
 } from "@/types/auth.types";
-import { IApplyAsRiderPayload } from "@/validation/rider.schema";
+import type { IApplyAsRiderPayload } from "@/validation/rider.schema";
 
 export const registerMerchant = async (payload: RegisterMerchantPayload) => {
   return apiClient<ApiResponse<null>>("/auth/register", {

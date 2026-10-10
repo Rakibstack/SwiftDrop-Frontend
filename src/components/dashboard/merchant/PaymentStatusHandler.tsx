@@ -1,8 +1,7 @@
-
 "use client";
 
-import { useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useRef } from "react";
 import { toast } from "sonner";
 
 export function PaymentStatusHandler() {
@@ -37,9 +36,7 @@ export function PaymentStatusHandler() {
 
     const query = params.toString();
     router.replace(
-      query
-        ? `${window.location.pathname}?${query}`
-        : window.location.pathname,
+      query ? `${window.location.pathname}?${query}` : window.location.pathname,
       { scroll: false },
     );
   }, [searchParams, router]);

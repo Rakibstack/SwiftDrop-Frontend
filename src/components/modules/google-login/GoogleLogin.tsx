@@ -1,12 +1,11 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
 import { GoogleLogin } from "@react-oauth/google";
 import { ArrowRight, Bike } from "lucide-react";
-
-import { useGoogleOAuth } from "@/hooks";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { useGoogleOAuth } from "@/hooks";
 
 export default function GoogleLoginComponent() {
   const { mutate: googleLogin, isPending } = useGoogleOAuth();

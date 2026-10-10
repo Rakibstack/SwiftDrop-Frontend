@@ -1,8 +1,5 @@
-
 "use client";
 
-import Link from "next/link";
-import { useMemo, useState } from "react";
 import {
   Bike,
   CheckCircle2,
@@ -16,9 +13,11 @@ import {
   UserRound,
   Users,
 } from "lucide-react";
-
-import type { Rider } from "@/types/rider.types";
+import Image from "next/image";
+import Link from "next/link";
+import { useMemo, useState } from "react";
 import { useRiders } from "@/hooks/rider.hooks";
+import type { Rider } from "@/types/rider.types";
 
 function RiderStatusBadge({ status }: { status: string }) {
   const styles: Record<string, string> = {
@@ -65,7 +64,9 @@ function SummaryCard({
   return (
     <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
       <div className="flex items-center justify-between">
-        <div className={`flex size-11 items-center justify-center rounded-xl ${color}`}>
+        <div
+          className={`flex size-11 items-center justify-center rounded-xl ${color}`}
+        >
           <Icon className="size-5" />
         </div>
         <ShieldCheck className="size-4 text-slate-300" />
@@ -89,9 +90,11 @@ function RiderRow({ rider }: { rider: Rider }) {
         <div className="flex items-center gap-3">
           {rider.user.imageUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img
+            <Image
               src={rider.user.imageUrl}
               alt={rider.user.name}
+              width={500}
+              height={500}
               className="size-10 rounded-xl object-cover"
             />
           ) : (
@@ -150,8 +153,13 @@ function RiderRow({ rider }: { rider: Rider }) {
 }
 
 export default function AdminRidersPage() {
-  const { data: riders = [], isPending, isError, refetch, isFetching } =
-    useRiders();
+  const {
+    data: riders = [],
+    isPending,
+    isError,
+    refetch,
+    isFetching,
+  } = useRiders();
 
   const [search, setSearch] = useState("");
   const [status, setStatus] = useState("ALL");
@@ -172,8 +180,7 @@ export default function AdminRidersPage() {
     const term = search.trim().toLowerCase();
 
     return riders.filter((rider) => {
-      const matchesStatus =
-        status === "ALL" || rider.status === status;
+      const matchesStatus = status === "ALL" || rider.status === status;
 
       const searchable = [
         rider.user.name,
@@ -214,9 +221,7 @@ export default function AdminRidersPage() {
           disabled={isFetching}
           className="inline-flex h-10 items-center justify-center gap-2 self-start rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-orange-200 hover:text-orange-600 disabled:opacity-60"
         >
-          <RefreshCw
-            className={`size-4 ${isFetching ? "animate-spin" : ""}`}
-          />
+          <RefreshCw className={`size-4 ${isFetching ? "animate-spin" : ""}`} />
           Refresh
         </button>
       </header>

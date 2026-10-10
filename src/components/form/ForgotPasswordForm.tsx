@@ -1,9 +1,9 @@
 "use client";
 
-import Link from "next/link";
-import { Mail, ArrowLeft, Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { useForm } from "@tanstack/react-form";
+import { ArrowLeft, Loader2, Mail } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";

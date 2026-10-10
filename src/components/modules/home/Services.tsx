@@ -6,7 +6,8 @@ const services = [
     number: "01",
     icon: Package,
     title: "Shipment Management",
-    description: "Create, manage, and monitor shipments through a structured delivery workflow designed for growing businesses.",
+    description:
+      "Create, manage, and monitor shipments through a structured delivery workflow designed for growing businesses.",
     href: "#how-it-works",
     className: "lg:col-span-2",
   },
@@ -14,7 +15,8 @@ const services = [
     number: "02",
     icon: CreditCard,
     title: "Secure Payments",
-    description: "Handle courier payments with a reliable payment flow and verification process.",
+    description:
+      "Handle courier payments with a reliable payment flow and verification process.",
     href: "#how-it-works",
     className: "lg:col-span-1",
   },
@@ -22,7 +24,8 @@ const services = [
     number: "03",
     icon: Truck,
     title: "Rider Operations",
-    description: "Assign riders and manage every stage of the delivery lifecycle from pickup to doorstep.",
+    description:
+      "Assign riders and manage every stage of the delivery lifecycle from pickup to doorstep.",
     href: "#operations",
     className: "lg:col-span-1",
   },
@@ -30,7 +33,8 @@ const services = [
     number: "04",
     icon: MapPin,
     title: "Real-time Tracking",
-    description: "Keep merchants informed with shipment status and delivery progress throughout the journey.",
+    description:
+      "Keep merchants informed with shipment status and delivery progress throughout the journey.",
     href: "/tracking",
     className: "lg:col-span-2",
   },
@@ -38,7 +42,10 @@ const services = [
 
 const Services = () => {
   return (
-    <section id="solutions" className="relative overflow-hidden py-24 sm:py-32 bg-background/50">
+    <section
+      id="solutions"
+      className="relative overflow-hidden py-24 sm:py-32 bg-background/50"
+    >
       {/* Background Tech Subgrid Line Overlay (Optional SaaS Core Look) */}
       <div className="absolute inset-0 -z-10 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
@@ -54,12 +61,14 @@ const Services = () => {
               One platform. Complete control.
             </p>
           </div>
-          
+
           <h2 className="text-4xl font-extrabold tracking-[-0.04em] sm:text-5xl lg:text-6xl bg-gradient-to-b from-foreground to-foreground/70 bg-clip-text text-transparent">
             Everything your delivery operation needs.
           </h2>
           <p className="mt-2 text-base leading-7 text-muted-foreground sm:text-lg max-w-2xl">
-            SwiftDrop brings the core parts of your delivery operation together so you can spend less time managing logistics and more time growing your business.
+            SwiftDrop brings the core parts of your delivery operation together
+            so you can spend less time managing logistics and more time growing
+            your business.
           </p>
         </div>
 
@@ -75,7 +84,7 @@ const Services = () => {
               >
                 {/* Modern Glossy Inner Border Glow */}
                 <div className="absolute inset-0 -z-10 bg-gradient-to-br from-primary/10 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                
+
                 <div>
                   {/* Number & Icon Header */}
                   <div className="flex items-center justify-between">

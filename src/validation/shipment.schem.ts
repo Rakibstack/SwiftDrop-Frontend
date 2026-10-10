@@ -58,19 +58,13 @@ export const createShipmentSchema = z.object({
     .positive("Weight must be greater than 0")
     .max(100, "Weight cannot exceed 100 kg")
     .optional(),
-  codAmount: z
-    .number()
-    .min(0, "COD amount cannot be negative")
-    .default(0),
+  codAmount: z.number().min(0, "COD amount cannot be negative").default(0),
 });
-
-
 
 export type CreateShipmentValidatedValues = z.output<
   typeof createShipmentSchema
 >;
 export type CreateShipmentFormValues = z.infer<typeof createShipmentSchema>;
-
 
 export const shipmentIdSchema = z.object({
   shipmentId: z.string().uuid("Invalid shipment ID"),
@@ -86,4 +80,3 @@ export const cancelShipmentSchema = z.object({
     .max(500, "Cancellation reason cannot exceed 500 characters"),
 });
 export type ICancelShipmentPayload = z.infer<typeof cancelShipmentSchema>;
-

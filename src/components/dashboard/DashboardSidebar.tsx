@@ -1,9 +1,5 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { toast } from "sonner";
 import {
   ArrowUpRight,
   ChevronRight,
@@ -12,14 +8,18 @@ import {
   Sparkles,
   UserRound,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 import Logo from "@/components/shared/Logo";
 import { Button } from "@/components/ui/button";
-import { useCurrentUser, useLogout } from "@/hooks";
 import {
   commonDashboardNavigation,
   dashboardNavigation,
 } from "@/constants/dashboard";
+import { useCurrentUser, useLogout } from "@/hooks";
 import { cn } from "@/lib/utils";
 import type { UserRole } from "@/types";
 

@@ -1,7 +1,6 @@
 "use client";
 
 import { useForm } from "@tanstack/react-form";
-import { z } from "zod";
 import {
   ArrowRight,
   MapPin,
@@ -10,18 +9,15 @@ import {
   Truck,
   UserRound,
 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-
+import type { z } from "zod";
 import { Button } from "@/components/ui/button";
-
+import { useCreateShipment } from "@/hooks";
 import type { CreateShipmentPayload } from "@/types/shipment.types";
 import { createShipmentSchema } from "@/validation/shipment.schem";
-import { useCreateShipment } from "@/hooks";
-import { useRouter } from "next/navigation";
 
-type CreateShipmentFormValues = z.input<
-  typeof createShipmentSchema
->;
+type CreateShipmentFormValues = z.input<typeof createShipmentSchema>;
 
 const defaultValues: CreateShipmentFormValues = {
   senderName: "",
@@ -59,11 +55,7 @@ function FieldError({ errors }: FieldErrorProps) {
 
   if (!message) return null;
 
-  return (
-    <p className="mt-1.5 text-xs font-medium text-red-600">
-      {message}
-    </p>
-  );
+  return <p className="mt-1.5 text-xs font-medium text-red-600">{message}</p>;
 }
 
 type SectionHeaderProps = {
@@ -72,11 +64,7 @@ type SectionHeaderProps = {
   description: string;
 };
 
-function SectionHeader({
-  icon: Icon,
-  title,
-  description,
-}: SectionHeaderProps) {
+function SectionHeader({ icon: Icon, title, description }: SectionHeaderProps) {
   return (
     <div className="mb-5 flex items-start gap-3">
       <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
@@ -97,11 +85,7 @@ type FieldLabelProps = {
   required?: boolean;
 };
 
-function FieldLabel({
-  htmlFor,
-  children,
-  required = false,
-}: FieldLabelProps) {
+function FieldLabel({ htmlFor, children, required = false }: FieldLabelProps) {
   return (
     <label
       htmlFor={htmlFor}
@@ -121,7 +105,7 @@ const sectionClassName =
 
 export default function CreateShipmentForm() {
   const createShipment = useCreateShipment();
-  const router = useRouter()
+  const router = useRouter();
 
   const form = useForm({
     defaultValues,
@@ -139,20 +123,16 @@ export default function CreateShipmentForm() {
         recipientPhone: value.recipientPhone.trim(),
         recipientAddress: value.recipientAddress.trim(),
         parcelType: value.parcelType.trim(),
-        parcelDescription:
-          value.parcelDescription?.trim() || undefined,
+        parcelDescription: value.parcelDescription?.trim() || undefined,
         weight: value.weight,
         codAmount: value.codAmount ?? 0,
       };
 
       try {
-        const response =
-          await createShipment.mutateAsync(payload);
+        const response = await createShipment.mutateAsync(payload);
 
-        toast.success(
-          response.message || "Shipment created successfully!",
-        );
-        router.push("/merchant/shipments")
+        toast.success(response.message || "Shipment created successfully!");
+        router.push("/merchant/shipments");
 
         form.reset();
       } catch (error) {
@@ -184,8 +164,8 @@ export default function CreateShipmentForm() {
           </h1>
 
           <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-500">
-            Enter your sender and recipient details to arrange
-            a delivery with SwiftDrop.
+            Enter your sender and recipient details to arrange a delivery with
+            SwiftDrop.
           </p>
         </div>
 
@@ -203,8 +183,8 @@ export default function CreateShipmentForm() {
             Double-check your delivery information
           </p>
           <p className="mt-1 text-sm leading-5 text-gray-600">
-            Accurate phone numbers and complete addresses help
-            riders deliver parcels without unnecessary delays.
+            Accurate phone numbers and complete addresses help riders deliver
+            parcels without unnecessary delays.
           </p>
         </div>
       </div>
@@ -242,9 +222,7 @@ export default function CreateShipmentForm() {
                     placeholder="Enter sender's full name"
                     value={field.state.value}
                     onBlur={field.handleBlur}
-                    onChange={(event) =>
-                      field.handleChange(event.target.value)
-                    }
+                    onChange={(event) => field.handleChange(event.target.value)}
                   />
 
                   <FieldError errors={field.state.meta.errors} />
@@ -269,9 +247,7 @@ export default function CreateShipmentForm() {
                     placeholder="01XXXXXXXXX"
                     value={field.state.value}
                     onBlur={field.handleBlur}
-                    onChange={(event) =>
-                      field.handleChange(event.target.value)
-                    }
+                    onChange={(event) => field.handleChange(event.target.value)}
                   />
 
                   <FieldError errors={field.state.meta.errors} />
@@ -301,9 +277,7 @@ export default function CreateShipmentForm() {
                       }
                     />
 
-                    <FieldError
-                      errors={field.state.meta.errors}
-                    />
+                    <FieldError errors={field.state.meta.errors} />
                   </div>
                 )}
               </form.Field>
@@ -335,9 +309,7 @@ export default function CreateShipmentForm() {
                     placeholder="Enter recipient's full name"
                     value={field.state.value}
                     onBlur={field.handleBlur}
-                    onChange={(event) =>
-                      field.handleChange(event.target.value)
-                    }
+                    onChange={(event) => field.handleChange(event.target.value)}
                   />
 
                   <FieldError errors={field.state.meta.errors} />
@@ -362,9 +334,7 @@ export default function CreateShipmentForm() {
                     placeholder="01XXXXXXXXX"
                     value={field.state.value}
                     onBlur={field.handleBlur}
-                    onChange={(event) =>
-                      field.handleChange(event.target.value)
-                    }
+                    onChange={(event) => field.handleChange(event.target.value)}
                   />
 
                   <FieldError errors={field.state.meta.errors} />
@@ -394,9 +364,7 @@ export default function CreateShipmentForm() {
                       }
                     />
 
-                    <FieldError
-                      errors={field.state.meta.errors}
-                    />
+                    <FieldError errors={field.state.meta.errors} />
                   </div>
                 )}
               </form.Field>
@@ -426,9 +394,7 @@ export default function CreateShipmentForm() {
                     className={inputClassName}
                     value={field.state.value}
                     onBlur={field.handleBlur}
-                    onChange={(event) =>
-                      field.handleChange(event.target.value)
-                    }
+                    onChange={(event) => field.handleChange(event.target.value)}
                   >
                     <option value="">Select parcel type</option>
                     <option value="DOCUMENT">Document</option>
@@ -466,9 +432,7 @@ export default function CreateShipmentForm() {
                       const rawValue = event.target.value;
 
                       field.handleChange(
-                        rawValue === ""
-                          ? undefined
-                          : Number(rawValue),
+                        rawValue === "" ? undefined : Number(rawValue),
                       );
                     }}
                   />
@@ -504,9 +468,7 @@ export default function CreateShipmentForm() {
                       }
                     />
 
-                    <FieldError
-                      errors={field.state.meta.errors}
-                    />
+                    <FieldError errors={field.state.meta.errors} />
                   </div>
                 )}
               </form.Field>
@@ -534,21 +496,17 @@ export default function CreateShipmentForm() {
                         const rawValue = event.target.value;
 
                         field.handleChange(
-                          rawValue === ""
-                            ? undefined
-                            : Number(rawValue),
+                          rawValue === "" ? undefined : Number(rawValue),
                         );
                       }}
                     />
 
                     <p className="mt-1.5 text-xs text-gray-400">
-                      Enter 0 if no payment needs to be collected
-                      from the recipient.
+                      Enter 0 if no payment needs to be collected from the
+                      recipient.
                     </p>
 
-                    <FieldError
-                      errors={field.state.meta.errors}
-                    />
+                    <FieldError errors={field.state.meta.errors} />
                   </div>
                 )}
               </form.Field>
@@ -591,4 +549,3 @@ export default function CreateShipmentForm() {
     </div>
   );
 }
-

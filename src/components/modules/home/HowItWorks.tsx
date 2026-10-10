@@ -146,9 +146,7 @@ const HowItWorks = () => {
                         {/* Number */}
                         <span
                           className={`mt-5 text-[10px] font-bold tracking-[0.16em] ${
-                            isCurrent
-                              ? "text-primary"
-                              : "text-muted-foreground"
+                            isCurrent ? "text-primary" : "text-muted-foreground"
                           }`}
                         >
                           {step.number}
@@ -178,9 +176,7 @@ const HowItWorks = () => {
                 </div>
 
                 <div>
-                  <p className="text-xs font-semibold">
-                    Shipment SD-20481
-                  </p>
+                  <p className="text-xs font-semibold">Shipment SD-20481</p>
 
                   <p className="mt-1 text-[10px] text-muted-foreground">
                     Currently moving through the delivery network

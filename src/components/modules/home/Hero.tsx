@@ -1,5 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
 import {
   ArrowRight,
   CheckCircle2,
@@ -7,6 +5,8 @@ import {
   Truck,
   Zap,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -32,7 +32,6 @@ const Hero = () => {
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary/50" />
               <span className="relative inline-flex size-2 rounded-full bg-primary" />
             </span>
-
             Modern logistics platform
           </div>
 
@@ -76,20 +75,11 @@ const Hero = () => {
 
           {/* Trust points */}
           <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3">
-            <TrustPoint
-              icon={ShieldCheck}
-              text="Secure payments"
-            />
+            <TrustPoint icon={ShieldCheck} text="Secure payments" />
 
-            <TrustPoint
-              icon={Truck}
-              text="Reliable delivery"
-            />
+            <TrustPoint icon={Truck} text="Reliable delivery" />
 
-            <TrustPoint
-              icon={Zap}
-              text="Real-time operations"
-            />
+            <TrustPoint icon={Zap} text="Real-time operations" />
           </div>
         </div>
 
@@ -127,9 +117,7 @@ const Hero = () => {
               </div>
 
               <div>
-                <p className="text-xs font-bold">
-                  Delivery made simple
-                </p>
+                <p className="text-xs font-bold">Delivery made simple</p>
 
                 <p className="mt-0.5 text-[10px] text-muted-foreground">
                   From pickup to doorstep
@@ -150,9 +138,7 @@ const Hero = () => {
               </span>
 
               <div>
-                <p className="text-xs font-semibold">
-                  Operations are live
-                </p>
+                <p className="text-xs font-semibold">Operations are live</p>
 
                 <p className="text-[10px] text-muted-foreground">
                   Track every delivery

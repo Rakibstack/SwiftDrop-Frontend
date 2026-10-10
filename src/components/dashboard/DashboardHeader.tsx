@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { Bell, Menu, UserRound } from "lucide-react";
+import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
 import { useCurrentUser } from "@/hooks";

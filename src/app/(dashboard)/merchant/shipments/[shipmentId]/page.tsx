@@ -1,8 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
@@ -18,16 +15,18 @@ import {
   UserRound,
   XCircle,
 } from "lucide-react";
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
+import { useState } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-
-import type { Shipment, ShipmentStatus } from "@/types/shipment.types";
 import {
   useCancelShipment,
   useInitiateShipmentPayment,
   useShipmentDetails,
 } from "@/hooks";
+import type { Shipment, ShipmentStatus } from "@/types/shipment.types";
 
 const STATUS_STYLES: Record<ShipmentStatus, string> = {
   PAYMENT_PENDING: "bg-amber-50 text-amber-700 ring-amber-200",

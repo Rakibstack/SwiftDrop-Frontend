@@ -1,4 +1,3 @@
-
 import type { DemoRole } from "@/components/form/DemoLoginCards";
 
 export interface DemoAccount {

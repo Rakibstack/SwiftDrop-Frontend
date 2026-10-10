@@ -1,12 +1,10 @@
-
 "use client";
 
-import { useCurrentUser } from "@/hooks";
-import { UserRole } from "@/types";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { useCurrentUser } from "@/hooks";
+import type { UserRole } from "@/types";
 import AuthLoading from "../shared/AuthLoading";
-
 
 interface RoleGuardProps {
   children: React.ReactNode;
@@ -18,6 +16,7 @@ export const RoleGuard = ({ children, roles }: RoleGuardProps) => {
 
   const { data, isPending, isError } = useCurrentUser();
   const user = data?.data;
+
 
   useEffect(() => {
     if (isPending) {
@@ -37,7 +36,9 @@ export const RoleGuard = ({ children, roles }: RoleGuardProps) => {
   if (isPending) {
     return <AuthLoading />;
   }
-
+   if (isError || !user) {
+    return null;
+  }
 
   if (!roles.includes(user.role)) {
     return null;

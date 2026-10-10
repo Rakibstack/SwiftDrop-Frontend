@@ -1,4 +1,4 @@
-import { ShipmentStatus } from "./shipment.types";
+import type { ShipmentStatus } from "./shipment.types";
 
 export type PaymentStatus =
   | "PENDING"

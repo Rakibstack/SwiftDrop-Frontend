@@ -1,10 +1,4 @@
-
-import {
-  CreditCard,
-  MapPin,
-  Package,
-  Truck,
-} from "lucide-react";
+import { CreditCard, MapPin, Package, Truck } from "lucide-react";
 
 const capabilities = [
   {

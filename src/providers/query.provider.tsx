@@ -1,7 +1,10 @@
-
-"use client"
-import { environmentManager, QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import  { ReactNode } from "react";
+"use client";
+import {
+  environmentManager,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import type { ReactNode } from "react";
 
 function makeQueryClient() {
   return new QueryClient({
@@ -13,7 +16,7 @@ function makeQueryClient() {
   });
 }
 
-let browserQueryClient: QueryClient | undefined = undefined;
+let browserQueryClient: QueryClient | undefined;
 
 function getQueryClient() {
   if (environmentManager.isServer()) {
@@ -27,12 +30,10 @@ function getQueryClient() {
   }
 }
 
-export default function QueryProvider({children} : {children : ReactNode}) {
-    const QueryClient = getQueryClient()
+export default function QueryProvider({ children }: { children: ReactNode }) {
+  const QueryClient = getQueryClient();
 
   return (
-    <QueryClientProvider client={QueryClient}>
-     {children}
-    </QueryClientProvider>
+    <QueryClientProvider client={QueryClient}>{children}</QueryClientProvider>
   );
 }

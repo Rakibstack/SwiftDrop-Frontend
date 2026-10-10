@@ -1,4 +1,3 @@
-
 import { Package } from "lucide-react";
 
 const AuthLoading = () => {

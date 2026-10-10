@@ -1,8 +1,5 @@
-
 "use client";
 
-import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
 import {
   ArrowLeft,
   CalendarDays,
@@ -18,9 +15,10 @@ import {
   Wallet,
   XCircle,
 } from "lucide-react";
-
-import type { Payment } from "@/types/payment.types";
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
 import { usePaymentDetails } from "@/hooks/payment.hooks";
+import type { Payment } from "@/types/payment.types";
 
 function formatMoney(amount: number | string, currency = "BDT") {
   const value = Number(amount);
@@ -69,13 +67,7 @@ function getStatusStyle(status: string) {
   }
 }
 
-function InfoRow({
-  label,
-  value,
-}: {
-  label: string;
-  value?: string | null;
-}) {
+function InfoRow({ label, value }: { label: string; value?: string | null }) {
   return (
     <div className="flex flex-col gap-1.5 py-3 sm:flex-row sm:items-start sm:justify-between sm:gap-5">
       <span className="text-sm text-slate-500">{label}</span>
@@ -120,10 +112,7 @@ function PaymentInformation({ payment }: { payment: Payment }) {
       </div>
 
       <div className="mt-5 divide-y divide-slate-100">
-        <InfoRow
-          label="Invoice number"
-          value={payment.merchantInvoiceNumber}
-        />
+        <InfoRow label="Invoice number" value={payment.merchantInvoiceNumber} />
         <InfoRow label="Payment ID" value={payment.id} />
         <InfoRow label="Payment gateway" value={payment.paymentGateway} />
         <InfoRow label="Currency" value={payment.currency || "BDT"} />
@@ -320,9 +309,7 @@ export default function MerchantPaymentDetailsPage() {
           </div>
 
           <div className="relative rounded-2xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-sm md:min-w-64">
-            <p className="text-sm font-medium text-slate-300">
-              Payment amount
-            </p>
+            <p className="text-sm font-medium text-slate-300">Payment amount</p>
             <p className="mt-2 break-words text-3xl font-bold tracking-tight sm:text-4xl">
               {formatMoney(payment.amount, payment.currency || "BDT")}
             </p>
@@ -427,8 +414,8 @@ export default function MerchantPaymentDetailsPage() {
                 </h3>
                 <p className="mt-1 text-sm leading-6 text-slate-600">
                   This page displays the payment status reported by your
-                  backend. Use the transaction reference when contacting
-                  support about a payment issue.
+                  backend. Use the transaction reference when contacting support
+                  about a payment issue.
                 </p>
               </div>
             </div>

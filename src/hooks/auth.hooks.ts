@@ -1,3 +1,4 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   applyAsRider,
   forgotPassword,
@@ -12,7 +13,6 @@ import {
   verifyEmail,
   verifyRider,
 } from "@/api/auth.api";
-import { useMutation, useQuery } from "@tanstack/react-query";
 
 export function useRegister() {
   return useMutation({

@@ -1,9 +1,9 @@
 "use client";
 
-import { useDataTable } from "@/hooks/shared/useDataTable";
 import { DataPagination } from "@/components/shared/DataPagination";
-import type { Shipment, ShipmentStatus } from "@/types/shipment.types";
 import { useShipments } from "@/hooks";
+import { useDataTable } from "@/hooks/shared/useDataTable";
+import type { Shipment, ShipmentStatus } from "@/types/shipment.types";
 
 const shipmentStatuses: { label: string; value: ShipmentStatus }[] = [
   { label: "Payment Pending", value: "PAYMENT_PENDING" },
@@ -37,6 +37,7 @@ function StatusBadge({ status }: { status: ShipmentStatus }) {
   const styles: Record<ShipmentStatus, string> = {
     PAYMENT_PENDING: "bg-amber-50 text-amber-700 ring-amber-200",
     PAYMENT_CONFIRMED: "bg-blue-50 text-blue-700 ring-blue-200",
+    CANCELLED: "bg-red-50 text-red-700 ring-red-200",
     ASSIGNED: "bg-violet-50 text-violet-700 ring-violet-200",
     ACCEPTED: "bg-indigo-50 text-indigo-700 ring-indigo-200",
     PICKED_UP: "bg-cyan-50 text-cyan-700 ring-cyan-200",
@@ -60,9 +61,7 @@ function ShipmentRow({ shipment }: { shipment: Shipment }) {
     <tr className="border-b border-slate-100 transition-colors hover:bg-orange-50/30">
       <td className="px-5 py-4">
         {" "}
-        <p className="font-semibold text-slate-800">
-          {shipment.trackingId}
-        </p>{" "}
+        <p className="font-semibold text-slate-800">{shipment.trackingId}</p>{" "}
         <p className="mt-1 text-xs text-slate-400">
           {new Date(shipment.createdAt).toLocaleDateString("en-GB", {
             day: "2-digit",
@@ -129,8 +128,7 @@ export default function MerchantDashboardPage() {
             Shipments{" "}
           </h1>{" "}
           <p className="mt-2 text-sm text-slate-500">
-            Manage your deliveries, track progress, and monitor COD
-            payments.{" "}
+            Manage your deliveries, track progress, and monitor COD payments.{" "}
           </p>{" "}
         </div>
         <div className="flex items-center gap-2 self-start rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">

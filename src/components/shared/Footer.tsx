@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { ArrowUpRight, Mail, MapPin, Package } from "lucide-react";
+import Link from "next/link";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
 
 import Logo from "./Logo";
