@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import type { CreateShipmentPayload } from "@/types/shipment.types";
 import { createShipmentSchema } from "@/validation/shipment.schem";
 import { useCreateShipment } from "@/hooks";
+import { useRouter } from "next/navigation";
 
 type CreateShipmentFormValues = z.input<
   typeof createShipmentSchema
@@ -120,6 +121,7 @@ const sectionClassName =
 
 export default function CreateShipmentForm() {
   const createShipment = useCreateShipment();
+  const router = useRouter()
 
   const form = useForm({
     defaultValues,
@@ -150,6 +152,7 @@ export default function CreateShipmentForm() {
         toast.success(
           response.message || "Shipment created successfully!",
         );
+        router.push("/merchant/shipments")
 
         form.reset();
       } catch (error) {

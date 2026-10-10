@@ -1,6 +1,7 @@
 export type ShipmentStatus =
   | "PAYMENT_PENDING"
   | "PAYMENT_CONFIRMED"
+  | "CANCELLED"
   | "ASSIGNED"
   | "ACCEPTED"
   | "PICKED_UP"

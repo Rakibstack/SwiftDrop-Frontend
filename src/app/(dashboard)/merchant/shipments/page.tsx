@@ -13,11 +13,9 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { useDataTable } from "@/hooks/shared/useDataTable";
-import type {
-  Shipment,
-  ShipmentStatus,
-} from "@/types/shipment.types";
+import type { Shipment, ShipmentStatus } from "@/types/shipment.types";
 import { useShipments } from "@/hooks";
+import { PaymentStatusHandler } from "@/components/dashboard/merchant/PaymentStatusHandler";
 
 const statuses: { label: string; value: ShipmentStatus | "" }[] = [
   { label: "All statuses", value: "" },
@@ -60,6 +58,7 @@ function StatusBadge({ status }: { status: ShipmentStatus }) {
   const styles: Record<ShipmentStatus, string> = {
     PAYMENT_PENDING: "bg-amber-50 text-amber-700 ring-amber-200",
     PAYMENT_CONFIRMED: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+    CANCELLED: "bg-red-50 text-red-700 ring-red-200",
     ASSIGNED: "bg-blue-50 text-blue-700 ring-blue-200",
     ACCEPTED: "bg-blue-50 text-blue-700 ring-blue-200",
     PICKED_UP: "bg-indigo-50 text-indigo-700 ring-indigo-200",
@@ -107,9 +106,7 @@ export default function MerchantShipmentsPage() {
       ...(table.searchTerm.trim()
         ? { searchTerm: table.searchTerm.trim() }
         : {}),
-      ...(table.status
-        ? { status: table.status as ShipmentStatus }
-        : {}),
+      ...(table.status ? { status: table.status as ShipmentStatus } : {}),
     }),
     [table.page, table.limit, table.searchTerm, table.status],
   );
@@ -145,8 +142,8 @@ export default function MerchantShipmentsPage() {
           </h1>
 
           <p className="mt-2 text-sm text-gray-500">
-            Track your deliveries, check payment status and manage
-            your shipment details.
+            Track your deliveries, check payment status and manage your shipment
+            details.
           </p>
         </div>
 
@@ -203,9 +200,7 @@ export default function MerchantShipmentsPage() {
       <section className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
         <div className="flex flex-col gap-4 border-b border-gray-100 p-4 sm:p-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <h2 className="font-semibold text-gray-900">
-              Shipment records
-            </h2>
+            <h2 className="font-semibold text-gray-900">Shipment records</h2>
             <p className="mt-1 text-sm text-gray-500">
               Select a shipment to view its full details.
             </p>
@@ -217,9 +212,7 @@ export default function MerchantShipmentsPage() {
               <input
                 aria-label="Search shipments"
                 value={table.searchTerm}
-                onChange={(event) =>
-                  table.setSearchTerm(event.target.value)
-                }
+                onChange={(event) => table.setSearchTerm(event.target.value)}
                 placeholder="Search recipient or address..."
                 className="h-10 w-full rounded-xl border border-gray-200 bg-white pl-9 pr-3 text-sm outline-none transition placeholder:text-gray-400 focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10"
               />
@@ -228,9 +221,7 @@ export default function MerchantShipmentsPage() {
             <select
               aria-label="Filter by shipment status"
               value={table.status}
-              onChange={(event) =>
-                table.setStatus(event.target.value)
-              }
+              onChange={(event) => table.setStatus(event.target.value)}
               className="h-10 rounded-xl border border-gray-200 bg-white px-3 text-sm text-gray-700 outline-none focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10"
             >
               {statuses.map((status) => (
@@ -254,6 +245,7 @@ export default function MerchantShipmentsPage() {
             </Button>
           </div>
         </div>
+        <PaymentStatusHandler />
 
         {isError ? (
           <div className="flex flex-col items-center px-5 py-16 text-center">
@@ -451,9 +443,7 @@ export default function MerchantShipmentsPage() {
                 <Button
                   variant="outline"
                   disabled={
-                    table.page >= totalPages ||
-                    totalPages === 0 ||
-                    isFetching
+                    table.page >= totalPages || totalPages === 0 || isFetching
                   }
                   onClick={() => table.setPage(table.page + 1)}
                   className="rounded-xl"

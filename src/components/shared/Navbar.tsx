@@ -55,7 +55,7 @@ const solutions = [
   {
     title: "Real-time Tracking",
     description: "Follow shipments from pickup to delivery.",
-    href: "/tracking",
+    href: "#tracking",
     icon: MapPin,
   },
   {
@@ -74,21 +74,10 @@ const resources = [
   },
   {
     title: "Track Shipment",
-    href: "/tracking",
+    href: "#tracking",
     icon: MapPin,
   },
 ];
-
-// const getUserInitials = (name: string) => {
-//   return (
-//     name
-//       .trim()
-//       .split(/\s+/)
-//       .slice(0, 2)
-//       .map((part) => part.charAt(0).toUpperCase())
-//       .join("") || "U"
-//   );
-// };
 
 const formatRole = (role: UserProfile["role"]) => {
   return role.charAt(0) + role.slice(1).toLowerCase();
@@ -495,7 +484,7 @@ const AuthenticatedActions = ({ user }: AuthenticatedActionsProps) => {
             </DropdownMenuItem>
 
             <DropdownMenuItem
-              render={<Link href="/settings" />}
+              render={<Link href="#settings" />}
               className="rounded-xl px-3 py-2.5"
             >
               <Settings className="size-4" />
