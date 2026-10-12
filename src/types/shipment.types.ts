@@ -69,18 +69,6 @@ export interface ShipmentQuery {
 }
 
 
-
-// export type ShipmentStatus =
-//   | "PENDING"
-//   | "ASSIGNED"
-//   | "ACCEPTED"
-//   | "PICKED_UP"
-//   | "IN_TRANSIT"
-//   | "DELIVERED"
-//   | "DELIVERY_FAILED"
-//   | "CANCELLED"
-//   | (string & {});
-
 export interface RiderShipment {
   id: string;
   trackingId: string;

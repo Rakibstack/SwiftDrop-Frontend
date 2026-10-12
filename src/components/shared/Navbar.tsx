@@ -454,11 +454,11 @@ const AuthenticatedActions = ({ user }: AuthenticatedActionsProps) => {
 
             {user.role === "RIDER" && (
               <DropdownMenuItem
-                render={<Link href="/rider/deliveries" />}
+                render={<Link href="/rider/shipments" />}
                 className="rounded-xl px-3 py-2.5"
               >
                 <Truck className="size-4" />
-                My Deliveries
+                My Shipments
               </DropdownMenuItem>
             )}
 

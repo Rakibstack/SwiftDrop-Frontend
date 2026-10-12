@@ -60,11 +60,11 @@ export const dashboardNavigation: Record<UserRole, DashboardNavItem[]> = {
       href: "/rider/shipments",
       icon: Package,
     },
-    {
-      title: "Active Delivery",
-      href: "/rider/deliveries/active",
-      icon: Bike,
-    },
+    // {
+    //   title: "Active Delivery",
+    //   href: "/rider/deliveries/active",
+    //   icon: Bike,
+    // },
 
   ],
 
@@ -94,11 +94,6 @@ export const dashboardNavigation: Record<UserRole, DashboardNavItem[]> = {
       href: "/admin/payments",
       icon: CreditCard,
     },
-    {
-      title: "Audit Logs",
-      href: "/admin/audit-logs",
-      icon: ShieldCheck,
-    },
   ],
 };
 
@@ -110,7 +105,7 @@ export const commonDashboardNavigation = [
   },
   {
     title: "Settings",
-    href: "/settings",
+    href: "#settings",
     icon: Settings,
   },
 ];
