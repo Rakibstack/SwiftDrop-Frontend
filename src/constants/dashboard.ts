@@ -6,10 +6,10 @@ import {
   Package,
   Settings,
   ShieldCheck,
-  Truck,
+  // Truck,
   UserRound,
   Users,
-  WalletCards,
+  // WalletCards,
 } from "lucide-react";
 
 import type { UserRole } from "@/types";
@@ -56,8 +56,8 @@ export const dashboardNavigation: Record<UserRole, DashboardNavItem[]> = {
       icon: LayoutDashboard,
     },
     {
-      title: "Deliveries",
-      href: "/rider/deliveries",
+      title: "Shipments",
+      href: "/rider/shipments",
       icon: Package,
     },
     {

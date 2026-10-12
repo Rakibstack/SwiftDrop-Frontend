@@ -27,9 +27,7 @@ export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const accessToken = request.cookies.get("accessToken")?.value;
-  const isAuthenticated = Boolean(accessToken);
-  console.log(accessToken,'accessToken');
-  
+  const isAuthenticated = Boolean(accessToken);  
 
   if (isProtectedRoute(pathname) && !isAuthenticated) {
     const loginUrl = new URL("/login", request.url);
