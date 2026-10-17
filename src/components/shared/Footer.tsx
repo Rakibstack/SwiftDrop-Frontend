@@ -23,7 +23,7 @@ const footerGroups = [
       { label: "How It Works", href: "/#how-it-works" },
       { label: "Operations", href: "/#operations" },
       { label: "About", href: "/about" },
-      { label: "Contact", href: "/#contact" },
+      { label: "Contact", href: "/contact" },
     ],
   },
   {
