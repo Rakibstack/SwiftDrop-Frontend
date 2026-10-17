@@ -22,7 +22,7 @@ const footerGroups = [
     links: [
       { label: "How It Works", href: "/#how-it-works" },
       { label: "Operations", href: "/#operations" },
-      { label: "About", href: "/#about" },
+      { label: "About", href: "/about" },
       { label: "Contact", href: "/#contact" },
     ],
   },
@@ -116,7 +116,7 @@ const Footer = () => {
 
           <div className="flex items-center gap-5">
             <Link
-              href="/privacy"
+              href="/privacy-policy"
               className="text-xs text-muted-foreground transition-colors hover:text-foreground"
             >
               Privacy

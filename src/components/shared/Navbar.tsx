@@ -125,13 +125,21 @@ const Navbar = () => {
           </Link>
 
           <ResourcesMenu />
-
           <Link
+            href="/about"
+            className="flex h-10 items-center rounded-lg px-4 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+          >
+            About Us
+          </Link>
+
+         {
+          currentUser && ( <Link
             href="#tracking"
             className="flex h-10 items-center rounded-lg px-4 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
           >
             Track Shipment
-          </Link>
+          </Link>)
+         }
         </nav>
 
         {/* Desktop Actions */}
