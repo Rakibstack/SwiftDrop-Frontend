@@ -24,6 +24,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import Logo from "@/components/shared/Logo";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -183,6 +184,8 @@ const NavbarActionsSkeleton = () => {
 const GuestActions = () => {
   return (
     <>
+      <ThemeToggle />
+
       <Link
         href="/login"
         className={cn(
@@ -344,6 +347,8 @@ const AuthenticatedActions = ({ user }: AuthenticatedActionsProps) => {
 
   return (
     <div className="flex items-center gap-2">
+      <ThemeToggle />
+
       {/* Notification */}
       <Button
         variant="ghost"

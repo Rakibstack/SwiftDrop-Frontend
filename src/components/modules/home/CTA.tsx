@@ -1,5 +1,8 @@
+"use client";
+
 import { ArrowRight, PackageCheck, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { AnimatedSection } from "@/components/shared/AnimatedSection";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -14,7 +17,7 @@ const CTA = () => {
       </div>
 
       <div className="relative mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
-        <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04]">
+        <AnimatedSection className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04]">
           <div className="grid items-center gap-12 px-6 py-12 sm:px-10 sm:py-16 lg:grid-cols-[1fr_auto] lg:px-14 lg:py-20">
             {/* Content */}
             <div className="max-w-3xl">
@@ -75,7 +78,7 @@ const CTA = () => {
               </div>
             </div>
           </div>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );

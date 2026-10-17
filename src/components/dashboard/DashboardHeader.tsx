@@ -4,6 +4,7 @@ import { Bell, Menu, UserRound } from "lucide-react";
 import Image from "next/image";
 
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 import { useCurrentUser } from "@/hooks";
 
 interface DashboardHeaderProps {
@@ -42,6 +43,9 @@ const DashboardHeader = ({ onMenuClick }: DashboardHeaderProps) => {
 
       {/* Right */}
       <div className="ml-auto flex items-center gap-2">
+        {/* Theme Toggle */}
+        <ThemeToggle />
+
         {/* Notification */}
         <Button
           type="button"

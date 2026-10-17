@@ -34,7 +34,7 @@ const DashboardShell = ({ children }: DashboardShellProps) => {
       <Sheet open={mobileSidebarOpen} onOpenChange={setMobileSidebarOpen}>
         <SheetContent
           side="left"
-          className="w-72 border-none bg-foreground p-0 text-background"
+          className="w-72 border-none bg-sidebar p-0 text-sidebar-foreground"
         >
           <DashboardSidebar onNavigate={() => setMobileSidebarOpen(false)} />
         </SheetContent>

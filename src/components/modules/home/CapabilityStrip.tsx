@@ -1,4 +1,7 @@
+"use client";
+
 import { CreditCard, MapPin, Package, Truck } from "lucide-react";
+import { StaggerChildren, StaggerItem } from "@/components/shared/StaggerChildren";
 
 const capabilities = [
   {
@@ -26,12 +29,15 @@ const capabilities = [
 const CapabilityStrip = () => {
   return (
     <section className="border-y border-border bg-secondary/30">
-      <div className="mx-auto grid max-w-7xl divide-y divide-border px-5 sm:px-6 md:grid-cols-2 md:divide-x md:divide-y-0 lg:grid-cols-4 lg:px-8">
+      <StaggerChildren 
+        className="mx-auto grid max-w-7xl divide-y divide-border px-5 sm:px-6 md:grid-cols-2 md:divide-x md:divide-y-0 lg:grid-cols-4 lg:px-8"
+        staggerDelay={0.1}
+      >
         {capabilities.map((item) => {
           const Icon = item.icon;
 
           return (
-            <div
+            <StaggerItem
               key={item.title}
               className="flex items-center gap-4 px-1 py-6 md:px-6 lg:py-7"
             >
@@ -48,10 +54,10 @@ const CapabilityStrip = () => {
                   {item.description}
                 </p>
               </div>
-            </div>
+            </StaggerItem>
           );
         })}
-      </div>
+      </StaggerChildren>
     </section>
   );
 };

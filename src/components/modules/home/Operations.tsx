@@ -1,3 +1,5 @@
+"use client";
+
 import {
   BarChart3,
   CheckCircle2,
@@ -7,6 +9,8 @@ import {
   UserRound,
   Users,
 } from "lucide-react";
+import { AnimatedSection } from "@/components/shared/AnimatedSection";
+import { StaggerChildren, StaggerItem } from "@/components/shared/StaggerChildren";
 
 const Operations = () => {
   return (
@@ -16,7 +20,7 @@ const Operations = () => {
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="max-w-3xl">
+        <AnimatedSection className="max-w-3xl">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
             One platform, three roles
           </p>
@@ -33,61 +37,67 @@ const Operations = () => {
             SwiftDrop gives merchants, riders, and administrators purpose-built
             workflows while keeping the entire delivery operation connected.
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* Role Cards */}
-        <div className="mt-16 grid gap-4 lg:grid-cols-3">
-          <OperationCard
-            number="01"
-            icon={UserRound}
-            userRole="Merchant"
-            title="Run your deliveries from one place."
-            description="Create shipments, manage payments, monitor status, and keep your customers informed."
-            features={[
-              "Create & manage shipments",
-              "Payment tracking",
-              "Shipment status visibility",
-              "Delivery history",
-            ]}
-          >
-            <MerchantPreview />
-          </OperationCard>
+        <StaggerChildren className="mt-16 grid gap-4 lg:grid-cols-3" staggerDelay={0.15}>
+          <StaggerItem>
+            <OperationCard
+              number="01"
+              icon={UserRound}
+              userRole="Merchant"
+              title="Run your deliveries from one place."
+              description="Create shipments, manage payments, monitor status, and keep your customers informed."
+              features={[
+                "Create & manage shipments",
+                "Payment tracking",
+                "Shipment status visibility",
+                "Delivery history",
+              ]}
+            >
+              <MerchantPreview />
+            </OperationCard>
+          </StaggerItem>
 
-          <OperationCard
-            number="02"
-            icon={Truck}
-            userRole="Rider"
-            title="A clear workflow for every delivery."
-            description="See assigned shipments, update delivery progress, and keep every handoff accountable."
-            features={[
-              "Assigned deliveries",
-              "Pickup workflow",
-              "Status updates",
-              "Delivery completion",
-            ]}
-          >
-            <RiderPreview />
-          </OperationCard>
+          <StaggerItem>
+            <OperationCard
+              number="02"
+              icon={Truck}
+              userRole="Rider"
+              title="A clear workflow for every delivery."
+              description="See assigned shipments, update delivery progress, and keep every handoff accountable."
+              features={[
+                "Assigned deliveries",
+                "Pickup workflow",
+                "Status updates",
+                "Delivery completion",
+              ]}
+            >
+              <RiderPreview />
+            </OperationCard>
+          </StaggerItem>
 
-          <OperationCard
-            number="03"
-            icon={ShieldCheck}
-            userRole="Admin"
-            title="Keep the entire network under control."
-            description="Manage users, riders, assignments, operations, and system activity from one command center."
-            features={[
-              "Rider management",
-              "Shipment oversight",
-              "Operational control",
-              "Audit visibility",
-            ]}
-          >
-            <AdminPreview />
-          </OperationCard>
-        </div>
+          <StaggerItem>
+            <OperationCard
+              number="03"
+              icon={ShieldCheck}
+              userRole="Admin"
+              title="Keep the entire network under control."
+              description="Manage users, riders, assignments, operations, and system activity from one command center."
+              features={[
+                "Rider management",
+                "Shipment oversight",
+                "Operational control",
+                "Audit visibility",
+              ]}
+            >
+              <AdminPreview />
+            </OperationCard>
+          </StaggerItem>
+        </StaggerChildren>
 
         {/* Bottom Architecture Statement */}
-        <div className="mt-16 overflow-hidden rounded-[2rem] border border-border bg-foreground text-background">
+        <AnimatedSection delay={0.2} className="mt-16 overflow-hidden rounded-[2rem] border border-border bg-foreground text-background">
           <div className="grid lg:grid-cols-[1fr_auto_1fr_auto_1fr] lg:items-center">
             <OperationMetric
               icon={ClipboardList}
@@ -130,7 +140,7 @@ const Operations = () => {
               </div>
             </div>
           </div>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );

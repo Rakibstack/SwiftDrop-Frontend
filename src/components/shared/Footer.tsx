@@ -1,6 +1,9 @@
+"use client";
+
 import { ArrowUpRight, Mail, MapPin, Package } from "lucide-react";
 import Link from "next/link";
 import { FaGithub, FaLinkedinIn } from "react-icons/fa";
+import { AnimatedSection } from "@/components/shared/AnimatedSection";
 
 import Logo from "./Logo";
 
@@ -8,10 +11,10 @@ const footerGroups = [
   {
     title: "Product",
     links: [
-      { label: "Shipment Management", href: "/#services" },
+      { label: "Shipment Management", href: "/#solutions" },
       { label: "Tracking", href: "/tracking" },
       { label: "Rider Operations", href: "/#operations" },
-      { label: "Payments", href: "/#services" },
+      { label: "Payments", href: "/#solutions" },
     ],
   },
   {
@@ -38,7 +41,7 @@ const Footer = () => {
     <footer className="border-t border-border bg-background">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Main Footer */}
-        <div className="grid gap-12 py-14 sm:py-16 lg:grid-cols-[1.4fr_2fr] lg:gap-20 lg:py-20">
+        <AnimatedSection className="grid gap-12 py-14 sm:py-16 lg:grid-cols-[1.4fr_2fr] lg:gap-20 lg:py-20">
           {/* Brand */}
           <div className="max-w-sm">
             <Logo />
@@ -56,20 +59,20 @@ const Footer = () => {
 
               <div className="flex items-center gap-2.5 text-xs text-muted-foreground">
                 <Mail className="size-3.5 text-primary" />
-                support@swiftdrop.com
+                rakibhasan.dev1@gmail.com
               </div>
             </div>
 
             {/* Social Links */}
             <div className="mt-7 flex items-center gap-2">
               <SocialLink
-                href="https://github.com"
+                href="https://github.com/Rakibstack"
                 label="GitHub"
                 icon={FaGithub}
               />
 
               <SocialLink
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/rakibul-hasan-rakib-dev"
                 label="LinkedIn"
                 icon={FaLinkedinIn}
               />
@@ -103,7 +106,7 @@ const Footer = () => {
               </div>
             ))}
           </div>
-        </div>
+        </AnimatedSection>
 
         {/* Bottom */}
         <div className="flex flex-col gap-4 border-t border-border py-6 sm:flex-row sm:items-center sm:justify-between">

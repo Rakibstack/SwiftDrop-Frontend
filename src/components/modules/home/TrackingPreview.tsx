@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowRight,
   CheckCircle2,
@@ -8,13 +10,14 @@ import {
   Truck,
 } from "lucide-react";
 import Link from "next/link";
+import { AnimatedSection } from "@/components/shared/AnimatedSection";
 
 const TrackingPreview = () => {
   return (
     <section className="py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
+        <AnimatedSection className="flex flex-col justify-between gap-8 lg:flex-row lg:items-end">
           <div className="max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
               Shipment visibility
@@ -33,10 +36,10 @@ const TrackingPreview = () => {
             Give customers and merchants a clear view of every important
             delivery event with simple, real-time shipment tracking.
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* Tracking Product */}
-        <div className="relative mt-16 overflow-hidden rounded-[2rem] border border-border bg-secondary/50 p-4 sm:p-6 lg:p-8">
+        <AnimatedSection delay={0.2} className="relative mt-16 overflow-hidden rounded-[2rem] border border-border bg-secondary/50 p-4 sm:p-6 lg:p-8">
           {/* Decorative background */}
           <div className="pointer-events-none absolute -right-40 -top-40 size-[500px] rounded-full bg-primary/10 blur-3xl" />
 
@@ -236,10 +239,10 @@ const TrackingPreview = () => {
               </div>
             </div>
           </div>
-        </div>
+        </AnimatedSection>
 
         {/* Tracking Input */}
-        <div className="mx-auto mt-8 max-w-2xl">
+        <AnimatedSection delay={0.3} className="mx-auto mt-8 max-w-2xl">
           <div className="rounded-2xl border border-border bg-card p-2 shadow-sm">
             <div className="flex items-center gap-3">
               <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-secondary">
@@ -264,7 +267,7 @@ const TrackingPreview = () => {
               </Link>
             </div>
           </div>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowRight,
   CheckCircle2,
@@ -7,6 +9,7 @@ import {
   Truck,
   UserRound,
 } from "lucide-react";
+import { AnimatedSection } from "@/components/shared/AnimatedSection";
 
 const steps = [
   {
@@ -61,7 +64,7 @@ const HowItWorks = () => {
     >
       <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
+        <AnimatedSection className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
               How SwiftDrop works
@@ -83,10 +86,10 @@ const HowItWorks = () => {
               lifecycle so merchants always know what happens next.
             </p>
           </div>
-        </div>
+        </AnimatedSection>
 
         {/* Journey */}
-        <div className="mt-16 overflow-hidden rounded-[2rem] border border-border bg-background shadow-sm">
+        <AnimatedSection delay={0.2} className="mt-16 overflow-hidden rounded-[2rem] border border-border bg-background shadow-sm">
           {/* Journey Header */}
           <div className="flex flex-col justify-between gap-4 border-b border-border px-6 py-5 sm:flex-row sm:items-center sm:px-8">
             <div>
@@ -196,10 +199,10 @@ const HowItWorks = () => {
               </div>
             </div>
           </div>
-        </div>
+        </AnimatedSection>
 
         {/* Bottom CTA */}
-        <div className="mt-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-center">
+        <AnimatedSection delay={0.3} className="mt-10 flex flex-col justify-between gap-6 sm:flex-row sm:items-center">
           <p className="max-w-xl text-sm leading-6 text-muted-foreground">
             Every status transition is backed by SwiftDrop's delivery rules,
             ownership checks, and tracking events.
@@ -212,7 +215,7 @@ const HowItWorks = () => {
             See how operations work
             <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
           </a>
-        </div>
+        </AnimatedSection>
       </div>
     </section>
   );

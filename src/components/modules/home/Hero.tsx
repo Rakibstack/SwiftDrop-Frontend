@@ -1,3 +1,5 @@
+"use client";
+
 import {
   ArrowRight,
   CheckCircle2,
@@ -7,17 +9,30 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const Hero = () => {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <section className="relative overflow-hidden">
       {/* Background decoration */}
       <div className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute -right-40 -top-40 size-[500px] rounded-full bg-primary/8 blur-3xl" />
-        <div className="absolute -left-40 bottom-0 size-[400px] rounded-full bg-primary/8 blur-3xl" />
+        <motion.div
+          initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="absolute -right-40 -top-40 size-[500px] rounded-full bg-primary/8 blur-3xl"
+        />
+        <motion.div
+          initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, delay: 0.2, ease: "easeOut" }}
+          className="absolute -left-40 bottom-0 size-[400px] rounded-full bg-primary/8 blur-3xl"
+        />
       </div>
 
       <div className="mx-auto grid min-h-[calc(100vh-76px)] max-w-7xl items-center gap-14 px-5 py-16 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20 lg:px-8 lg:py-20">
@@ -27,35 +42,67 @@ const Hero = () => {
 
         <div className="max-w-2xl">
           {/* Eyebrow */}
-          <div className="mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-background/80 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground shadow-sm backdrop-blur">
+          <motion.div
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.25, 0.4, 0.25, 1] }}
+            className="mb-7 inline-flex items-center gap-2 rounded-full border border-border bg-background/80 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground shadow-sm backdrop-blur"
+          >
             <span className="relative flex size-2">
               <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary/50" />
               <span className="relative inline-flex size-2 rounded-full bg-primary" />
             </span>
             Modern logistics platform
-          </div>
+          </motion.div>
 
           {/* Heading */}
-          <h1 className="max-w-2xl text-5xl font-bold leading-[1.02] tracking-[-0.05em] sm:text-6xl lg:text-7xl">
+          <motion.h1
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.1,
+              ease: [0.25, 0.4, 0.25, 1],
+            }}
+            className="max-w-2xl text-5xl font-bold leading-[1.02] tracking-[-0.05em] sm:text-6xl lg:text-7xl"
+          >
             Ship smarter.
             <br />
             <span className="text-primary">Deliver faster.</span>
-          </h1>
+          </motion.h1>
 
           {/* Description */}
-          <p className="mt-7 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8">
+          <motion.p
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.2,
+              ease: [0.25, 0.4, 0.25, 1],
+            }}
+            className="mt-7 max-w-xl text-base leading-7 text-muted-foreground sm:text-lg sm:leading-8"
+          >
             Everything you need to manage modern deliveries — from shipment
             creation and secure payments to rider operations and real-time
             tracking.
-          </p>
+          </motion.p>
 
           {/* CTA */}
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+          <motion.div
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.3,
+              ease: [0.25, 0.4, 0.25, 1],
+            }}
+            className="mt-9 flex flex-col gap-3 sm:flex-row"
+          >
             <Link
               href="/register"
               className={cn(
                 buttonVariants(),
-                "group h-12 rounded-xl px-6 text-sm font-semibold shadow-lg shadow-primary/15",
+                "group h-12 rounded-xl px-6 text-sm font-semibold shadow-lg shadow-primary/15 transition-all duration-300 hover:shadow-xl hover:shadow-primary/20",
               )}
             >
               Start Shipping
@@ -66,28 +113,46 @@ const Hero = () => {
               href="/tracking"
               className={cn(
                 buttonVariants({ variant: "outline" }),
-                "h-12 rounded-xl border-border bg-background px-6 text-sm font-semibold",
+                "h-12 rounded-xl border-border bg-background px-6 text-sm font-semibold transition-all duration-300 hover:border-primary/20",
               )}
             >
               Track a Shipment
             </Link>
-          </div>
+          </motion.div>
 
           {/* Trust points */}
-          <div className="mt-9 flex flex-wrap gap-x-6 gap-y-3">
+          <motion.div
+            initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.6,
+              delay: 0.4,
+              ease: [0.25, 0.4, 0.25, 1],
+            }}
+            className="mt-9 flex flex-wrap gap-x-6 gap-y-3"
+          >
             <TrustPoint icon={ShieldCheck} text="Secure payments" />
 
             <TrustPoint icon={Truck} text="Reliable delivery" />
 
             <TrustPoint icon={Zap} text="Real-time operations" />
-          </div>
+          </motion.div>
         </div>
 
         {/* ---------------------------------------------------------------- */}
         {/* Right Visual */}
         {/* ---------------------------------------------------------------- */}
 
-        <div className="relative mx-auto w-full max-w-[620px]">
+        <motion.div
+          initial={prefersReducedMotion ? {} : { opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.7,
+            delay: 0.3,
+            ease: [0.25, 0.4, 0.25, 1],
+          }}
+          className="relative mx-auto w-full max-w-[620px]"
+        >
           {/* Image glow */}
           <div className="absolute -inset-6 rounded-[3rem] bg-primary/10 blur-3xl" />
 
@@ -110,7 +175,18 @@ const Hero = () => {
           {/* Floating Status Card */}
           {/* ---------------------------------------------------------------- */}
 
-          <div className="absolute -bottom-6 -left-4 hidden rounded-2xl border border-border/70 bg-background/95 p-3 shadow-xl backdrop-blur-md sm:block md:-left-6">
+          <motion.div
+            initial={
+              prefersReducedMotion ? {} : { opacity: 0, y: 20, scale: 0.9 }
+            }
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.6,
+              ease: [0.25, 0.4, 0.25, 1],
+            }}
+            className="absolute -bottom-6 -left-4 hidden rounded-2xl border border-border/70 bg-background/95 p-3 shadow-xl backdrop-blur-md sm:block md:-left-6"
+          >
             <div className="flex items-center gap-3">
               <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <CheckCircle2 className="size-5" />
@@ -124,13 +200,24 @@ const Hero = () => {
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* ---------------------------------------------------------------- */}
           {/* Floating Live Card */}
           {/* ---------------------------------------------------------------- */}
 
-          <div className="absolute -right-3 top-8 hidden rounded-2xl border border-border/70 bg-background/95 px-4 py-3 shadow-xl backdrop-blur-md sm:block md:-right-5">
+          <motion.div
+            initial={
+              prefersReducedMotion ? {} : { opacity: 0, y: -20, scale: 0.9 }
+            }
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.7,
+              ease: [0.25, 0.4, 0.25, 1],
+            }}
+            className="absolute -right-3 top-8 hidden rounded-2xl border border-border/70 bg-background/95 px-4 py-3 shadow-xl backdrop-blur-md sm:block md:-right-5"
+          >
             <div className="flex items-center gap-3">
               <span className="relative flex size-2.5">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-primary/50" />
@@ -145,8 +232,8 @@ const Hero = () => {
                 </p>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );

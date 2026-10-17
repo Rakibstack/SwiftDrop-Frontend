@@ -1,6 +1,7 @@
 "use client";
 
 import { DataPagination } from "@/components/shared/DataPagination";
+import { StatusBadge } from "@/components/shipment/StatusBadge";
 import { useShipments } from "@/hooks";
 import { useDataTable } from "@/hooks/shared/useDataTable";
 import type { Shipment, ShipmentStatus } from "@/types/shipment.types";
@@ -17,14 +18,6 @@ const shipmentStatuses: { label: string; value: ShipmentStatus }[] = [
   { label: "Delivery Failed", value: "DELIVERY_FAILED" },
 ];
 
-function formatStatus(status: ShipmentStatus) {
-  return status
-    .toLowerCase()
-    .split("_")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-}
-
 function formatCurrency(amount: number) {
   return new Intl.NumberFormat("en-BD", {
     style: "currency",
@@ -33,63 +26,41 @@ function formatCurrency(amount: number) {
   }).format(amount);
 }
 
-function StatusBadge({ status }: { status: ShipmentStatus }) {
-  const styles: Record<ShipmentStatus, string> = {
-    PAYMENT_PENDING: "bg-amber-50 text-amber-700 ring-amber-200",
-    PAYMENT_CONFIRMED: "bg-blue-50 text-blue-700 ring-blue-200",
-    CANCELLED: "bg-red-50 text-red-700 ring-red-200",
-    ASSIGNED: "bg-violet-50 text-violet-700 ring-violet-200",
-    ACCEPTED: "bg-indigo-50 text-indigo-700 ring-indigo-200",
-    PICKED_UP: "bg-cyan-50 text-cyan-700 ring-cyan-200",
-    IN_TRANSIT: "bg-orange-50 text-orange-700 ring-orange-200",
-    OUT_FOR_DELIVERY: "bg-orange-50 text-orange-800 ring-orange-200",
-    DELIVERED: "bg-emerald-50 text-emerald-700 ring-emerald-200",
-    DELIVERY_FAILED: "bg-red-50 text-red-700 ring-red-200",
-  };
-
-  return (
-    <span
-      className={`inline-flex whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset ${styles[status]}`}
-    >
-      {formatStatus(status)}{" "}
-    </span>
-  );
-}
-
 function ShipmentRow({ shipment }: { shipment: Shipment }) {
   return (
-    <tr className="border-b border-slate-100 transition-colors hover:bg-orange-50/30">
+    <tr className="border-b border-border transition-colors hover:bg-accent/50">
       <td className="px-5 py-4">
-        {" "}
-        <p className="font-semibold text-slate-800">{shipment.trackingId}</p>{" "}
-        <p className="mt-1 text-xs text-slate-400">
+        <p className="font-semibold text-foreground">{shipment.trackingId}</p>
+        <p className="mt-1 text-xs text-muted-foreground">
           {new Date(shipment.createdAt).toLocaleDateString("en-GB", {
             day: "2-digit",
             month: "short",
             year: "numeric",
-          })}{" "}
-        </p>{" "}
+          })}
+        </p>
       </td>
       <td className="px-5 py-4">
-        <p className="font-medium text-slate-800">{shipment.recipientName}</p>
-        <p className="mt-1 text-xs text-slate-500">{shipment.recipientPhone}</p>
-        <p className="mt-1 max-w-52 truncate text-xs text-slate-400">
+        <p className="font-medium text-foreground">{shipment.recipientName}</p>
+        <p className="mt-1 text-xs text-muted-foreground">
+          {shipment.recipientPhone}
+        </p>
+        <p className="mt-1 max-w-52 truncate text-xs text-muted-foreground">
           {shipment.recipientAddress}
         </p>
       </td>
       <td className="px-5 py-4">
-        <p className="font-medium text-slate-700">{shipment.parcelType}</p>
-        <p className="mt-1 text-xs text-slate-400">
+        <p className="font-medium text-foreground">{shipment.parcelType}</p>
+        <p className="mt-1 text-xs text-muted-foreground">
           {shipment.weight != null ? `${shipment.weight} kg` : "Weight N/A"}
         </p>
       </td>
       <td className="px-5 py-4 text-right">
-        <p className="font-semibold text-slate-800">
+        <p className="font-semibold text-foreground">
           {formatCurrency(shipment.codAmount)}
         </p>
-        <p className="mt-1 text-xs text-slate-400">COD amount</p>
+        <p className="mt-1 text-xs text-muted-foreground">COD amount</p>
       </td>
-      <td className="px-5 py-4 text-right font-medium text-slate-700">
+      <td className="px-5 py-4 text-right font-medium text-foreground">
         {formatCurrency(shipment.deliveryFee)}
       </td>
       <td className="px-5 py-4">
@@ -115,24 +86,22 @@ export default function MerchantDashboardPage() {
   const meta = response?.meta;
 
   return (
-    <main className="min-h-full space-y-7 bg-[#faf9f6] p-4 sm:p-6 lg:p-8">
-      {/* Page heading */}{" "}
+    <main className="min-h-full space-y-7 p-4 sm:p-6 lg:p-8">
+      {/* Page heading */}
       <section className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        {" "}
         <div>
-          {" "}
-          <p className="mb-2 text-sm font-medium text-orange-600">
-            MERCHANT WORKSPACE{" "}
-          </p>{" "}
-          <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
-            Shipments{" "}
-          </h1>{" "}
-          <p className="mt-2 text-sm text-slate-500">
-            Manage your deliveries, track progress, and monitor COD payments.{" "}
-          </p>{" "}
+          <p className="mb-2 text-sm font-medium text-primary">
+            MERCHANT WORKSPACE
+          </p>
+          <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+            Shipments
+          </h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Manage your deliveries, track progress, and monitor COD payments.
+          </p>
         </div>
-        <div className="flex items-center gap-2 self-start rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm">
-          <span className="flex size-9 items-center justify-center rounded-lg bg-orange-50 text-orange-600">
+        <div className="flex items-center gap-2 self-start rounded-xl border border-border bg-card px-4 py-3 shadow-sm">
+          <span className="flex size-9 items-center justify-center rounded-lg bg-primary/10 text-primary">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -147,22 +116,22 @@ export default function MerchantDashboardPage() {
             </svg>
           </span>
           <div>
-            <p className="text-xs text-slate-500">Total shipments</p>
-            <p className="text-lg font-bold text-slate-900">
+            <p className="text-xs text-muted-foreground">Total shipments</p>
+            <p className="text-lg font-bold text-foreground">
               {meta?.total ?? (isPending ? "—" : shipments.length)}
             </p>
           </div>
         </div>
       </section>
       {/* Shipments table */}
-      <section className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm shadow-slate-200/40">
-        <div className="border-b border-slate-100 p-5 sm:p-6">
+      <section className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+        <div className="border-b border-border p-5 sm:p-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
-              <h2 className="text-lg font-bold text-slate-900">
+              <h2 className="text-lg font-bold text-card-foreground">
                 All Shipments
               </h2>
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-muted-foreground">
                 Search and manage your shipment records.
               </p>
             </div>
@@ -174,7 +143,7 @@ export default function MerchantDashboardPage() {
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="1.8"
-                  className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400"
+                  className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
                   aria-hidden="true"
                 >
                   <circle cx="11" cy="11" r="7" />
@@ -187,7 +156,7 @@ export default function MerchantDashboardPage() {
                   onChange={(event) => table.setSearchTerm(event.target.value)}
                   placeholder="Search recipient..."
                   aria-label="Search shipments"
-                  className="h-10 w-full rounded-lg border border-slate-200 bg-white pl-9 pr-3 text-sm outline-none transition placeholder:text-slate-400 focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                  className="h-10 w-full rounded-lg border border-input bg-background pl-9 pr-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
                 />
               </div>
 
@@ -195,7 +164,7 @@ export default function MerchantDashboardPage() {
                 value={table.status}
                 onChange={(event) => table.setStatus(event.target.value)}
                 aria-label="Filter shipments by status"
-                className="h-10 rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-700 outline-none focus:border-orange-400 focus:ring-2 focus:ring-orange-100"
+                className="h-10 rounded-lg border border-input bg-background px-3 text-sm text-foreground outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
               >
                 <option value="">All statuses</option>
                 {shipmentStatuses.map((status) => (
@@ -210,20 +179,20 @@ export default function MerchantDashboardPage() {
 
         {isError ? (
           <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
-            <div className="mb-4 flex size-12 items-center justify-center rounded-full bg-red-50 text-red-600">
+            <div className="mb-4 flex size-12 items-center justify-center rounded-full bg-destructive/10 text-destructive">
               <span className="text-xl">!</span>
             </div>
-            <h3 className="font-semibold text-slate-900">
+            <h3 className="font-semibold text-foreground">
               Could not load shipments
             </h3>
-            <p className="mt-2 max-w-sm text-sm text-slate-500">
+            <p className="mt-2 max-w-sm text-sm text-muted-foreground">
               Something went wrong while fetching your shipments. Please try
               again.
             </p>
             <button
               type="button"
               onClick={() => void refetch()}
-              className="mt-5 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700"
+              className="mt-5 rounded-lg bg-foreground px-4 py-2.5 text-sm font-semibold text-background transition hover:opacity-90"
             >
               Try again
             </button>
@@ -233,21 +202,21 @@ export default function MerchantDashboardPage() {
             {Array.from({ length: 5 }).map((_, index) => (
               <div
                 key={index}
-                className="h-14 animate-pulse rounded-lg bg-slate-100"
+                className="h-14 animate-pulse rounded-lg bg-muted"
               />
             ))}
           </div>
         ) : shipments.length === 0 ? (
           <div className="flex flex-col items-center justify-center px-6 py-16 text-center">
-            <div className="mb-4 flex size-14 items-center justify-center rounded-2xl bg-orange-50 text-2xl">
+            <div className="mb-4 flex size-14 items-center justify-center rounded-2xl bg-primary/10 text-2xl">
               📦
             </div>
-            <h3 className="font-semibold text-slate-900">
+            <h3 className="font-semibold text-foreground">
               {table.searchTerm || table.status
                 ? "No matching shipments"
                 : "No shipments yet"}
             </h3>
-            <p className="mt-2 max-w-sm text-sm leading-6 text-slate-500">
+            <p className="mt-2 max-w-sm text-sm leading-6 text-muted-foreground">
               {table.searchTerm || table.status
                 ? "Try changing your search term or selecting a different status."
                 : "Your shipments will appear here when you create your first delivery."}
@@ -259,7 +228,7 @@ export default function MerchantDashboardPage() {
                   table.setSearchTerm("");
                   table.setStatus("");
                 }}
-                className="mt-4 text-sm font-semibold text-orange-600 hover:text-orange-700"
+                className="mt-4 text-sm font-semibold text-primary hover:opacity-80"
               >
                 Clear filters
               </button>
@@ -269,7 +238,7 @@ export default function MerchantDashboardPage() {
           <>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[1050px] text-left text-sm">
-                <thead className="bg-slate-50/80 text-xs uppercase tracking-wider text-slate-500">
+                <thead className="bg-muted/50 text-xs uppercase tracking-wider text-muted-foreground">
                   <tr>
                     <th className="px-5 py-3.5 font-semibold">Tracking ID</th>
                     <th className="px-5 py-3.5 font-semibold">Recipient</th>
@@ -292,10 +261,10 @@ export default function MerchantDashboardPage() {
               </table>
             </div>
 
-            <div className="flex flex-col gap-3 border-t border-slate-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm text-slate-500">
+            <div className="flex flex-col gap-3 border-t border-border px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-muted-foreground">
                 Showing{" "}
-                <span className="font-semibold text-slate-700">
+                <span className="font-semibold text-foreground">
                   {meta?.total ? (table.page - 1) * table.limit + 1 : 0}
                   {"–"}
                   {Math.min(
@@ -304,7 +273,7 @@ export default function MerchantDashboardPage() {
                   )}
                 </span>{" "}
                 of{" "}
-                <span className="font-semibold text-slate-700">
+                <span className="font-semibold text-foreground">
                   {meta?.total ?? shipments.length}
                 </span>{" "}
                 shipments
@@ -313,7 +282,7 @@ export default function MerchantDashboardPage() {
               <div className="flex items-center gap-3">
                 <label
                   htmlFor="shipment-page-size"
-                  className="whitespace-nowrap text-sm text-slate-500"
+                  className="whitespace-nowrap text-sm text-muted-foreground"
                 >
                   Rows per page
                 </label>
@@ -323,7 +292,7 @@ export default function MerchantDashboardPage() {
                   onChange={(event) =>
                     table.setLimit(Number(event.target.value))
                   }
-                  className="h-9 rounded-lg border border-slate-200 bg-white px-2 text-sm outline-none focus:border-orange-400"
+                  className="h-9 rounded-lg border border-input bg-background px-2 text-sm text-foreground outline-none focus:border-primary"
                 >
                   <option value={10}>10</option>
                   <option value={20}>20</option>
