@@ -1,6 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useForm } from "@tanstack/react-form";
 import {
@@ -11,6 +14,7 @@ import {
   Clock3,
   ImagePlus,
   LockKeyhole,
+  LogOut,
   Mail,
   MapPin,
   Pencil,
@@ -32,7 +36,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import { useCurrentUser } from "@/hooks";
+import { useCurrentUser, useLogout } from "@/hooks";
 
 import type {
   ProfileUser,
@@ -44,15 +48,22 @@ import {
   updateMerchantProfileSchema,
   updateRiderProfileSchema,
 } from "@/validation/profile.validation";
+
 import {
   useUpdateMerchantProfile,
   useUpdateProfileImage,
   useUpdateRiderProfile,
 } from "@/hooks/use-profile-mutations";
-import Link from "next/link";
 
 const inputClass =
-  "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10";
+  "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500";
+
+const cardClass =
+  "overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900";
+
+const headingClass = "font-bold text-slate-900 dark:text-slate-100";
+
+const descriptionClass = "mt-1 text-sm text-slate-500 dark:text-slate-400";
 
 function getInitials(name: string) {
   return (
@@ -103,13 +114,14 @@ function Info({
 }) {
   return (
     <div className="flex items-start gap-3">
-      <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-500 ring-1 ring-slate-100">
+      <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-500 ring-1 ring-slate-100 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700">
         {icon}
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="text-xs text-slate-400">{label}</p>
-        <p className="mt-1 break-words text-sm font-semibold text-slate-800">
+        <p className="text-xs text-slate-400 dark:text-slate-500">{label}</p>
+
+        <p className="mt-1 break-words text-sm font-semibold text-slate-800 dark:text-slate-100">
           {value?.trim() || "Not provided"}
         </p>
       </div>
@@ -121,7 +133,7 @@ function FieldError({ errors }: { errors: unknown[] }) {
   return (
     <>
       {errors.map((error, index) => (
-        <p key={index} className="text-xs text-red-600">
+        <p key={index} className="text-xs text-red-600 dark:text-red-400">
           {String(error)}
         </p>
       ))}
@@ -130,7 +142,16 @@ function FieldError({ errors }: { errors: unknown[] }) {
 }
 
 export default function ProfilePage() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
   const query = useCurrentUser();
+
+  const { mutate: logout, isPending: isLoggingOut } = useLogout();
+
+  const merchantMutation = useUpdateMerchantProfile();
+  const riderMutation = useUpdateRiderProfile();
+  const imageMutation = useUpdateProfileImage();
 
   const rawUser = query.data as
     | (ProfileUser & { data?: ProfileUser })
@@ -142,9 +163,7 @@ export default function ProfilePage() {
   const rider = user?.riderProfile;
 
   const businessName = merchant?.businessName ?? user?.businessName ?? "";
-
   const businessPhone = merchant?.businessPhone ?? user?.businessPhone ?? "";
-
   const businessAddress =
     merchant?.businessAddress ?? user?.businessAddress ?? "";
 
@@ -152,7 +171,6 @@ export default function ProfilePage() {
   const address = rider?.address ?? user?.address ?? "";
 
   const vehicleType = rider?.vehicleType ?? user?.vehicleType ?? undefined;
-
   const licenseNumber = rider?.licenseNumber ?? user?.licenseNumber ?? "";
 
   const isMerchant = user?.role === "MERCHANT";
@@ -163,14 +181,33 @@ export default function ProfilePage() {
   const role = formatRole(user?.role);
 
   const [editOpen, setEditOpen] = useState(false);
+  const [logoutOpen, setLogoutOpen] = useState(false);
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
 
   const fileRef = useRef<HTMLInputElement>(null);
 
-  const merchantMutation = useUpdateMerchantProfile();
-  const riderMutation = useUpdateRiderProfile();
-  const imageMutation = useUpdateProfileImage();
+  // Logout handler
+  function handleLogout() {
+    logout(undefined, {
+      onSuccess: () => {
+        toast.success("Logged out successfully.");
+
+        queryClient.removeQueries({
+          queryKey: ["current-user"],
+        });
+
+        setLogoutOpen(false);
+
+        router.push("/login");
+        router.refresh();
+      },
+
+      onError: (error: Error) => {
+        toast.error(error.message || "Failed to logout.");
+      },
+    });
+  }
 
   // Merchant form
   const merchantForm = useForm({
@@ -203,7 +240,6 @@ export default function ProfilePage() {
         await merchantMutation.mutateAsync(payload);
         setEditOpen(false);
       } catch {
-        // Error toast is handled by the mutation hook.
       }
     },
   });
@@ -244,12 +280,12 @@ export default function ProfilePage() {
         await riderMutation.mutateAsync(payload);
         setEditOpen(false);
       } catch {
-        // Error toast is handled by the mutation hook.
+        // The mutation hook handles the error toast.
       }
     },
   });
 
-  // Reset forms when fresh user data arrives.
+  // Reset forms when user data changes.
   useEffect(() => {
     merchantForm.reset({
       businessName,
@@ -267,7 +303,6 @@ export default function ProfilePage() {
     });
   }, [phone, address, vehicleType, licenseNumber,riderForm]);
 
-  // Create and clean up the local image preview URL.
   useEffect(() => {
     if (!imageFile) {
       setPreview(null);
@@ -318,9 +353,9 @@ export default function ProfilePage() {
   if (query.isPending) {
     return (
       <div className="mx-auto max-w-7xl animate-pulse space-y-6">
-        <div className="h-8 w-52 rounded-lg bg-slate-200" />
-        <div className="h-64 rounded-3xl bg-slate-100" />
-        <div className="h-80 rounded-3xl bg-slate-100" />
+        <div className="h-8 w-52 rounded-lg bg-slate-200 dark:bg-slate-800" />
+        <div className="h-64 rounded-3xl bg-slate-100 dark:bg-slate-800" />
+        <div className="h-80 rounded-3xl bg-slate-100 dark:bg-slate-800" />
       </div>
     );
   }
@@ -330,16 +365,18 @@ export default function ProfilePage() {
       <div className="flex min-h-[50vh] flex-col items-center justify-center text-center">
         <CircleUserRound className="mb-4 size-12 text-slate-300" />
 
-        <h1 className="text-xl font-bold">Profile unavailable</h1>
+        <h1 className="text-xl font-bold text-slate-900 dark:text-white">
+          Profile unavailable
+        </h1>
 
-        <p className="mt-2 text-sm text-slate-500">
+        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
           We couldn&apos;t load your account details.
         </p>
 
         <Button
           type="button"
           onClick={() => query.refetch()}
-          className="mt-5 bg-orange-500 text-white"
+          className="mt-5 bg-orange-500 text-white hover:bg-orange-600"
         >
           Try again
         </Button>
@@ -355,21 +392,25 @@ export default function ProfilePage() {
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
           <p className="mb-3 text-xs font-medium text-slate-400">
-            Workspace
-             / <span className="text-slate-600">My profile</span>
+            Workspace /{" "}
+            <span className="text-slate-600 dark:text-slate-300">
+              My profile
+            </span>
           </p>
 
           <div className="flex items-center gap-3">
             <div className="flex size-12 items-center justify-center rounded-2xl bg-orange-500 text-white">
-              <Link href={'/'}><CircleUserRound className="size-6" /></Link>
+              <Link href="/">
+                <CircleUserRound className="size-6" />
+              </Link>
             </div>
 
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
+              <h1 className="text-2xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
                 Profile &amp; workspace
               </h1>
 
-              <p className="mt-1 text-sm text-slate-500">
+              <p className={descriptionClass}>
                 Manage your identity and account information.
               </p>
             </div>
@@ -380,7 +421,7 @@ export default function ProfilePage() {
           <Button
             type="button"
             onClick={openEditor}
-            className="h-11 gap-2 rounded-xl bg-slate-950 text-white hover:bg-slate-800"
+            className="h-11 gap-2 rounded-xl bg-slate-950 text-white hover:bg-slate-800 dark:bg-orange-500 dark:hover:bg-orange-600"
           >
             <Pencil className="size-4" />
             Edit profile
@@ -394,7 +435,6 @@ export default function ProfilePage() {
 
         <div className="relative grid gap-8 p-6 sm:p-8 lg:grid-cols-[1fr_auto] lg:items-center lg:p-10">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-            {/* Profile image */}
             <div className="relative size-24 shrink-0 sm:size-28">
               <div className="absolute -inset-1 rounded-[30px] bg-gradient-to-br from-orange-400 to-orange-700 opacity-80 blur-sm" />
 
@@ -482,17 +522,14 @@ export default function ProfilePage() {
         </div>
       </section>
 
-      {/* Profile information and account overview */}
+      {/* Profile information */}
       <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.4fr)_minmax(300px,0.8fr)]">
         {isMerchant && (
-          <section className="overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm">
-            <div className="flex items-center justify-between border-b border-slate-100 p-5 sm:p-7">
+          <section className={cardClass}>
+            <div className="flex items-center justify-between border-b border-slate-100 p-5 dark:border-slate-700 sm:p-7">
               <div>
-                <h2 className="font-bold text-slate-900">
-                  Business information
-                </h2>
-
-                <p className="mt-1 text-sm text-slate-500">
+                <h2 className={headingClass}>Business information</h2>
+                <p className={descriptionClass}>
                   Your merchant workspace details.
                 </p>
               </div>
@@ -500,7 +537,7 @@ export default function ProfilePage() {
               <button
                 type="button"
                 onClick={openEditor}
-                className="rounded-xl px-3 py-2 text-xs font-semibold text-orange-600 hover:bg-orange-50"
+                className="rounded-xl px-3 py-2 text-xs font-semibold text-orange-600 hover:bg-orange-50 dark:text-orange-400 dark:hover:bg-slate-800"
               >
                 Edit <Pencil className="inline size-3.5" />
               </button>
@@ -531,12 +568,11 @@ export default function ProfilePage() {
         )}
 
         {isRider && (
-          <section className="overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm">
-            <div className="flex items-center justify-between border-b border-slate-100 p-5 sm:p-7">
+          <section className={cardClass}>
+            <div className="flex items-center justify-between border-b border-slate-100 p-5 dark:border-slate-700 sm:p-7">
               <div>
-                <h2 className="font-bold text-slate-900">Rider information</h2>
-
-                <p className="mt-1 text-sm text-slate-500">
+                <h2 className={headingClass}>Rider information</h2>
+                <p className={descriptionClass}>
                   Your contact and vehicle details.
                 </p>
               </div>
@@ -544,7 +580,7 @@ export default function ProfilePage() {
               <button
                 type="button"
                 onClick={openEditor}
-                className="rounded-xl px-3 py-2 text-xs font-semibold text-orange-600 hover:bg-orange-50"
+                className="rounded-xl px-3 py-2 text-xs font-semibold text-orange-600 hover:bg-orange-50 dark:text-orange-400 dark:hover:bg-slate-800"
               >
                 Edit <Pencil className="inline size-3.5" />
               </button>
@@ -581,26 +617,27 @@ export default function ProfilePage() {
         )}
 
         {!canEditProfile && (
-          <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+          <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
             <ShieldCheck className="mb-3 size-6 text-orange-500" />
 
-            <h2 className="font-bold">Administrator account</h2>
+            <h2 className={headingClass}>Administrator account</h2>
 
-            <p className="mt-2 text-sm leading-6 text-slate-500">
+            <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
               You can update your profile image. Profile information editing is
               not available for this role.
             </p>
           </section>
         )}
 
+        {/* Account overview and logout */}
         <div className="space-y-6">
-          <section className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-6">
+          <section className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:p-6">
             <div className="mb-5 flex items-center gap-3">
-              <CircleUserRound className="size-5" />
+              <CircleUserRound className="size-5 text-slate-700 dark:text-slate-200" />
 
               <div>
-                <h2 className="font-bold">Account overview</h2>
-                <p className="mt-1 text-xs text-slate-500">
+                <h2 className={headingClass}>Account overview</h2>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
                   Your registered details
                 </p>
               </div>
@@ -624,6 +661,35 @@ export default function ProfilePage() {
                 label="Account created"
                 value={formatDate(user.createdAt)}
               />
+            </div>
+
+            <div className="my-6 border-t border-slate-100 dark:border-slate-700" />
+
+            <div className="flex items-start gap-3">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600 dark:bg-red-950/40 dark:text-red-400">
+                <LogOut className="size-4" />
+              </div>
+
+              <div className="min-w-0 flex-1">
+                <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                  Sign out
+                </h3>
+
+                <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
+                  Sign out of your SwiftDrop account on this device.
+                </p>
+
+                <Button
+                  type="button"
+                  variant="outline"
+                  disabled={isLoggingOut}
+                  onClick={() => setLogoutOpen(true)}
+                  className="mt-3 gap-2 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950/40"
+                >
+                  <LogOut className="size-4" />
+                  Logout
+                </Button>
+              </div>
             </div>
           </section>
 
@@ -662,16 +728,58 @@ export default function ProfilePage() {
         </div>
       </div>
 
+      {/* Logout confirmation dialog */}
+      <Dialog open={logoutOpen} onOpenChange={setLogoutOpen}>
+        <DialogContent className="rounded-2xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900 sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-slate-900 dark:text-slate-100">
+              Confirm logout
+            </DialogTitle>
+
+            <DialogDescription className="text-slate-500 dark:text-slate-400">
+              Are you sure you want to log out of your SwiftDrop account?
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter>
+            <Button
+              type="button"
+              variant="outline"
+              disabled={isLoggingOut}
+              onClick={() => setLogoutOpen(false)}
+            >
+              Cancel
+            </Button>
+
+            <Button
+              type="button"
+              disabled={isLoggingOut}
+              onClick={handleLogout}
+              className="gap-2 bg-red-600 text-white hover:bg-red-700"
+            >
+              {isLoggingOut ? (
+                "Logging out..."
+              ) : (
+                <>
+                  <LogOut className="size-4" />
+                  Yes, logout
+                </>
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
       {/* Edit profile dialog */}
       <Dialog open={editOpen} onOpenChange={setEditOpen}>
-        <DialogContent className="max-h-[90vh] overflow-y-auto rounded-2xl border border-slate-200 bg-white p-0 sm:max-w-xl">
-          <div className="border-b border-slate-100 bg-slate-50/80 px-6 py-5">
+        <DialogContent className="max-h-[90vh] overflow-y-auto rounded-2xl border border-slate-200 bg-white p-0 dark:border-slate-700 dark:bg-slate-900 sm:max-w-xl">
+          <div className="border-b border-slate-100 bg-slate-50/80 px-6 py-5 dark:border-slate-700 dark:bg-slate-800/70">
             <DialogHeader>
-              <DialogTitle className="text-xl font-bold">
+              <DialogTitle className="text-xl font-bold text-slate-900 dark:text-slate-100">
                 {isRider ? "Edit rider profile" : "Edit business profile"}
               </DialogTitle>
 
-              <DialogDescription className="mt-1 text-sm text-slate-500">
+              <DialogDescription className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                 Changes will be saved to your SwiftDrop account.
               </DialogDescription>
             </DialogHeader>
@@ -685,7 +793,7 @@ export default function ProfilePage() {
                 event.stopPropagation();
                 void merchantForm.handleSubmit();
               }}
-              className="space-y-5 px-6 py-6"
+              className="space-y-5 px-6 py-6 text-slate-900 dark:text-slate-100"
             >
               <merchantForm.Field name="businessName">
                 {(field) => (
@@ -796,7 +904,7 @@ export default function ProfilePage() {
                 event.stopPropagation();
                 void riderForm.handleSubmit();
               }}
-              className="space-y-5 px-6 py-6"
+              className="space-y-5 px-6 py-6 text-slate-900 dark:text-slate-100"
             >
               <riderForm.Field name="phone">
                 {(field) => (
@@ -936,13 +1044,13 @@ export default function ProfilePage() {
 
       {/* Selected image upload panel */}
       {imageFile && (
-        <div className="fixed bottom-5 right-5 z-40 flex max-w-[calc(100vw-40px)] items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-xl">
-          <div className="flex size-10 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
+        <div className="fixed bottom-5 right-5 z-40 flex max-w-[calc(100vw-40px)] items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-xl dark:border-slate-700 dark:bg-slate-900">
+          <div className="flex size-10 items-center justify-center rounded-xl bg-orange-50 text-orange-600 dark:bg-orange-950/40 dark:text-orange-400">
             <ImagePlus className="size-5" />
           </div>
 
           <div className="min-w-0 flex-1">
-            <p className="max-w-40 truncate text-xs font-semibold">
+            <p className="max-w-40 truncate text-xs font-semibold text-slate-900 dark:text-slate-100">
               {imageFile.name}
             </p>
 
@@ -962,7 +1070,7 @@ export default function ProfilePage() {
                 },
               })
             }
-            className="h-9 rounded-lg bg-orange-500 px-3 text-xs text-white"
+            className="h-9 rounded-lg bg-orange-500 px-3 text-xs text-white hover:bg-orange-600"
           >
             {imageMutation.isPending ? "Uploading" : "Upload"}
           </Button>
@@ -972,7 +1080,7 @@ export default function ProfilePage() {
             disabled={imageMutation.isPending}
             aria-label="Remove selected image"
             onClick={() => setImageFile(null)}
-            className="flex size-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100"
+            className="flex size-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
           >
             <X className="size-4" />
           </button>

@@ -30,36 +30,36 @@ const stats = [
     value: "12",
     subtitle: "Today's assigned shipments",
     icon: Package,
-    iconStyle: "bg-blue-50 text-blue-700",
+    iconStyle: "bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300",
     trend: "+3 from yesterday",
-    trendStyle: "text-blue-700",
+    trendStyle: "text-blue-700 dark:text-blue-400",
   },
   {
     title: "Completed deliveries",
     value: "08",
     subtitle: "Successfully delivered",
     icon: CheckCircle2,
-    iconStyle: "bg-emerald-50 text-emerald-700",
+    iconStyle: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300",
     trend: "66.7% completion",
-    trendStyle: "text-emerald-700",
+    trendStyle: "text-emerald-700 dark:text-emerald-400",
   },
   {
     title: "Active shipments",
     value: "04",
     subtitle: "Pickups and deliveries",
     icon: Truck,
-    iconStyle: "bg-violet-50 text-violet-700",
+    iconStyle: "bg-violet-100 text-violet-700 dark:bg-violet-950 dark:text-violet-300",
     trend: "Needs attention",
-    trendStyle: "text-violet-700",
+    trendStyle: "text-violet-700 dark:text-violet-400",
   },
   {
     title: "Today's earnings",
     value: "৳2,450",
     subtitle: "Illustrative demo amount",
     icon: Wallet,
-    iconStyle: "bg-amber-50 text-amber-700",
+    iconStyle: "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300",
     trend: "View earnings",
-    trendStyle: "text-amber-700",
+    trendStyle: "text-amber-700 dark:text-amber-400",
   },
 ];
 
@@ -99,21 +99,21 @@ const activities = [
     description: "Shipment SWD-20261009-AB123",
     time: "10:35 AM",
     icon: CheckCircle2,
-    style: "bg-emerald-50 text-emerald-700",
+    style: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300",
   },
   {
     title: "New shipment assigned",
     description: "Shipment SWD-20261010-T9YSI",
     time: "10:12 AM",
     icon: Package,
-    style: "bg-blue-50 text-blue-700",
+    style: "bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300",
   },
   {
     title: "Pickup confirmed",
     description: "Shipment SWD-20261010-RPFJU",
     time: "09:40 AM",
     icon: Truck,
-    style: "bg-violet-50 text-violet-700",
+    style: "bg-violet-100 text-violet-700 dark:bg-violet-950 dark:text-violet-300",
   },
 ];
 
@@ -124,29 +124,29 @@ function formatStatus(status: string) {
 function statusStyle(status: string) {
   switch (status) {
     case "DELIVERED":
-      return "border-emerald-200 bg-emerald-50 text-emerald-700";
+      return "border-emerald-200 bg-emerald-100 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300";
     case "PICKED_UP":
-      return "border-blue-200 bg-blue-50 text-blue-700";
+      return "border-blue-200 bg-blue-100 text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300";
     case "ASSIGNED":
-      return "border-amber-200 bg-amber-50 text-amber-700";
+      return "border-amber-200 bg-amber-100 text-amber-700 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300";
     default:
-      return "border-slate-200 bg-slate-50 text-slate-600";
+      return "border-border bg-muted text-muted-foreground";
   }
 }
 
 export default function RiderOverviewPage() {
   return (
-    <main className="min-h-screen space-y-6 bg-slate-50/70 p-4 sm:p-6 lg:p-8">
+    <main className="min-h-screen space-y-6 bg-background p-4 sm:p-6 lg:p-8">
       {/* Header */}
       <section className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <p className="text-sm font-medium text-slate-500">
+          <p className="text-sm font-medium text-muted-foreground">
             Rider workspace / Overview
           </p>
-          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">
+          <h1 className="mt-1 text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
             Rider dashboard
           </h1>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-muted-foreground">
             Keep track of your deliveries and make every trip count.
           </p>
         </div>
@@ -154,9 +154,9 @@ export default function RiderOverviewPage() {
         <div className="flex flex-wrap items-center gap-3">
           <Badge
             variant="outline"
-            className="gap-2 border-emerald-200 bg-emerald-50 px-3 py-1.5 text-emerald-700"
+            className="gap-2 border-emerald-200 bg-emerald-100 px-3 py-1.5 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
           >
-            <span className="size-2 rounded-full bg-emerald-500" />
+            <span className="size-2 rounded-full bg-primary" />
             On duty
           </Badge>
 
@@ -171,19 +171,19 @@ export default function RiderOverviewPage() {
       </section>
 
       {/* Welcome banner */}
-      <section className="relative overflow-hidden rounded-2xl bg-slate-950 p-6 text-white sm:p-8">
-        <div className="pointer-events-none absolute -right-12 -top-24 size-64 rounded-full border border-white/10" />
-        <div className="pointer-events-none absolute -right-2 -top-12 size-44 rounded-full border border-white/10" />
+      <section className="relative overflow-hidden rounded-2xl bg-sidebar p-6 text-sidebar-foreground sm:p-8">
+        <div className="pointer-events-none absolute -right-12 -top-24 size-64 rounded-full border border-sidebar-border/20" />
 
+        <div className="pointer-events-none absolute -right-2 -top-12 size-44 rounded-full border border-sidebar-border/20" />
         <div className="relative flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
           <div className="max-w-xl">
-            <Badge className="border border-white/15 bg-white/10 text-white hover:bg-white/10">
+            <Badge className="border border-sidebar-border/20 bg-sidebar-accent/50 text-sidebar-foreground hover:bg-sidebar-accent">
               Daily performance
             </Badge>
             <h2 className="mt-4 text-2xl font-semibold tracking-tight sm:text-3xl">
               Ready for another productive day?
             </h2>
-            <p className="mt-3 max-w-lg text-sm leading-6 text-slate-300">
+            <p className="mt-3 max-w-lg text-sm leading-6 text-muted-foreground">
               Stay on top of your assigned shipments, follow delivery updates,
               and keep customers informed at every step.
             </p>
@@ -201,15 +201,15 @@ export default function RiderOverviewPage() {
           </div>
 
           <div className="grid grid-cols-2 gap-3 sm:min-w-64">
-            <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+            <div className="rounded-xl border border-sidebar-accent bg-sidebar-accent/5 p-4">
               <CheckCircle2 className="size-5 text-emerald-400" />
               <p className="mt-3 text-2xl font-semibold">08</p>
-              <p className="mt-1 text-xs text-slate-300">Completed</p>
+              <p className="mt-1 text-xs text-muted-foreground">Completed</p>
             </div>
-            <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+            <div className="rounded-xl border border-sidebar-accent bg-sidebar-accent/5 p-4">
               <Clock3 className="size-5 text-amber-300" />
               <p className="mt-3 text-2xl font-semibold">04</p>
-              <p className="mt-1 text-xs text-slate-300">Remaining</p>
+              <p className="mt-1 text-xs text-muted-foreground">Remaining</p>
             </div>
           </div>
         </div>
@@ -223,15 +223,15 @@ export default function RiderOverviewPage() {
           return (
             <Card
               key={stat.title}
-              className="border-slate-200 shadow-sm transition-shadow hover:shadow-md"
+              className="border-border shadow-sm transition-shadow hover:shadow-md"
             >
               <CardContent className="p-5">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-sm font-medium text-slate-500">
+                    <p className="text-sm font-medium text-muted-foreground">
                       {stat.title}
                     </p>
-                    <p className="mt-3 text-2xl font-semibold tracking-tight text-slate-950">
+                    <p className="mt-3 text-2xl font-semibold tracking-tight text-foreground">
                       {stat.value}
                     </p>
                   </div>
@@ -241,7 +241,7 @@ export default function RiderOverviewPage() {
                   </div>
                 </div>
 
-                <p className="mt-2 text-xs text-slate-500">
+                <p className="mt-2 text-xs text-muted-foreground">
                   {stat.subtitle}
                 </p>
 

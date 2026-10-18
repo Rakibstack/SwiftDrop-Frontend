@@ -74,7 +74,7 @@ const resources = [
   },
   {
     title: "Track Shipment",
-    href: "#tracking",
+    href: "/tracking",
     icon: MapPin,
   },
 ];
@@ -134,7 +134,7 @@ const Navbar = () => {
 
          {
           currentUser && ( <Link
-            href="/tracking"
+            href="/merchant/track-shipment"
             className="flex h-10 items-center rounded-lg px-4 text-sm font-medium text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
           >
             Track Shipment
@@ -330,12 +330,12 @@ interface AuthenticatedActionsProps {
 
 const AuthenticatedActions = ({ user }: AuthenticatedActionsProps) => {
   const router = useRouter();
+  const role = formatRole(user.role);
+  const dashboardRoute = getDashboardRoute(user.role);
 
   const { mutate: logout, isPending: isLoggingOut } = useLogout();
   const queryClient = useQueryClient();
 
-  const role = formatRole(user.role);
-  const dashboardRoute = getDashboardRoute(user.role);
 
   const handleLogout = () => {
     logout(undefined, {
@@ -562,11 +562,6 @@ const MobileNavigation = ({
             onClick={onClose}
           />
 
-          <MobileLink
-            href="#operations"
-            label="For Merchants"
-            onClick={onClose}
-          />
         </nav>
 
         <div className="mt-5 border-t border-border/60 pt-5">
