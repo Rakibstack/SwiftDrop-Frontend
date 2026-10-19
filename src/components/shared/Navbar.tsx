@@ -55,7 +55,7 @@ const solutions = [
   {
     title: "Real-time Tracking",
     description: "Follow shipments from pickup to delivery.",
-    href: "#tracking",
+    href: "/tracking",
     icon: MapPin,
   },
   {
