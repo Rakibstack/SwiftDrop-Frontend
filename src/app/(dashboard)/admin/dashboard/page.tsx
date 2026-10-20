@@ -19,6 +19,7 @@ import RevenueChart from "@/components/admin/Revenue/RevenueChart";
 import ShipmentStatusOverview from "@/components/admin/ShipmentStatusOverview";
 import RecentShipments from "@/components/admin/RecentShipments";
 import RecentActivity from "@/components/admin/RecentActivity";
+import { AIInsightsCard } from "@/components/admin/analytics/AIInsightsCard";
 
 function formatBDT(amount: number) {
   return `৳${amount.toLocaleString("en-BD", {
@@ -165,13 +166,13 @@ export default function AdminAnalyticsDashboard() {
         </div>
       </div>
 
+    
       {/* Overview cards */}
       <section aria-label="Key metrics">
-        <div className="mb-4 flex items-center justify-between">
+        <div className="mb-4">
           <h2 className="text-sm font-semibold text-foreground">
             Platform overview
           </h2>
-          <span className="text-xs text-muted-foreground">Live API data</span>
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
@@ -180,6 +181,12 @@ export default function AdminAnalyticsDashboard() {
           ))}
         </div>
       </section>
+
+        <div className="space-y-6">
+        <AIInsightsCard />
+
+      </div>
+
 
       {/* Revenue + status */}
       <section
