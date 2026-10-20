@@ -1,5 +1,6 @@
 import {
   Bike,
+  Bot,
   ClipboardList,
   CreditCard,
   LayoutDashboard,
@@ -39,6 +40,11 @@ export const dashboardNavigation: Record<UserRole, DashboardNavItem[]> = {
       title: "Tracking",
       href: "/merchant/track-shipment",
       icon: Truck,
+    },
+    {
+      title: "AI-Support-Chat",
+      href: "/merchant/ai-support",
+      icon: Bot,
     },
     {
       title: "Payments",
