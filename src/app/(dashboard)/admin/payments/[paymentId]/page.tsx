@@ -56,16 +56,16 @@ function formatDate(value: string | null | undefined) {
 function getStatusClass(status: PaymentStatus) {
   switch (status) {
     case "PAID":
-      return "border-emerald-200 bg-emerald-50 text-emerald-700";
+      return "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400";
     case "PENDING":
-      return "border-amber-200 bg-amber-50 text-amber-700";
+      return "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-400";
     case "REFUNDED":
-      return "border-violet-200 bg-violet-50 text-violet-700";
+      return "border-violet-500/20 bg-violet-500/10 text-violet-700 dark:text-violet-400";
     case "FAILED":
     case "CANCELLED":
-      return "border-rose-200 bg-rose-50 text-rose-700";
+      return "border-rose-500/20 bg-rose-500/10 text-rose-700 dark:text-rose-400";
     default:
-      return "border-slate-200 bg-slate-50 text-slate-600";
+      return "border-border bg-muted text-muted-foreground";
   }
 }
 
@@ -90,10 +90,10 @@ function DetailRow({
   mono?: boolean;
 }) {
   return (
-    <div className="flex flex-col gap-1 border-b border-slate-100 py-3 last:border-0 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
-      <span className="text-sm text-slate-500">{label}</span>
+    <div className="flex flex-col gap-1 border-b border-border py-3 last:border-0 sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+      <span className="text-sm text-muted-foreground">{label}</span>
       <span
-        className={`break-all text-sm font-medium text-slate-900 sm:max-w-[65%] sm:text-right ${
+        className={`break-all text-sm font-medium text-foreground sm:max-w-[65%] sm:text-right ${
           mono ? "font-mono text-xs" : ""
         }`}
       >
@@ -114,13 +114,13 @@ function SectionHeading({
 }) {
   return (
     <div className="flex items-start gap-3">
-      <div className="rounded-lg bg-slate-100 p-2 text-slate-700">
+      <div className="rounded-lg bg-muted p-2 text-foreground">
         <Icon className="size-5" />
       </div>
       <div>
-        <h2 className="font-semibold text-slate-950">{title}</h2>
+        <h2 className="font-semibold text-foreground">{title}</h2>
         {description && (
-          <p className="mt-1 text-sm text-slate-500">{description}</p>
+          <p className="mt-1 text-sm text-muted-foreground">{description}</p>
         )}
       </div>
     </div>
@@ -130,11 +130,11 @@ function SectionHeading({
 function LoadingState() {
   return (
     <main className="space-y-5 p-4 sm:p-6 lg:p-8">
-      <div className="h-8 w-48 animate-pulse rounded bg-slate-200" />
-      <div className="h-36 animate-pulse rounded-xl bg-slate-100" />
+      <div className="h-8 w-48 animate-pulse rounded bg-muted" />
+      <div className="h-36 animate-pulse rounded-xl bg-muted" />
       <div className="grid gap-5 lg:grid-cols-2">
-        <div className="h-72 animate-pulse rounded-xl bg-slate-100" />
-        <div className="h-72 animate-pulse rounded-xl bg-slate-100" />
+        <div className="h-72 animate-pulse rounded-xl bg-muted" />
+        <div className="h-72 animate-pulse rounded-xl bg-muted" />
       </div>
     </main>
   );
@@ -167,21 +167,21 @@ export default function AdminPaymentDetailsPage() {
 
   if (isError || !payment || !shipment) {
     return (
-      <main className="min-h-screen bg-slate-50/60 p-4 sm:p-6 lg:p-8">
+      <main className="min-h-screen bg-muted/60 p-4 sm:p-6 lg:p-8">
         <Link
           href="/admin/payments"
-          className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-950"
+          className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft className="size-4" />
           Back to payments
         </Link>
 
-        <Card className="mx-auto mt-8 max-w-xl border-rose-200">
+        <Card className="mx-auto mt-8 max-w-xl border-rose-500/20">
           <CardContent className="flex flex-col items-start gap-3 p-6">
-            <h1 className="text-lg font-semibold text-slate-950">
+            <h1 className="text-lg font-semibold text-foreground">
               Payment could not be loaded
             </h1>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-muted-foreground">
               The payment may not exist, or you may not have permission to
               view it. Check the API response and try again.
             </p>
@@ -226,11 +226,11 @@ export default function AdminPaymentDetailsPage() {
   const rider = "rider" in shipment ? shipment.rider : null;
 
   return (
-    <main className="min-h-screen space-y-6 bg-slate-50/60 p-4 sm:p-6 lg:p-8">
+    <main className="min-h-screen space-y-6 bg-muted/60 p-4 sm:p-6 lg:p-8">
       <div>
         <Link
           href="/admin/payments"
-          className="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-slate-950"
+          className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition hover:text-foreground"
         >
           <ArrowLeft className="size-4" />
           All payments
@@ -239,12 +239,12 @@ export default function AdminPaymentDetailsPage() {
         <div className="mt-5 flex flex-col justify-between gap-4 sm:flex-row sm:items-start">
           <div>
             <div className="flex flex-wrap items-center gap-3">
-              <h1 className="text-2xl font-semibold tracking-tight text-slate-950 sm:text-3xl">
+              <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
                 Payment details
               </h1>
               <StatusBadge status={payment.status} />
             </div>
-            <p className="mt-2 break-all font-mono text-sm text-slate-500">
+            <p className="mt-2 break-all font-mono text-sm text-muted-foreground">
               {payment.id}
             </p>
           </div>
@@ -264,24 +264,24 @@ export default function AdminPaymentDetailsPage() {
         </div>
       </div>
 
-      <Card className="overflow-hidden border-slate-200 shadow-sm">
+      <Card className="overflow-hidden border-border shadow-sm">
         <div className="grid gap-0 md:grid-cols-[1.3fr_1fr_1fr]">
           <div className="bg-slate-950 p-6 text-white sm:p-8">
-            <div className="flex items-center gap-2 text-sm text-slate-300">
+            <div className="flex items-center gap-2 text-sm text-white/70">
               <CircleDollarIcon />
               Payment amount
             </div>
             <p className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
               {formatMoney(payment.amount, payment.currency)}
             </p>
-            <p className="mt-2 text-sm text-slate-300">
+            <p className="mt-2 text-sm text-white/70">
               Via {payment.paymentGateway}
             </p>
           </div>
 
-          <div className="border-t border-slate-200 p-6 md:border-l md:border-t-0">
-            <p className="text-sm text-slate-500">Payment transaction ID</p>
-            <p className="mt-2 break-all font-mono text-sm font-medium text-slate-900">
+          <div className="border-t border-border p-6 md:border-l md:border-t-0">
+            <p className="text-sm text-muted-foreground">Payment transaction ID</p>
+            <p className="mt-2 break-all font-mono text-sm font-medium text-foreground">
               {payment.bkashTrxId || "Not available"}
             </p>
             {payment.bkashTrxId && (
@@ -300,12 +300,12 @@ export default function AdminPaymentDetailsPage() {
             )}
           </div>
 
-          <div className="border-t border-slate-200 p-6 md:border-l md:border-t-0">
-            <p className="text-sm text-slate-500">Paid at</p>
-            <p className="mt-2 font-medium text-slate-900">
+          <div className="border-t border-border p-6 md:border-l md:border-t-0">
+            <p className="text-sm text-muted-foreground">Paid at</p>
+            <p className="mt-2 font-medium text-foreground">
               {formatDate(payment.paidAt)}
             </p>
-            <p className="mt-2 text-xs text-slate-500">
+            <p className="mt-2 text-xs text-muted-foreground">
               Created {formatDate(payment.createdAt)}
             </p>
           </div>
@@ -313,7 +313,7 @@ export default function AdminPaymentDetailsPage() {
       </Card>
 
       <div className="grid gap-5 xl:grid-cols-2">
-        <Card className="border-slate-200 shadow-sm">
+        <Card className="border-border shadow-sm">
           <CardHeader>
             <SectionHeading
               icon={Banknote}
@@ -347,7 +347,7 @@ export default function AdminPaymentDetailsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-slate-200 shadow-sm">
+        <Card className="border-border shadow-sm">
           <CardHeader>
             <SectionHeading
               icon={UserRound}
@@ -371,7 +371,7 @@ export default function AdminPaymentDetailsPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-slate-200 shadow-sm">
+        <Card className="border-border shadow-sm">
           <CardHeader>
             <SectionHeading
               icon={Package}
@@ -380,12 +380,12 @@ export default function AdminPaymentDetailsPage() {
             />
           </CardHeader>
           <CardContent>
-            <div className="mb-4 rounded-xl bg-slate-50 p-4">
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            <div className="mb-4 rounded-xl bg-muted p-4">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
                 Tracking ID
               </p>
               <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
-                <span className="break-all font-mono font-semibold text-slate-950">
+                <span className="break-all font-mono font-semibold text-foreground">
                   {shipment.trackingId}
                 </span>
                 <Button
@@ -434,7 +434,7 @@ export default function AdminPaymentDetailsPage() {
         </Card>
 
         {hasRefund && (
-          <Card className="border-violet-200 shadow-sm">
+          <Card className="border-violet-500/20 shadow-sm">
             <CardHeader>
               <SectionHeading
                 icon={RotateCcw}
@@ -472,7 +472,7 @@ export default function AdminPaymentDetailsPage() {
         )}
       </div>
 
-      <Card className="border-slate-200 shadow-sm">
+      <Card className="border-border shadow-sm">
         <CardHeader>
           <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
             <SectionHeading

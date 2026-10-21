@@ -36,11 +36,11 @@ function InfoItem({
   value: string | number | boolean | null | undefined;
 }) {
   return (
-    <div className="min-w-0 rounded-xl border border-slate-100 bg-slate-50/70 p-4">
-      <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
+    <div className="min-w-0 rounded-xl border border-border bg-muted/70 p-4">
+      <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
         {label}
       </p>
-      <p className="mt-2 break-words text-sm font-semibold text-slate-900">
+      <p className="mt-2 break-words text-sm font-semibold text-foreground">
         {value === null || value === undefined || value === ""
           ? "—"
           : typeof value === "boolean"
@@ -58,14 +58,14 @@ function ProfileSection({ user }: { user: AdminUser }) {
     const merchant = user.merchantProfile;
 
     return (
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+      <section className="rounded-2xl border border-border bg-card p-5 shadow-sm md:p-6">
         <div className="mb-5 flex items-center gap-3">
-          <div className="rounded-xl bg-emerald-50 p-3 text-emerald-700">
+          <div className="rounded-xl bg-emerald-500/10 p-3 text-emerald-700 dark:text-emerald-400">
             <Building2 size={21} />
           </div>
           <div>
-            <h2 className="font-semibold text-slate-900">Merchant profile</h2>
-            <p className="text-sm text-slate-500">
+            <h2 className="font-semibold text-foreground">Merchant profile</h2>
+            <p className="text-sm text-muted-foreground">
               Business information associated with this account
             </p>
           </div>
@@ -87,14 +87,14 @@ function ProfileSection({ user }: { user: AdminUser }) {
     const rider = user.riderProfile;
 
     return (
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
+      <section className="rounded-2xl border border-border bg-card p-5 shadow-sm md:p-6">
         <div className="mb-5 flex items-center gap-3">
-          <div className="rounded-xl bg-blue-50 p-3 text-blue-700">
+          <div className="rounded-xl bg-blue-500/10 p-3 text-blue-700 dark:text-blue-400">
             <UserRound size={21} />
           </div>
           <div>
-            <h2 className="font-semibold text-slate-900">Rider profile</h2>
-            <p className="text-sm text-slate-500">
+            <h2 className="font-semibold text-foreground">Rider profile</h2>
+            <p className="text-sm text-muted-foreground">
               Rider contact and approval information
             </p>
           </div>
@@ -119,12 +119,12 @@ function ProfileSection({ user }: { user: AdminUser }) {
   }
 
   return (
-    <section className="rounded-2xl border border-dashed border-slate-300 bg-white p-8 text-center">
-      <UserRound className="mx-auto text-slate-400" size={28} />
-      <h2 className="mt-3 font-semibold text-slate-800">
+    <section className="rounded-2xl border border-dashed border-border bg-card p-8 text-center">
+      <UserRound className="mx-auto text-muted-foreground" size={28} />
+      <h2 className="mt-3 font-semibold text-foreground">
         No additional profile
       </h2>
-      <p className="mt-1 text-sm text-slate-500">
+      <p className="mt-1 text-sm text-muted-foreground">
         This account does not have a merchant or rider profile.
       </p>
     </section>
@@ -165,9 +165,9 @@ export default function AdminUserDetailsPage() {
   if (isPending) {
     return (
       <main className="space-y-5 p-4 md:p-8">
-        <div className="h-8 w-40 animate-pulse rounded bg-slate-200" />
-        <div className="h-48 animate-pulse rounded-2xl bg-slate-100" />
-        <div className="h-56 animate-pulse rounded-2xl bg-slate-100" />
+        <div className="h-8 w-40 animate-pulse rounded bg-muted" />
+        <div className="h-48 animate-pulse rounded-2xl bg-muted" />
+        <div className="h-56 animate-pulse rounded-2xl bg-muted" />
       </main>
     );
   }
@@ -177,15 +177,15 @@ export default function AdminUserDetailsPage() {
       <main className="p-4 md:p-8">
         <Link
           href="/admin/users"
-          className="inline-flex items-center gap-2 text-sm text-slate-600 hover:text-slate-900"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft size={16} />
           Back to users
         </Link>
 
-        <div className="mt-5 rounded-2xl border border-red-200 bg-red-50 p-6">
-          <h2 className="font-semibold text-red-800">Unable to load user</h2>
-          <p className="mt-2 text-sm text-red-700">
+        <div className="mt-5 rounded-2xl border border-red-500/20 bg-red-500/10 p-6">
+          <h2 className="font-semibold text-red-800 dark:text-red-300">Unable to load user</h2>
+          <p className="mt-2 text-sm text-red-700 dark:text-red-400">
             {error instanceof Error ? error.message : "The user may not exist."}
           </p>
           <button
@@ -205,7 +205,7 @@ export default function AdminUserDetailsPage() {
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
           href="/admin/users"
-          className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 transition hover:text-emerald-700"
+          className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition hover:text-emerald-700 dark:text-emerald-400"
         >
           <ArrowLeft size={17} />
           Back to users
@@ -215,10 +215,10 @@ export default function AdminUserDetailsPage() {
           <span
             className={`rounded-full px-3 py-1.5 text-xs font-semibold ${
               user.isDeleted
-                ? "bg-red-50 text-red-700"
+                ? "bg-red-500/10 text-red-700 dark:text-red-400"
                 : user.status === "ACTIVE"
-                  ? "bg-emerald-50 text-emerald-700"
-                  : "bg-amber-50 text-amber-700"
+                  ? "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400"
+                  : "bg-amber-500/10 text-amber-700 dark:text-amber-400"
             }`}
           >
             {user.isDeleted ? "DELETED" : user.status}
@@ -229,7 +229,7 @@ export default function AdminUserDetailsPage() {
               type="button"
               onClick={() => setShowDeleteConfirmation(true)}
               disabled={deleteUser.isPending}
-              className="inline-flex items-center gap-2 rounded-xl border border-red-200 bg-white px-3 py-2 text-sm font-semibold text-red-600 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex items-center gap-2 rounded-xl border border-red-500/20 bg-card px-3 py-2 text-sm font-semibold text-red-600 dark:text-red-400 transition hover:bg-red-500/10 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {deleteUser.isPending ? (
                 <LoaderCircle className="animate-spin" size={16} />
@@ -242,7 +242,7 @@ export default function AdminUserDetailsPage() {
         </div>
       </div>
 
-      <section className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <section className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
         <div className="h-24 bg-gradient-to-r from-emerald-900 via-emerald-700 to-teal-500" />
 
         <div className="px-5 pb-6 md:px-7">
@@ -255,65 +255,65 @@ export default function AdminUserDetailsPage() {
                   alt={user.name}
                   width={500}
                   height={500}
-                  className="h-20 w-20 rounded-2xl border-4 border-white bg-white object-cover shadow-sm"
+                  className="h-20 w-20 rounded-2xl border-4 border-white bg-card object-cover shadow-sm"
                 />
               ) : (
-                <div className="flex h-20 w-20 items-center justify-center rounded-2xl border-4 border-white bg-emerald-50 text-2xl font-bold text-emerald-800 shadow-sm">
+                <div className="flex h-20 w-20 items-center justify-center rounded-2xl border-4 border-white bg-emerald-500/10 text-2xl font-bold text-emerald-800 dark:text-emerald-300 shadow-sm">
                   {user.name.slice(0, 1).toUpperCase()}
                 </div>
               )}
 
               <div className="pb-1">
-                <h1 className="text-xl font-bold text-slate-950 md:text-2xl">
+                <h1 className="text-xl font-bold text-foreground md:text-2xl">
                   {user.name}
                 </h1>
-                <p className="mt-1 text-sm text-slate-500">{user.email}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{user.email}</p>
               </div>
             </div>
 
-            <span className="w-fit rounded-lg bg-slate-100 px-3 py-2 text-xs font-bold tracking-wide text-slate-700">
+            <span className="w-fit rounded-lg bg-muted px-3 py-2 text-xs font-bold tracking-wide text-foreground">
               {user.role}
             </span>
           </div>
 
           <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <div className="flex items-center gap-3 rounded-xl border border-slate-100 p-4">
-              <Mail className="shrink-0 text-slate-400" size={18} />
+            <div className="flex items-center gap-3 rounded-xl border border-border p-4">
+              <Mail className="shrink-0 text-muted-foreground" size={18} />
               <div>
-                <p className="text-xs text-slate-500">Email verification</p>
-                <p className="mt-1 text-sm font-semibold text-slate-900">
+                <p className="text-xs text-muted-foreground">Email verification</p>
+                <p className="mt-1 text-sm font-semibold text-foreground">
                   {user.emailVerified ? "Verified" : "Not verified"}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 rounded-xl border border-slate-100 p-4">
-              <ShieldCheck className="shrink-0 text-slate-400" size={18} />
+            <div className="flex items-center gap-3 rounded-xl border border-border p-4">
+              <ShieldCheck className="shrink-0 text-muted-foreground" size={18} />
               <div>
-                <p className="text-xs text-slate-500">Authentication</p>
-                <p className="mt-1 text-sm font-semibold text-slate-900">
+                <p className="text-xs text-muted-foreground">Authentication</p>
+                <p className="mt-1 text-sm font-semibold text-foreground">
                   {user.authProvider}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 rounded-xl border border-slate-100 p-4">
-              <CalendarDays className="shrink-0 text-slate-400" size={18} />
+            <div className="flex items-center gap-3 rounded-xl border border-border p-4">
+              <CalendarDays className="shrink-0 text-muted-foreground" size={18} />
               <div>
-                <p className="text-xs text-slate-500">Joined</p>
-                <p className="mt-1 text-sm font-semibold text-slate-900">
+                <p className="text-xs text-muted-foreground">Joined</p>
+                <p className="mt-1 text-sm font-semibold text-foreground">
                   {formatDate(user.createdAt)}
                 </p>
               </div>
             </div>
 
-            <div className="flex items-center gap-3 rounded-xl border border-slate-100 p-4">
-              <UserRound className="shrink-0 text-slate-400" size={18} />
+            <div className="flex items-center gap-3 rounded-xl border border-border p-4">
+              <UserRound className="shrink-0 text-muted-foreground" size={18} />
               <div>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-muted-foreground">
                   Password change required
                 </p>
-                <p className="mt-1 text-sm font-semibold text-slate-900">
+                <p className="mt-1 text-sm font-semibold text-foreground">
                   {user.needPasswordChange ? "Yes" : "No"}
                 </p>
               </div>
@@ -322,8 +322,8 @@ export default function AdminUserDetailsPage() {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:p-6">
-        <h2 className="mb-5 font-semibold text-slate-900">
+      <section className="rounded-2xl border border-border bg-card p-5 shadow-sm md:p-6">
+        <h2 className="mb-5 font-semibold text-foreground">
           Account information
         </h2>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -356,20 +356,20 @@ export default function AdminUserDetailsPage() {
             role="alertdialog"
             aria-modal="true"
             aria-labelledby="delete-user-title"
-            className="w-full max-w-md rounded-2xl bg-white p-6 shadow-2xl"
+            className="w-full max-w-md rounded-2xl bg-card p-6 shadow-2xl"
           >
-            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-50 text-red-600">
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-red-500/10 text-red-600 dark:text-red-400">
               <Trash2 size={22} />
             </div>
 
             <h2
               id="delete-user-title"
-              className="mt-4 text-lg font-bold text-slate-900"
+              className="mt-4 text-lg font-bold text-foreground"
             >
               Delete this user?
             </h2>
 
-            <p className="mt-2 text-sm leading-6 text-slate-600">
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
               You are about to delete <strong>{user.name}</strong> ({user.email}
               ). This action may affect their access to SwiftDrop.
             </p>
@@ -379,7 +379,7 @@ export default function AdminUserDetailsPage() {
                 type="button"
                 onClick={() => setShowDeleteConfirmation(false)}
                 disabled={deleteUser.isPending}
-                className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+                className="rounded-xl border border-border px-4 py-2.5 text-sm font-semibold text-foreground hover:bg-muted disabled:opacity-50"
               >
                 Cancel
               </button>

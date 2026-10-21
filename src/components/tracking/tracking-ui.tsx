@@ -18,43 +18,43 @@ const statusConfig: Record<
 > = {
   PAYMENT_PENDING: {
     label: "Payment pending",
-    className: "bg-amber-50 text-amber-700 ring-amber-200",
+    className: "bg-amber-500/10 text-amber-700 dark:text-amber-400 ring-amber-500/20",
   },
   PAYMENT_CONFIRMED: {
     label: "Payment confirmed",
-    className: "bg-blue-50 text-blue-700 ring-blue-200",
+    className: "bg-blue-500/10 text-blue-700 dark:text-blue-400 ring-blue-500/20",
   },
   ASSIGNED: {
     label: "Rider assigned",
-    className: "bg-violet-50 text-violet-700 ring-violet-200",
+    className: "bg-violet-500/10 text-violet-700 dark:text-violet-400 ring-violet-500/20",
   },
   PICKED_UP: {
     label: "Picked up",
-    className: "bg-sky-50 text-sky-700 ring-sky-200",
+    className: "bg-sky-500/10 text-sky-700 dark:text-sky-400 ring-sky-500/20",
   },
   IN_TRANSIT: {
     label: "In transit",
-    className: "bg-indigo-50 text-indigo-700 ring-indigo-200",
+    className: "bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 ring-indigo-500/20",
   },
   OUT_FOR_DELIVERY: {
     label: "Out for delivery",
-    className: "bg-orange-50 text-orange-700 ring-orange-200",
+    className: "bg-orange-500/10 text-orange-700 dark:text-orange-400 ring-orange-500/20",
   },
   DELIVERED: {
     label: "Delivered",
-    className: "bg-emerald-50 text-emerald-700 ring-emerald-200",
+    className: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 ring-emerald-500/20",
   },
   DELIVERY_FAILED: {
     label: "Delivery failed",
-    className: "bg-rose-50 text-rose-700 ring-rose-200",
+    className: "bg-rose-500/10 text-rose-700 dark:text-rose-400 ring-rose-500/20",
   },
   CANCELLED: {
     label: "Cancelled",
-    className: "bg-gray-100 text-gray-700 ring-gray-200",
+    className: "bg-muted text-foreground ring-border",
   },
   RETURNED: {
     label: "Returned",
-    className: "bg-rose-50 text-rose-700 ring-rose-200",
+    className: "bg-rose-500/10 text-rose-700 dark:text-rose-400 ring-rose-500/20",
   },
 };
 

@@ -43,7 +43,7 @@ const solutions = [
   {
     title: "Shipment Management",
     description: "Create and manage deliveries with ease.",
-    href: "#solutions",
+    href: "#services",
     icon: Package,
   },
   {
@@ -61,7 +61,7 @@ const solutions = [
   {
     title: "Secure Payments",
     description: "Reliable payment and transaction handling.",
-    href: "#solutions",
+    href: "#services",
     icon: CreditCard,
   },
 ];

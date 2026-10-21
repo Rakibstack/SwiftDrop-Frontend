@@ -30,7 +30,7 @@ const stats = [
     value: "12",
     subtitle: "Today's assigned shipments",
     icon: Package,
-    iconStyle: "bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300",
+    iconStyle: "bg-blue-500/10 text-blue-700 dark:text-blue-400 dark:bg-blue-950 dark:text-blue-300",
     trend: "+3 from yesterday",
     trendStyle: "text-blue-700 dark:text-blue-400",
   },
@@ -39,7 +39,7 @@ const stats = [
     value: "08",
     subtitle: "Successfully delivered",
     icon: CheckCircle2,
-    iconStyle: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300",
+    iconStyle: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 dark:bg-emerald-950 dark:text-emerald-300",
     trend: "66.7% completion",
     trendStyle: "text-emerald-700 dark:text-emerald-400",
   },
@@ -48,7 +48,7 @@ const stats = [
     value: "04",
     subtitle: "Pickups and deliveries",
     icon: Truck,
-    iconStyle: "bg-violet-100 text-violet-700 dark:bg-violet-950 dark:text-violet-300",
+    iconStyle: "bg-violet-500/10 text-violet-700 dark:text-violet-400 dark:bg-violet-950 dark:text-violet-300",
     trend: "Needs attention",
     trendStyle: "text-violet-700 dark:text-violet-400",
   },
@@ -57,7 +57,7 @@ const stats = [
     value: "৳2,450",
     subtitle: "Illustrative demo amount",
     icon: Wallet,
-    iconStyle: "bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300",
+    iconStyle: "bg-amber-500/10 text-amber-700 dark:text-amber-400 dark:bg-amber-950 dark:text-amber-300",
     trend: "View earnings",
     trendStyle: "text-amber-700 dark:text-amber-400",
   },
@@ -99,21 +99,21 @@ const activities = [
     description: "Shipment SWD-20261009-AB123",
     time: "10:35 AM",
     icon: CheckCircle2,
-    style: "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300",
+    style: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 dark:bg-emerald-950 dark:text-emerald-300",
   },
   {
     title: "New shipment assigned",
     description: "Shipment SWD-20261010-T9YSI",
     time: "10:12 AM",
     icon: Package,
-    style: "bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300",
+    style: "bg-blue-500/10 text-blue-700 dark:text-blue-400 dark:bg-blue-950 dark:text-blue-300",
   },
   {
     title: "Pickup confirmed",
     description: "Shipment SWD-20261010-RPFJU",
     time: "09:40 AM",
     icon: Truck,
-    style: "bg-violet-100 text-violet-700 dark:bg-violet-950 dark:text-violet-300",
+    style: "bg-violet-500/10 text-violet-700 dark:text-violet-400 dark:bg-violet-950 dark:text-violet-300",
   },
 ];
 
@@ -124,11 +124,11 @@ function formatStatus(status: string) {
 function statusStyle(status: string) {
   switch (status) {
     case "DELIVERED":
-      return "border-emerald-200 bg-emerald-100 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300";
+      return "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300";
     case "PICKED_UP":
-      return "border-blue-200 bg-blue-100 text-blue-700 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300";
+      return "border-blue-500/20 bg-blue-500/10 text-blue-700 dark:text-blue-400 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-300";
     case "ASSIGNED":
-      return "border-amber-200 bg-amber-100 text-amber-700 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300";
+      return "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-400 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300";
     default:
       return "border-border bg-muted text-muted-foreground";
   }
@@ -154,7 +154,7 @@ export default function RiderOverviewPage() {
         <div className="flex flex-wrap items-center gap-3">
           <Badge
             variant="outline"
-            className="gap-2 border-emerald-200 bg-emerald-100 px-3 py-1.5 text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
+            className="gap-2 border-emerald-500/20 bg-emerald-500/10 px-3 py-1.5 text-emerald-700 dark:text-emerald-400 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
           >
             <span className="size-2 rounded-full bg-primary" />
             On duty
@@ -256,13 +256,13 @@ export default function RiderOverviewPage() {
 
       {/* Progress and quick actions */}
       <section className="grid gap-5 xl:grid-cols-[1.5fr_1fr]">
-        <Card className="border-slate-200 shadow-sm">
+        <Card className="border-border shadow-sm">
           <CardHeader className="flex flex-row items-center justify-between gap-3">
             <div>
               <CardTitle className="text-base">
                 Delivery progress
               </CardTitle>
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="mt-1 text-sm text-muted-foreground">
                 Your delivery performance for today
               </p>
             </div>
@@ -272,21 +272,21 @@ export default function RiderOverviewPage() {
           <CardContent>
             <div className="flex items-end justify-between gap-4">
               <div>
-                <p className="text-3xl font-semibold text-slate-950">
+                <p className="text-3xl font-semibold text-foreground">
                   66.7%
                 </p>
-                <p className="mt-1 text-sm text-slate-500">
+                <p className="mt-1 text-sm text-muted-foreground">
                   8 of 12 deliveries completed
                 </p>
               </div>
               <div className="text-right">
-                <p className="text-lg font-semibold text-slate-900">04</p>
-                <p className="text-xs text-slate-500">Remaining</p>
+                <p className="text-lg font-semibold text-foreground">04</p>
+                <p className="text-xs text-muted-foreground">Remaining</p>
               </div>
             </div>
 
             <div
-              className="mt-5 h-2.5 overflow-hidden rounded-full bg-slate-100"
+              className="mt-5 h-2.5 overflow-hidden rounded-full bg-muted"
               role="progressbar"
               aria-label="Daily delivery completion"
               aria-valuemin={0}
@@ -296,7 +296,7 @@ export default function RiderOverviewPage() {
               <div className="h-full w-2/3 rounded-full bg-emerald-500" />
             </div>
 
-            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-500">
+            <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground">
               <span className="flex items-center gap-2">
                 <span className="size-2 rounded-full bg-emerald-500" />
                 Completed: 8
@@ -309,10 +309,10 @@ export default function RiderOverviewPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-slate-200 shadow-sm">
+        <Card className="border-border shadow-sm">
           <CardHeader>
             <CardTitle className="text-base">Quick actions</CardTitle>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-muted-foreground">
               Common tasks in one place
             </p>
           </CardHeader>
@@ -320,67 +320,67 @@ export default function RiderOverviewPage() {
           <CardContent className="grid gap-3">
             <Link
               href="/rider/shipments"
-              className="group flex items-center gap-3 rounded-xl border border-slate-200 p-3 transition-colors hover:border-blue-200 hover:bg-blue-50/50"
+              className="group flex items-center gap-3 rounded-xl border border-border p-3 transition-colors hover:border-blue-500/20 hover:bg-blue-500/10/50"
             >
-              <div className="rounded-lg bg-blue-50 p-2.5 text-blue-700">
+              <div className="rounded-lg bg-blue-500/10 p-2.5 text-blue-700 dark:text-blue-400">
                 <Package className="size-5" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-slate-900">
+                <p className="text-sm font-medium text-foreground">
                   View assigned shipments
                 </p>
-                <p className="mt-1 text-xs text-slate-500">
+                <p className="mt-1 text-xs text-muted-foreground">
                   Review your delivery queue
                 </p>
               </div>
-              <ArrowRight className="size-4 text-slate-400 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
             </Link>
 
             <Link
               href="/rider/earnings"
-              className="group flex items-center gap-3 rounded-xl border border-slate-200 p-3 transition-colors hover:border-emerald-200 hover:bg-emerald-50/50"
+              className="group flex items-center gap-3 rounded-xl border border-border p-3 transition-colors hover:border-emerald-500/20 hover:bg-emerald-500/10/50"
             >
-              <div className="rounded-lg bg-emerald-50 p-2.5 text-emerald-700">
+              <div className="rounded-lg bg-emerald-500/10 p-2.5 text-emerald-700 dark:text-emerald-400">
                 <Banknote className="size-5" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-slate-900">
+                <p className="text-sm font-medium text-foreground">
                   View earnings
                 </p>
-                <p className="mt-1 text-xs text-slate-500">
+                <p className="mt-1 text-xs text-muted-foreground">
                   Review your payment summary
                 </p>
               </div>
-              <ArrowRight className="size-4 text-slate-400 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
             </Link>
 
             <Link
               href="/rider/profile"
-              className="group flex items-center gap-3 rounded-xl border border-slate-200 p-3 transition-colors hover:border-violet-200 hover:bg-violet-50/50"
+              className="group flex items-center gap-3 rounded-xl border border-border p-3 transition-colors hover:border-violet-500/20 hover:bg-violet-500/10/50"
             >
-              <div className="rounded-lg bg-violet-50 p-2.5 text-violet-700">
+              <div className="rounded-lg bg-violet-500/10 p-2.5 text-violet-700 dark:text-violet-400">
                 <MapPin className="size-5" />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium text-slate-900">
+                <p className="text-sm font-medium text-foreground">
                   Rider profile
                 </p>
-                <p className="mt-1 text-xs text-slate-500">
+                <p className="mt-1 text-xs text-muted-foreground">
                   Check your account information
                 </p>
               </div>
-              <ArrowRight className="size-4 text-slate-400 transition-transform group-hover:translate-x-1" />
+              <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
             </Link>
           </CardContent>
         </Card>
       </section>
 
       {/* Delivery queue */}
-      <Card className="overflow-hidden border-slate-200 shadow-sm">
+      <Card className="overflow-hidden border-border shadow-sm">
         <CardHeader className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
           <div>
             <CardTitle className="text-base">Active delivery queue</CardTitle>
-            <p className="mt-1 text-sm text-slate-500">
+            <p className="mt-1 text-sm text-muted-foreground">
               Shipments that need your attention
             </p>
           </div>
@@ -394,13 +394,13 @@ export default function RiderOverviewPage() {
         </CardHeader>
 
         <CardContent className="p-0">
-          <div className="divide-y divide-slate-100">
+          <div className="divide-y divide-border">
             {deliveries.map((delivery) => (
               <div
                 key={delivery.id}
-                className="flex flex-col gap-4 px-5 py-4 transition-colors hover:bg-slate-50/70 sm:flex-row sm:items-center"
+                className="flex flex-col gap-4 px-5 py-4 transition-colors hover:bg-muted/70 sm:flex-row sm:items-center"
               >
-                <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+                <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-muted text-foreground">
                   {delivery.type === "Pickup" ? (
                     <Package className="size-5" />
                   ) : (
@@ -410,7 +410,7 @@ export default function RiderOverviewPage() {
 
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
-                    <p className="font-mono text-xs font-semibold text-slate-900">
+                    <p className="font-mono text-xs font-semibold text-foreground">
                       {delivery.id}
                     </p>
                     <Badge
@@ -421,11 +421,11 @@ export default function RiderOverviewPage() {
                     </Badge>
                   </div>
 
-                  <p className="mt-1 text-sm font-medium text-slate-900">
+                  <p className="mt-1 text-sm font-medium text-foreground">
                     {delivery.recipient}
                   </p>
 
-                  <p className="mt-1 flex items-center gap-1.5 text-xs text-slate-500">
+                  <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
                     <MapPin className="size-3.5 shrink-0" />
                     {delivery.address}
                   </p>
@@ -433,10 +433,10 @@ export default function RiderOverviewPage() {
 
                 <div className="flex items-center justify-between gap-3 sm:justify-end">
                   <div className="text-left sm:text-right">
-                    <p className="font-semibold text-slate-900">
+                    <p className="font-semibold text-foreground">
                       {delivery.amount}
                     </p>
-                    <p className="mt-1 text-xs text-slate-500">
+                    <p className="mt-1 text-xs text-muted-foreground">
                       {delivery.type}
                     </p>
                   </div>
@@ -453,10 +453,10 @@ export default function RiderOverviewPage() {
 
       {/* Activity and rider tips */}
       <section className="grid gap-5 xl:grid-cols-[1.4fr_1fr]">
-        <Card className="border-slate-200 shadow-sm">
+        <Card className="border-border shadow-sm">
           <CardHeader>
             <CardTitle className="text-base">Recent activity</CardTitle>
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-muted-foreground">
               Latest updates from your delivery workflow
             </p>
           </CardHeader>
@@ -476,14 +476,14 @@ export default function RiderOverviewPage() {
 
                     <div className="min-w-0 flex-1">
                       <div className="flex flex-wrap items-center justify-between gap-2">
-                        <p className="text-sm font-medium text-slate-900">
+                        <p className="text-sm font-medium text-foreground">
                           {activity.title}
                         </p>
-                        <span className="text-xs text-slate-500">
+                        <span className="text-xs text-muted-foreground">
                           {activity.time}
                         </span>
                       </div>
-                      <p className="mt-1 break-all text-xs text-slate-500">
+                      <p className="mt-1 break-all text-xs text-muted-foreground">
                         {activity.description}
                       </p>
                     </div>
@@ -494,10 +494,10 @@ export default function RiderOverviewPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-blue-100 bg-blue-50/50 shadow-sm">
+        <Card className="border-blue-500/10 bg-blue-500/10/50 shadow-sm">
           <CardHeader>
             <div className="flex items-center gap-2">
-              <div className="rounded-lg bg-blue-100 p-2 text-blue-700">
+              <div className="rounded-lg bg-blue-500/10 p-2 text-blue-700 dark:text-blue-400">
                 <CheckCircle2 className="size-5" />
               </div>
               <CardTitle className="text-base">Delivery checklist</CardTitle>
@@ -507,44 +507,44 @@ export default function RiderOverviewPage() {
           <CardContent>
             <div className="space-y-4 text-sm">
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-600" />
+                <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
                 <div>
-                  <p className="font-medium text-slate-900">
+                  <p className="font-medium text-foreground">
                     Verify recipient details
                   </p>
-                  <p className="mt-1 text-xs leading-5 text-slate-500">
+                  <p className="mt-1 text-xs leading-5 text-muted-foreground">
                     Confirm the recipient's name, phone and delivery address.
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-600" />
+                <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
                 <div>
-                  <p className="font-medium text-slate-900">
+                  <p className="font-medium text-foreground">
                     Update shipment status
                   </p>
-                  <p className="mt-1 text-xs leading-5 text-slate-500">
+                  <p className="mt-1 text-xs leading-5 text-muted-foreground">
                     Keep shipment progress accurate throughout the delivery.
                   </p>
                 </div>
               </div>
 
               <div className="flex items-start gap-3">
-                <Phone className="mt-0.5 size-4 shrink-0 text-blue-700" />
+                <Phone className="mt-0.5 size-4 shrink-0 text-blue-700 dark:text-blue-400" />
                 <div>
-                  <p className="font-medium text-slate-900">
+                  <p className="font-medium text-foreground">
                     Contact the recipient when needed
                   </p>
-                  <p className="mt-1 text-xs leading-5 text-slate-500">
+                  <p className="mt-1 text-xs leading-5 text-muted-foreground">
                     Coordinate delivery attempts and report any issues promptly.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="mt-5 rounded-xl border border-blue-100 bg-white/80 p-3">
-              <p className="text-xs leading-5 text-slate-600">
+            <div className="mt-5 rounded-xl border border-border bg-card/80 p-3">
+              <p className="text-xs leading-5 text-muted-foreground">
                 Dashboard figures and activity entries are demo data. Connect
                 them to the authenticated rider APIs before production use.
               </p>

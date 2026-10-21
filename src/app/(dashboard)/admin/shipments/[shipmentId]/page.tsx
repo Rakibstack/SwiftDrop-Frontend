@@ -55,9 +55,9 @@ export default function AdminShipmentDetailsPage() {
   if (isPending) {
     return (
       <main className="space-y-5 p-4 sm:p-6">
-        <div className="h-8 w-48 animate-pulse rounded-lg bg-zinc-100" />
-        <div className="h-36 animate-pulse rounded-2xl bg-zinc-100" />
-        <div className="h-64 animate-pulse rounded-2xl bg-zinc-100" />
+        <div className="h-8 w-48 animate-pulse rounded-lg bg-muted" />
+        <div className="h-36 animate-pulse rounded-2xl bg-muted" />
+        <div className="h-64 animate-pulse rounded-2xl bg-muted" />
       </main>
     );
   }
@@ -67,17 +67,17 @@ export default function AdminShipmentDetailsPage() {
       <main className="p-6">
         <Link
           href="/admin/shipments"
-          className="inline-flex items-center gap-2 text-sm text-zinc-600 hover:text-orange-600"
+          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-orange-600 dark:text-orange-400"
         >
           <ArrowLeft size={16} />
           Back to shipments
         </Link>
 
-        <div className="mt-6 rounded-2xl border border-red-100 bg-white p-8">
-          <h1 className="text-lg font-semibold text-zinc-900">
+        <div className="mt-6 rounded-2xl border border-red-500/10 bg-card p-8">
+          <h1 className="text-lg font-semibold text-foreground">
             Could not load shipment
           </h1>
-          <p className="mt-2 text-sm text-zinc-500">
+          <p className="mt-2 text-sm text-muted-foreground">
             The shipment may not exist, or the request failed.
           </p>
 
@@ -99,27 +99,27 @@ export default function AdminShipmentDetailsPage() {
         <div>
           <Link
             href="/admin/shipments"
-            className="mb-4 inline-flex items-center gap-2 text-sm text-zinc-500 transition hover:text-orange-600"
+            className="mb-4 inline-flex items-center gap-2 text-sm text-muted-foreground transition hover:text-orange-600 dark:text-orange-400"
           >
             <ArrowLeft size={16} />
             All shipments
           </Link>
 
-          <p className="text-sm font-medium text-orange-600">
+          <p className="text-sm font-medium text-orange-600 dark:text-orange-400">
             OPERATIONS / SHIPMENTS / DETAILS
           </p>
 
-          <h1 className="mt-2 break-all text-2xl font-bold tracking-tight text-zinc-950 sm:text-3xl">
+          <h1 className="mt-2 break-all text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
             {shipment.trackingId}
           </h1>
 
-          <p className="mt-2 text-sm text-zinc-500">
+          <p className="mt-2 text-sm text-muted-foreground">
             Created {formatDate(shipment.createdAt)}
           </p>
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="rounded-full bg-orange-50 px-3 py-1.5 text-xs font-semibold text-orange-700">
+          <span className="rounded-full bg-orange-500/10 px-3 py-1.5 text-xs font-semibold text-orange-700 dark:text-orange-400">
             {formatStatus(shipment.status)}
           </span>
 
@@ -128,7 +128,7 @@ export default function AdminShipmentDetailsPage() {
             onClick={() => void refetch()}
             disabled={isFetching}
             aria-label="Refresh shipment"
-            className="rounded-xl border border-zinc-200 bg-white p-3 hover:bg-zinc-50 disabled:opacity-50"
+            className="rounded-xl border border-border bg-card p-3 hover:bg-muted disabled:opacity-50"
           >
             <RefreshCw size={17} className={isFetching ? "animate-spin" : ""} />
           </button>
@@ -160,7 +160,7 @@ export default function AdminShipmentDetailsPage() {
 
       <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.6fr)_minmax(320px,1fr)]">
         <div className="space-y-6">
-          <section className="rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-sm sm:p-6">
+          <section className="rounded-2xl border border-border/80 bg-card p-5 shadow-sm sm:p-6">
             <SectionTitle
               icon={<MapPin size={19} />}
               title="Delivery information"
@@ -168,48 +168,48 @@ export default function AdminShipmentDetailsPage() {
             />
 
             <div className="mt-6 grid gap-6 md:grid-cols-2">
-              <div className="rounded-xl bg-zinc-50 p-4">
-                <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+              <div className="rounded-xl bg-muted p-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                   Sender
                 </p>
-                <p className="mt-3 font-semibold text-zinc-900">
+                <p className="mt-3 font-semibold text-foreground">
                   {shipment.senderName}
                 </p>
-                <p className="mt-1 text-sm text-zinc-600">
+                <p className="mt-1 text-sm text-muted-foreground">
                   {shipment.senderPhone}
                 </p>
-                <p className="mt-3 text-sm leading-6 text-zinc-600">
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">
                   {shipment.senderAddress}
                 </p>
               </div>
 
-              <div className="rounded-xl bg-zinc-50 p-4">
-                <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
+              <div className="rounded-xl bg-muted p-4">
+                <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                   Recipient
                 </p>
-                <p className="mt-3 font-semibold text-zinc-900">
+                <p className="mt-3 font-semibold text-foreground">
                   {shipment.recipientName}
                 </p>
-                <p className="mt-1 text-sm text-zinc-600">
+                <p className="mt-1 text-sm text-muted-foreground">
                   {shipment.recipientPhone}
                 </p>
-                <p className="mt-3 text-sm leading-6 text-zinc-600">
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">
                   {shipment.recipientAddress}
                 </p>
               </div>
             </div>
 
-            <div className="mt-5 border-t border-zinc-100 pt-5">
-              <p className="text-sm font-medium text-zinc-700">
+            <div className="mt-5 border-t border-border pt-5">
+              <p className="text-sm font-medium text-foreground">
                 Parcel description
               </p>
-              <p className="mt-2 text-sm leading-6 text-zinc-500">
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 {shipment.parcelDescription || "No description provided."}
               </p>
             </div>
           </section>
 
-          <section className="rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-sm sm:p-6">
+          <section className="rounded-2xl border border-border/80 bg-card p-5 shadow-sm sm:p-6">
             <SectionTitle
               icon={<UserRound size={19} />}
               title="Merchant information"
@@ -229,7 +229,7 @@ export default function AdminShipmentDetailsPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-sm sm:p-6">
+          <section className="rounded-2xl border border-border/80 bg-card p-5 shadow-sm sm:p-6">
             <SectionTitle
               icon={<Clock3 size={19} />}
               title="Shipment timeline"
@@ -238,28 +238,28 @@ export default function AdminShipmentDetailsPage() {
 
             <div className="mt-6">
               {!shipment.trackingEvents?.length ? (
-                <p className="text-sm text-zinc-500">
+                <p className="text-sm text-muted-foreground">
                   No tracking events recorded yet.
                 </p>
               ) : (
                 <div className="space-y-5">
                   {shipment.trackingEvents.map((event) => (
                     <div key={event.id} className="flex gap-3">
-                      <div className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-orange-500 ring-4 ring-orange-50" />
+                      <div className="mt-1 h-2.5 w-2.5 shrink-0 rounded-full bg-orange-500 ring-4 ring-orange-500/10" />
 
                       <div className="min-w-0 flex-1">
-                        <p className="text-sm font-semibold text-zinc-900">
+                        <p className="text-sm font-semibold text-foreground">
                           {formatStatus(event.status)}
                         </p>
-                        <p className="mt-1 text-sm leading-5 text-zinc-600">
+                        <p className="mt-1 text-sm leading-5 text-muted-foreground">
                           {event.description}
                         </p>
                         {event.location && (
-                          <p className="mt-1 text-xs text-zinc-500">
+                          <p className="mt-1 text-xs text-muted-foreground">
                             {event.location}
                           </p>
                         )}
-                        <p className="mt-2 text-xs text-zinc-400">
+                        <p className="mt-2 text-xs text-muted-foreground">
                           {formatDate(event.createdAt)}
                         </p>
                       </div>
@@ -270,7 +270,7 @@ export default function AdminShipmentDetailsPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-sm sm:p-6">
+          <section className="rounded-2xl border border-border/80 bg-card p-5 shadow-sm sm:p-6">
             <SectionTitle
               icon={<CreditCard size={19} />}
               title="Payment records"
@@ -279,29 +279,29 @@ export default function AdminShipmentDetailsPage() {
 
             <div className="mt-5 space-y-3">
               {!shipment.payments?.length ? (
-                <p className="text-sm text-zinc-500">
+                <p className="text-sm text-muted-foreground">
                   No payment records found.
                 </p>
               ) : (
                 shipment.payments.map((payment) => (
                   <div
                     key={payment.id}
-                    className="rounded-xl border border-zinc-100 p-4"
+                    className="rounded-xl border border-border p-4"
                   >
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <p className="font-semibold text-zinc-900">
+                      <p className="font-semibold text-foreground">
                         {formatMoney(payment.amount)}
                       </p>
-                      <span className="rounded-full bg-zinc-100 px-2.5 py-1 text-xs font-medium text-zinc-600">
+                      <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
                         {formatStatus(payment.status)}
                       </span>
                     </div>
 
-                    <p className="mt-2 text-xs text-zinc-500">
+                    <p className="mt-2 text-xs text-muted-foreground">
                       {payment.paymentGateway} · {payment.merchantInvoiceNumber}
                     </p>
 
-                    <p className="mt-1 text-xs text-zinc-400">
+                    <p className="mt-1 text-xs text-muted-foreground">
                       {formatDate(payment.paidAt ?? payment.createdAt)}
                     </p>
                   </div>
@@ -312,7 +312,7 @@ export default function AdminShipmentDetailsPage() {
         </div>
 
         <aside className="space-y-6">
-          <section className="rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-sm sm:p-6">
+          <section className="rounded-2xl border border-border/80 bg-card p-5 shadow-sm sm:p-6">
             <SectionTitle
               icon={<Truck size={19} />}
               title="Rider assignment"
@@ -324,7 +324,7 @@ export default function AdminShipmentDetailsPage() {
             </div>
           </section>
 
-          <section className="rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-sm sm:p-6">
+          <section className="rounded-2xl border border-border/80 bg-card p-5 shadow-sm sm:p-6">
             <SectionTitle
               icon={<Package size={19} />}
               title="Shipment timestamps"
@@ -378,14 +378,14 @@ function MetricCard({
   icon: React.ReactNode;
 }) {
   return (
-    <article className="rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-sm">
+    <article className="rounded-2xl border border-border/80 bg-card p-5 shadow-sm">
       <div className="flex items-center justify-between gap-3">
-        <p className="text-sm text-zinc-500">{label}</p>
-        <span className="rounded-xl bg-orange-50 p-2.5 text-orange-600">
+        <p className="text-sm text-muted-foreground">{label}</p>
+        <span className="rounded-xl bg-orange-500/10 p-2.5 text-orange-600 dark:text-orange-400">
           {icon}
         </span>
       </div>
-      <p className="mt-4 break-words text-xl font-bold text-zinc-950">
+      <p className="mt-4 break-words text-xl font-bold text-foreground">
         {value}
       </p>
     </article>
@@ -403,10 +403,10 @@ function SectionTitle({
 }) {
   return (
     <div className="flex items-start gap-3">
-      <span className="rounded-xl bg-zinc-100 p-2.5 text-zinc-700">{icon}</span>
+      <span className="rounded-xl bg-muted p-2.5 text-foreground">{icon}</span>
       <div>
-        <h2 className="font-bold text-zinc-950">{title}</h2>
-        <p className="mt-1 text-sm text-zinc-500">{description}</p>
+        <h2 className="font-bold text-foreground">{title}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
       </div>
     </div>
   );
@@ -415,8 +415,8 @@ function SectionTitle({
 function InfoRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col justify-between gap-1 sm:flex-row sm:gap-4">
-      <span className="shrink-0 text-zinc-500">{label}</span>
-      <span className="break-words text-sm font-medium text-zinc-800 sm:text-right">
+      <span className="shrink-0 text-muted-foreground">{label}</span>
+      <span className="break-words text-sm font-medium text-foreground sm:text-right">
         {value}
       </span>
     </div>

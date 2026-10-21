@@ -36,15 +36,15 @@ function formatDate(date?: string | null) {
 
 function RiderStatusBadge({ status }: { status: string }) {
   const styles: Record<string, string> = {
-    PENDING: "bg-amber-50 text-amber-700 ring-amber-600/20",
-    ACTIVE: "bg-emerald-50 text-emerald-700 ring-emerald-600/20",
-    REJECTED: "bg-rose-50 text-rose-700 ring-rose-600/20",
+    PENDING: "bg-amber-500/10 text-amber-700 dark:text-amber-400 ring-amber-600/20",
+    ACTIVE: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 ring-emerald-600/20",
+    REJECTED: "bg-rose-500/10 text-rose-700 dark:text-rose-400 ring-rose-600/20",
   };
 
   return (
     <span
       className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-bold ring-1 ring-inset ${
-        styles[status] || "bg-slate-100 text-slate-600 ring-slate-500/20"
+        styles[status] || "bg-muted text-muted-foreground ring-border"
       }`}
     >
       <span className="size-1.5 rounded-full bg-current" />
@@ -55,9 +55,9 @@ function RiderStatusBadge({ status }: { status: string }) {
 
 function DetailRow({ label, value }: { label: string; value?: string | null }) {
   return (
-    <div className="flex flex-col gap-1.5 border-b border-slate-100 py-3.5 last:border-0 sm:flex-row sm:items-start sm:justify-between sm:gap-5">
-      <span className="text-sm text-slate-500">{label}</span>
-      <span className="break-all text-sm font-semibold text-slate-800 sm:max-w-[65%] sm:text-right">
+    <div className="flex flex-col gap-1.5 border-b border-border py-3.5 last:border-0 sm:flex-row sm:items-start sm:justify-between sm:gap-5">
+      <span className="text-sm text-muted-foreground">{label}</span>
+      <span className="break-all text-sm font-semibold text-foreground sm:max-w-[65%] sm:text-right">
         {value || "Not provided"}
       </span>
     </div>
@@ -76,14 +76,14 @@ function InformationCard({
   children: React.ReactNode;
 }) {
   return (
-    <section className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm sm:p-6">
+    <section className="rounded-2xl border border-border/80 bg-card p-5 shadow-sm sm:p-6">
       <div className="flex items-center gap-3">
-        <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
+        <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-orange-500/10 text-orange-600 dark:text-orange-400">
           <Icon className="size-5" />
         </div>
         <div>
-          <h2 className="font-bold text-slate-900">{title}</h2>
-          <p className="mt-0.5 text-xs text-slate-500">{description}</p>
+          <h2 className="font-bold text-foreground">{title}</h2>
+          <p className="mt-0.5 text-xs text-muted-foreground">{description}</p>
         </div>
       </div>
 
@@ -162,7 +162,7 @@ export default function AdminRiderDetailsPage() {
     return (
       <div className="flex min-h-[60vh] flex-col items-center justify-center gap-3 bg-[#F7F8FA]">
         <LoaderCircle className="size-8 animate-spin text-orange-500" />
-        <p className="text-sm text-slate-500">Loading rider profile...</p>
+        <p className="text-sm text-muted-foreground">Loading rider profile...</p>
       </div>
     );
   }
@@ -171,10 +171,10 @@ export default function AdminRiderDetailsPage() {
     return (
       <main className="flex min-h-[60vh] flex-col items-center justify-center bg-[#F7F8FA] px-5 text-center">
         <XCircle className="size-10 text-rose-500" />
-        <h1 className="mt-4 text-xl font-bold text-slate-900">
+        <h1 className="mt-4 text-xl font-bold text-foreground">
           Unable to load rider
         </h1>
-        <p className="mt-2 text-sm text-slate-500">
+        <p className="mt-2 text-sm text-muted-foreground">
           Check your connection and try again.
         </p>
         <button
@@ -191,11 +191,11 @@ export default function AdminRiderDetailsPage() {
   if (!rider) {
     return (
       <main className="flex min-h-[60vh] flex-col items-center justify-center bg-[#F7F8FA] px-5 text-center">
-        <UserRound className="size-10 text-slate-400" />
-        <h1 className="mt-4 text-xl font-bold text-slate-900">
+        <UserRound className="size-10 text-muted-foreground" />
+        <h1 className="mt-4 text-xl font-bold text-foreground">
           Rider not found
         </h1>
-        <p className="mt-2 max-w-md text-sm leading-6 text-slate-500">
+        <p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">
           This rider is not present in the records returned by the current
           rider-list API.
         </p>
@@ -217,7 +217,7 @@ export default function AdminRiderDetailsPage() {
     <main className="min-h-screen space-y-6 bg-[#F7F8FA] p-4 sm:p-6 lg:p-8">
       <Link
         href="/admin/riders"
-        className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 transition hover:text-orange-600"
+        className="inline-flex items-center gap-2 text-sm font-semibold text-muted-foreground transition hover:text-orange-600 dark:text-orange-400"
       >
         <ArrowLeft className="size-4" />
         Back to rider management
@@ -251,7 +251,7 @@ export default function AdminRiderDetailsPage() {
               <h1 className="mt-2 break-words text-2xl font-bold tracking-tight sm:text-3xl">
                 {user.name}
               </h1>
-              <p className="mt-2 break-all text-sm text-slate-300">
+              <p className="mt-2 break-all text-sm text-white/70">
                 {user.email}
               </p>
 
@@ -274,7 +274,7 @@ export default function AdminRiderDetailsPage() {
 
           {isPendingReview && (
             <div className="flex w-full flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.06] p-4 sm:flex-row lg:w-auto lg:min-w-72 lg:flex-col">
-              <p className="text-sm font-semibold text-slate-200">
+              <p className="text-sm font-semibold text-white/70">
                 Review this application
               </p>
               <div className="flex flex-1 flex-wrap gap-2">
@@ -309,13 +309,13 @@ export default function AdminRiderDetailsPage() {
 
       {/* Review state */}
       {rider.status === "PENDING" && (
-        <section className="flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4">
-          <Clock3 className="mt-0.5 size-5 shrink-0 text-amber-600" />
+        <section className="flex items-start gap-3 rounded-2xl border border-amber-500/20 bg-amber-500/10 p-4">
+          <Clock3 className="mt-0.5 size-5 shrink-0 text-amber-600 dark:text-amber-400" />
           <div>
-            <p className="text-sm font-bold text-amber-900">
+            <p className="text-sm font-bold text-amber-900 dark:text-amber-200">
               Application awaiting review
             </p>
-            <p className="mt-1 text-sm leading-6 text-amber-800">
+            <p className="mt-1 text-sm leading-6 text-amber-800 dark:text-amber-300">
               Check the submitted contact details, vehicle type, and license
               information before approving or rejecting this application.
             </p>
@@ -324,17 +324,17 @@ export default function AdminRiderDetailsPage() {
       )}
 
       {rider.status === "REJECTED" && (
-        <section className="flex items-start gap-3 rounded-2xl border border-rose-200 bg-rose-50 p-4">
-          <XCircle className="mt-0.5 size-5 shrink-0 text-rose-600" />
+        <section className="flex items-start gap-3 rounded-2xl border border-rose-500/20 bg-rose-500/10 p-4">
+          <XCircle className="mt-0.5 size-5 shrink-0 text-rose-600 dark:text-rose-400" />
           <div>
-            <p className="text-sm font-bold text-rose-900">
+            <p className="text-sm font-bold text-rose-900 dark:text-rose-200">
               Application rejected
             </p>
-            <p className="mt-1 text-sm leading-6 text-rose-800">
+            <p className="mt-1 text-sm leading-6 text-rose-800 dark:text-rose-300">
               {rider.rejectionReason || "No rejection reason was returned."}
             </p>
             {rider.rejectedAt && (
-              <p className="mt-2 text-xs text-rose-700">
+              <p className="mt-2 text-xs text-rose-700 dark:text-rose-400">
                 Rejected at: {formatDate(rider.rejectedAt)}
               </p>
             )}
@@ -343,11 +343,11 @@ export default function AdminRiderDetailsPage() {
       )}
 
       {rider.status === "ACTIVE" && (
-        <section className="flex items-start gap-3 rounded-2xl border border-emerald-200 bg-emerald-50 p-4">
-          <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-emerald-600" />
+        <section className="flex items-start gap-3 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 p-4">
+          <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-emerald-600 dark:text-emerald-400" />
           <div>
-            <p className="text-sm font-bold text-emerald-900">Rider approved</p>
-            <p className="mt-1 text-sm leading-6 text-emerald-800">
+            <p className="text-sm font-bold text-emerald-900 dark:text-emerald-200">Rider approved</p>
+            <p className="mt-1 text-sm leading-6 text-emerald-800 dark:text-emerald-300">
               This rider application has been approved. Review actions are
               hidden because the application is no longer pending.
             </p>
@@ -428,21 +428,21 @@ export default function AdminRiderDetailsPage() {
           <DetailRow label="User ID" value={rider.userId} />
           <DetailRow label="Account ID" value={user.id} />
           <DetailRow label="Email" value={user.email} />
-          <div className="mt-3 flex items-start gap-2 rounded-xl bg-slate-50 p-3">
-            <MapPin className="mt-0.5 size-4 shrink-0 text-slate-400" />
-            <p className="break-all text-xs leading-5 text-slate-500">
+          <div className="mt-3 flex items-start gap-2 rounded-xl bg-muted p-3">
+            <MapPin className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+            <p className="break-all text-xs leading-5 text-muted-foreground">
               {rider.address}
             </p>
           </div>
-          <div className="mt-3 flex items-start gap-2 rounded-xl bg-slate-50 p-3">
-            <Mail className="mt-0.5 size-4 shrink-0 text-slate-400" />
-            <p className="break-all text-xs leading-5 text-slate-500">
+          <div className="mt-3 flex items-start gap-2 rounded-xl bg-muted p-3">
+            <Mail className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+            <p className="break-all text-xs leading-5 text-muted-foreground">
               {user.email}
             </p>
           </div>
-          <div className="mt-3 flex items-start gap-2 rounded-xl bg-slate-50 p-3">
-            <Phone className="mt-0.5 size-4 shrink-0 text-slate-400" />
-            <p className="text-xs leading-5 text-slate-500">{rider.phone}</p>
+          <div className="mt-3 flex items-start gap-2 rounded-xl bg-muted p-3">
+            <Phone className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+            <p className="text-xs leading-5 text-muted-foreground">{rider.phone}</p>
           </div>
         </InformationCard>
       </div>
@@ -465,20 +465,20 @@ export default function AdminRiderDetailsPage() {
             role="dialog"
             aria-modal="true"
             aria-labelledby="reject-rider-title"
-            className="relative z-10 w-full max-w-lg rounded-2xl border border-slate-200 bg-white p-5 shadow-2xl sm:p-6"
+            className="relative z-10 w-full max-w-lg rounded-2xl border border-border bg-card p-5 shadow-2xl sm:p-6"
           >
             <div className="flex items-start gap-3">
-              <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-rose-50 text-rose-600">
+              <div className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400">
                 <XCircle className="size-5" />
               </div>
               <div>
                 <h2
                   id="reject-rider-title"
-                  className="text-lg font-bold text-slate-900"
+                  className="text-lg font-bold text-foreground"
                 >
                   Reject rider application{" "}
                 </h2>
-                <p className="mt-1 text-sm leading-6 text-slate-500">
+                <p className="mt-1 text-sm leading-6 text-muted-foreground">
                   Provide a clear reason for rejecting {user.name}&apos;s
                   application. The reason will be submitted to the backend.
                 </p>
@@ -488,7 +488,7 @@ export default function AdminRiderDetailsPage() {
             <div className="mt-5">
               <label
                 htmlFor="rejectionReason"
-                className="mb-2 block text-sm font-semibold text-slate-800"
+                className="mb-2 block text-sm font-semibold text-foreground"
               >
                 Rejection reason <span className="text-rose-500">*</span>
               </label>
@@ -501,14 +501,14 @@ export default function AdminRiderDetailsPage() {
                 rows={5}
                 maxLength={500}
                 placeholder="Explain why this rider application cannot be approved..."
-                className="w-full resize-y rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm leading-6 text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-rose-300 focus:bg-white focus:ring-4 focus:ring-rose-500/10"
+                className="w-full resize-y rounded-xl border border-border bg-muted px-3.5 py-3 text-sm leading-6 text-foreground outline-none transition placeholder:text-muted-foreground focus:border-rose-500/40 focus:bg-card focus:ring-4 focus:ring-rose-500/10"
               />
               <div className="mt-2 flex items-center justify-between gap-3">
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-muted-foreground">
                   A reason is required to reject this application.
                 </p>
                 <span
-                  className={`shrink-0 text-xs ${rejectionReason.length >= 480 ? "text-rose-600" : "text-slate-400"}`}
+                  className={`shrink-0 text-xs ${rejectionReason.length >= 480 ? "text-rose-600 dark:text-rose-400" : "text-muted-foreground"}`}
                 >
                   {rejectionReason.length}/500
                 </span>
@@ -520,7 +520,7 @@ export default function AdminRiderDetailsPage() {
                 type="button"
                 onClick={() => setRejectDialogOpen(false)}
                 disabled={isReviewing}
-                className="h-10 rounded-xl border border-slate-200 px-4 text-sm font-semibold text-slate-700 transition hover:bg-slate-50 disabled:opacity-50"
+                className="h-10 rounded-xl border border-border px-4 text-sm font-semibold text-foreground transition hover:bg-muted disabled:opacity-50"
               >
                 Cancel
               </button>

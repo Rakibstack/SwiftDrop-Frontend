@@ -22,13 +22,13 @@ function formatDate(value: string) {
 function statusClass(status: string) {
   switch (status) {
     case "ACTIVE":
-      return "bg-emerald-50 text-emerald-700";
+      return "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400";
     case "SUSPENDED":
-      return "bg-red-50 text-red-700";
+      return "bg-red-500/10 text-red-700 dark:text-red-400";
     case "INACTIVE":
-      return "bg-amber-50 text-amber-700";
+      return "bg-amber-500/10 text-amber-700 dark:text-amber-400";
     default:
-      return "bg-slate-100 text-slate-600";
+      return "bg-muted text-muted-foreground";
   }
 }
 
@@ -65,9 +65,9 @@ export default function AdminUsersPage() {
   if (isPending) {
     return (
       <main className="space-y-6 p-4 md:p-8">
-        <div className="h-8 w-52 animate-pulse rounded bg-slate-200" />
-        <div className="h-28 animate-pulse rounded-2xl bg-slate-100" />
-        <div className="h-80 animate-pulse rounded-2xl bg-slate-100" />
+        <div className="h-8 w-52 animate-pulse rounded bg-muted" />
+        <div className="h-28 animate-pulse rounded-2xl bg-muted" />
+        <div className="h-80 animate-pulse rounded-2xl bg-muted" />
       </main>
     );
   }
@@ -75,9 +75,9 @@ export default function AdminUsersPage() {
   if (isError) {
     return (
       <main className="p-6 md:p-8">
-        <div className="rounded-2xl border border-red-200 bg-red-50 p-6">
-          <h2 className="font-semibold text-red-800">Unable to load users</h2>
-          <p className="mt-2 text-sm text-red-700">
+        <div className="rounded-2xl border border-red-500/20 bg-red-500/10 p-6">
+          <h2 className="font-semibold text-red-800 dark:text-red-300">Unable to load users</h2>
+          <p className="mt-2 text-sm text-red-700 dark:text-red-400">
             {error instanceof Error ? error.message : "Please try again."}
           </p>
           <button
@@ -96,40 +96,40 @@ export default function AdminUsersPage() {
     <main className="min-w-0 space-y-6 p-4 md:p-8">
       <header className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <p className="text-sm font-medium text-emerald-700">ADMINISTRATION</p>
-          <h1 className="mt-1 text-2xl font-bold tracking-tight text-slate-950 md:text-3xl">
+          <p className="text-sm font-medium text-emerald-700 dark:text-emerald-400">ADMINISTRATION</p>
+          <h1 className="mt-1 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
             User Management
           </h1>
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-muted-foreground">
             View user accounts and their merchant or rider profiles.
           </p>
         </div>
 
-        <div className="flex items-center gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3">
-          <div className="rounded-lg bg-emerald-50 p-2 text-emerald-700">
+        <div className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3">
+          <div className="rounded-lg bg-emerald-500/10 p-2 text-emerald-700 dark:text-emerald-400">
             <Users size={20} />
           </div>
           <div>
-            <p className="text-xs text-slate-500">Total users</p>
-            <p className="text-xl font-bold text-slate-900">
+            <p className="text-xs text-muted-foreground">Total users</p>
+            <p className="text-xl font-bold text-foreground">
               {meta?.total ?? users.length}
             </p>
           </div>
         </div>
       </header>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:p-5">
+      <section className="rounded-2xl border border-border bg-card p-4 shadow-sm md:p-5">
         <div className="grid gap-3 md:grid-cols-[minmax(220px,1fr)_180px_180px]">
           <label className="relative block">
             <Search
               size={18}
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground"
             />
             <input
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Search name, email or ID..."
-              className="w-full rounded-xl border border-slate-200 py-2.5 pl-10 pr-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100"
+              className="w-full rounded-xl border border-border py-2.5 pl-10 pr-3 text-sm outline-none transition focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10"
             />
           </label>
 
@@ -138,7 +138,7 @@ export default function AdminUsersPage() {
             onChange={(event) =>
               setRole(event.target.value as (typeof roles)[number])
             }
-            className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-emerald-500"
+            className="rounded-xl border border-border bg-card px-3 py-2.5 text-sm outline-none focus:border-emerald-500"
             aria-label="Filter by role"
           >
             {roles.map((item) => (
@@ -153,7 +153,7 @@ export default function AdminUsersPage() {
             onChange={(event) =>
               setStatus(event.target.value as (typeof statuses)[number])
             }
-            className="rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-emerald-500"
+            className="rounded-xl border border-border bg-card px-3 py-2.5 text-sm outline-none focus:border-emerald-500"
             aria-label="Filter by status"
           >
             {statuses.map((item) => (
@@ -165,22 +165,22 @@ export default function AdminUsersPage() {
         </div>
 
         <div className="mt-5 flex items-center justify-between">
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-muted-foreground">
             Showing{" "}
-            <span className="font-semibold text-slate-800">
+            <span className="font-semibold text-foreground">
               {filteredUsers.length}
             </span>{" "}
             of {users.length} loaded users
           </p>
           {isFetching && (
-            <span className="text-xs text-slate-400">Updating...</span>
+            <span className="text-xs text-muted-foreground">Updating...</span>
           )}
         </div>
 
         <div className="mt-3 overflow-x-auto">
           <table className="w-full min-w-[760px] border-collapse text-left">
             <thead>
-              <tr className="border-y border-slate-100 text-xs uppercase tracking-wide text-slate-500">
+              <tr className="border-y border-border text-xs uppercase tracking-wide text-muted-foreground">
                 <th className="px-4 py-3 font-semibold">User</th>
                 <th className="px-4 py-3 font-semibold">Role</th>
                 <th className="px-4 py-3 font-semibold">Status</th>
@@ -190,9 +190,9 @@ export default function AdminUsersPage() {
               </tr>
             </thead>
 
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-border">
               {filteredUsers.map((user) => (
-                <tr key={user.id} className="transition hover:bg-slate-50/80">
+                <tr key={user.id} className="transition hover:bg-muted/80">
                   <td className="px-4 py-4">
                     <div className="flex items-center gap-3">
                       {user.imageUrl ? (
@@ -202,18 +202,18 @@ export default function AdminUsersPage() {
                           alt=""
                           width={500}
                           height={500}
-                          className="h-10 w-10 rounded-full border border-slate-200 object-cover"
+                          className="h-10 w-10 rounded-full border border-border object-cover"
                         />
                       ) : (
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-50 font-semibold text-emerald-700">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500/10 font-semibold text-emerald-700 dark:text-emerald-400">
                           {user.name.slice(0, 1).toUpperCase()}
                         </div>
                       )}
                       <div className="min-w-0">
-                        <p className="max-w-52 truncate text-sm font-semibold text-slate-900">
+                        <p className="max-w-52 truncate text-sm font-semibold text-foreground">
                           {user.name}
                         </p>
-                        <p className="max-w-56 truncate text-xs text-slate-500">
+                        <p className="max-w-56 truncate text-xs text-muted-foreground">
                           {user.email}
                         </p>
                       </div>
@@ -221,7 +221,7 @@ export default function AdminUsersPage() {
                   </td>
 
                   <td className="px-4 py-4">
-                    <span className="rounded-lg bg-slate-100 px-2.5 py-1.5 text-xs font-semibold text-slate-700">
+                    <span className="rounded-lg bg-muted px-2.5 py-1.5 text-xs font-semibold text-foreground">
                       {user.role}
                     </span>
                   </td>
@@ -236,20 +236,20 @@ export default function AdminUsersPage() {
 
                   <td className="px-4 py-4">
                     <span
-                      className={`text-xs font-medium ${user.emailVerified ? "text-emerald-700" : "text-amber-700"}`}
+                      className={`text-xs font-medium ${user.emailVerified ? "text-emerald-700 dark:text-emerald-400" : "text-amber-700 dark:text-amber-400"}`}
                     >
                       {user.emailVerified ? "Verified" : "Not verified"}
                     </span>
                   </td>
 
-                  <td className="whitespace-nowrap px-4 py-4 text-sm text-slate-500">
+                  <td className="whitespace-nowrap px-4 py-4 text-sm text-muted-foreground">
                     {formatDate(user.createdAt)}
                   </td>
 
                   <td className="px-4 py-4 text-right">
                     <Link
                       href={`/admin/users/${user.id}`}
-                      className="inline-flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm font-medium text-slate-700 transition hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-800"
+                      className="inline-flex items-center gap-2 rounded-lg border border-border px-3 py-2 text-sm font-medium text-foreground transition hover:border-emerald-500/40 hover:bg-emerald-500/10 hover:text-emerald-800 dark:text-emerald-300"
                     >
                       <Eye size={16} />
                       Details
@@ -261,8 +261,8 @@ export default function AdminUsersPage() {
               {filteredUsers.length === 0 && (
                 <tr>
                   <td colSpan={6} className="px-4 py-14 text-center">
-                    <p className="font-medium text-slate-700">No users found</p>
-                    <p className="mt-1 text-sm text-slate-500">
+                    <p className="font-medium text-foreground">No users found</p>
+                    <p className="mt-1 text-sm text-muted-foreground">
                       Try changing your search or filters.
                     </p>
                   </td>
@@ -272,8 +272,8 @@ export default function AdminUsersPage() {
           </table>
         </div>
 
-        <div className="mt-5 flex flex-col gap-3 border-t border-slate-100 pt-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-sm text-slate-500">
+        <div className="mt-5 flex flex-col gap-3 border-t border-border pt-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground">
             Page {meta?.page ?? page} of {meta?.totalPages ?? 1}
           </p>
 
@@ -282,7 +282,7 @@ export default function AdminUsersPage() {
               type="button"
               disabled={page <= 1 || isFetching}
               onClick={() => setPage((current) => Math.max(1, current - 1))}
-              className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40"
+              className="inline-flex items-center gap-1 rounded-lg border border-border px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40"
             >
               <ChevronLeft size={16} />
               Previous
@@ -292,7 +292,7 @@ export default function AdminUsersPage() {
               type="button"
               disabled={page >= (meta?.totalPages ?? 1) || isFetching}
               onClick={() => setPage((current) => current + 1)}
-              className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40"
+              className="inline-flex items-center gap-1 rounded-lg border border-border px-3 py-2 text-sm disabled:cursor-not-allowed disabled:opacity-40"
             >
               Next
               <ChevronRight size={16} />

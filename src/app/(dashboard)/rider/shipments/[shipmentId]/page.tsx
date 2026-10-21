@@ -34,15 +34,15 @@ const DELIVERY_STEPS = [
 ] as const;
 
 const STATUS_STYLES: Record<string, string> = {
-  ASSIGNED: "bg-amber-50 text-amber-700 ring-amber-200",
-  ACCEPTED: "bg-blue-50 text-blue-700 ring-blue-200",
-  PICKED_UP: "bg-violet-50 text-violet-700 ring-violet-200",
-  IN_TRANSIT: "bg-indigo-50 text-indigo-700 ring-indigo-200",
-  OUT_FOR_DELIVERY: "bg-orange-50 text-orange-700 ring-orange-200",
-  DELIVERED: "bg-emerald-50 text-emerald-700 ring-emerald-200",
-  DELIVERY_FAILED: "bg-red-50 text-red-700 ring-red-200",
-  RETURNED: "bg-slate-100 text-slate-700 ring-slate-200",
-  CANCELLED: "bg-red-50 text-red-700 ring-red-200",
+  ASSIGNED: "bg-amber-500/10 text-amber-700 dark:text-amber-400 ring-amber-500/20",
+  ACCEPTED: "bg-blue-500/10 text-blue-700 dark:text-blue-400 ring-blue-500/20",
+  PICKED_UP: "bg-violet-500/10 text-violet-700 dark:text-violet-400 ring-violet-500/20",
+  IN_TRANSIT: "bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 ring-indigo-500/20",
+  OUT_FOR_DELIVERY: "bg-orange-500/10 text-orange-700 dark:text-orange-400 ring-orange-500/20",
+  DELIVERED: "bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 ring-emerald-500/20",
+  DELIVERY_FAILED: "bg-red-500/10 text-red-700 dark:text-red-400 ring-red-500/20",
+  RETURNED: "bg-muted text-foreground ring-border",
+  CANCELLED: "bg-red-500/10 text-red-700 dark:text-red-400 ring-red-500/20",
 };
 
 const STATUS_LABELS: Record<string, string> = {
@@ -180,7 +180,7 @@ export default function RiderShipmentDetailsPage() {
   if (isError || !shipment) {
     return (
       <main className="mx-auto flex min-h-[60vh] max-w-3xl flex-col items-center justify-center px-4 text-center">
-        <div className="mb-4 flex size-16 items-center justify-center rounded-2xl bg-red-50 text-red-600">
+        <div className="mb-4 flex size-16 items-center justify-center rounded-2xl bg-red-500/10 text-red-600 dark:text-red-400">
           <Package className="size-8" />
         </div>
 
@@ -407,7 +407,7 @@ export default function RiderShipmentDetailsPage() {
           </section>
 
           {shipment.failureReason && (
-            <section className="rounded-2xl border border-red-200 bg-red-50 p-5 text-red-800">
+            <section className="rounded-2xl border border-red-500/20 bg-red-500/10 p-5 text-red-800 dark:text-red-300">
               <h2 className="font-semibold">Delivery issue</h2>
               <p className="mt-2 text-sm leading-6">{shipment.failureReason}</p>
             </section>
@@ -479,7 +479,7 @@ export default function RiderShipmentDetailsPage() {
             </div>
 
             {status === "DELIVERED" && (
-              <div className="mt-2 flex items-start gap-3 rounded-xl bg-emerald-50 p-4 text-emerald-800">
+              <div className="mt-2 flex items-start gap-3 rounded-xl bg-emerald-500/10 p-4 text-emerald-800 dark:text-emerald-300">
                 <CheckCircle2 className="mt-0.5 size-5 shrink-0" />
                 <div>
                   <p className="text-sm font-semibold">Delivery completed</p>

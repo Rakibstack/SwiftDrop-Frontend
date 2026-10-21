@@ -55,7 +55,7 @@ function FieldError({ errors }: FieldErrorProps) {
 
   if (!message) return null;
 
-  return <p className="mt-1.5 text-xs font-medium text-red-600">{message}</p>;
+  return <p className="mt-1.5 text-xs font-medium text-red-600 dark:text-red-400">{message}</p>;
 }
 
 type SectionHeaderProps = {
@@ -67,13 +67,13 @@ type SectionHeaderProps = {
 function SectionHeader({ icon: Icon, title, description }: SectionHeaderProps) {
   return (
     <div className="mb-5 flex items-start gap-3">
-      <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
+      <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-orange-500/10 text-orange-600 dark:text-orange-400">
         <Icon className="size-5" />
       </div>
 
       <div>
-        <h2 className="font-semibold text-gray-900">{title}</h2>
-        <p className="mt-1 text-sm text-gray-500">{description}</p>
+        <h2 className="font-semibold text-foreground">{title}</h2>
+        <p className="mt-1 text-sm text-muted-foreground">{description}</p>
       </div>
     </div>
   );
@@ -89,7 +89,7 @@ function FieldLabel({ htmlFor, children, required = false }: FieldLabelProps) {
   return (
     <label
       htmlFor={htmlFor}
-      className="mb-1.5 block text-sm font-medium text-gray-700"
+      className="mb-1.5 block text-sm font-medium text-foreground"
     >
       {children}
       {required && <span className="ml-1 text-red-500">*</span>}
@@ -98,10 +98,10 @@ function FieldLabel({ htmlFor, children, required = false }: FieldLabelProps) {
 }
 
 const inputClassName =
-  "w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 disabled:cursor-not-allowed disabled:bg-gray-50";
+  "w-full rounded-xl border border-border bg-card px-3.5 py-2.5 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 disabled:cursor-not-allowed disabled:bg-muted";
 
 const sectionClassName =
-  "rounded-2xl border border-gray-200/80 bg-white p-5 shadow-sm sm:p-6";
+  "rounded-2xl border border-border/80 bg-card p-5 shadow-sm sm:p-6";
 
 export default function CreateShipmentForm() {
   const createShipment = useCreateShipment();
@@ -152,37 +152,37 @@ export default function CreateShipmentForm() {
       {/* Page heading */}
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <div className="mb-2 flex items-center gap-2 text-sm text-gray-500">
+          <div className="mb-2 flex items-center gap-2 text-sm text-muted-foreground">
             <Truck className="size-4" />
             <span>Merchant dashboard</span>
             <span>/</span>
-            <span className="text-gray-700">Create shipment</span>
+            <span className="text-foreground">Create shipment</span>
           </div>
 
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+          <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
             Create a shipment
           </h1>
 
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-gray-500">
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
             Enter your sender and recipient details to arrange a delivery with
             SwiftDrop.
           </p>
         </div>
 
-        <div className="flex size-12 items-center justify-center rounded-2xl bg-orange-100 text-orange-600">
+        <div className="flex size-12 items-center justify-center rounded-2xl bg-orange-500/10 text-orange-600 dark:text-orange-400">
           <Package className="size-6" />
         </div>
       </div>
 
       {/* Information banner */}
-      <div className="flex items-start gap-3 rounded-2xl border border-orange-100 bg-orange-50/70 p-4">
-        <MapPin className="mt-0.5 size-5 shrink-0 text-orange-600" />
+      <div className="flex items-start gap-3 rounded-2xl border border-orange-500/10 bg-orange-500/10/70 p-4">
+        <MapPin className="mt-0.5 size-5 shrink-0 text-orange-600 dark:text-orange-400" />
 
         <div>
-          <p className="text-sm font-semibold text-gray-900">
+          <p className="text-sm font-semibold text-foreground">
             Double-check your delivery information
           </p>
-          <p className="mt-1 text-sm leading-5 text-gray-600">
+          <p className="mt-1 text-sm leading-5 text-muted-foreground">
             Accurate phone numbers and complete addresses help riders deliver
             parcels without unnecessary delays.
           </p>
@@ -437,7 +437,7 @@ export default function CreateShipmentForm() {
                     }}
                   />
 
-                  <p className="mt-1.5 text-xs text-gray-400">
+                  <p className="mt-1.5 text-xs text-muted-foreground">
                     Optional. Maximum weight: 100 kg.
                   </p>
 
@@ -501,7 +501,7 @@ export default function CreateShipmentForm() {
                       }}
                     />
 
-                    <p className="mt-1.5 text-xs text-gray-400">
+                    <p className="mt-1.5 text-xs text-muted-foreground">
                       Enter 0 if no payment needs to be collected from the
                       recipient.
                     </p>
@@ -515,7 +515,7 @@ export default function CreateShipmentForm() {
         </section>
 
         {/* Actions */}
-        <div className="flex flex-col-reverse gap-3 border-t border-gray-200 pt-5 sm:flex-row sm:justify-end">
+        <div className="flex flex-col-reverse gap-3 border-t border-border pt-5 sm:flex-row sm:justify-end">
           <Button
             type="button"
             variant="outline"

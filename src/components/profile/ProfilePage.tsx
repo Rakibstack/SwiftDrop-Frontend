@@ -56,14 +56,14 @@ import {
 } from "@/hooks/use-profile-mutations";
 
 const inputClass =
-  "w-full rounded-xl border border-slate-200 bg-white px-3.5 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:placeholder:text-slate-500";
+"w-full rounded-xl border border-border bg-card px-3.5 py-3 text-sm text-foreground outline-none transition placeholder:text-muted-foreground focus:border-orange-400 focus:ring-4 focus:ring-orange-500/10 dark:placeholder:text-muted-foreground";
 
 const cardClass =
-  "overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm dark:border-slate-700 dark:bg-slate-900";
+"overflow-hidden rounded-3xl border border-border/80 bg-card shadow-sm";
 
-const headingClass = "font-bold text-slate-900 dark:text-slate-100";
+const headingClass = "font-bold text-foreground";
 
-const descriptionClass = "mt-1 text-sm text-slate-500 dark:text-slate-400";
+const descriptionClass = "mt-1 text-sm text-muted-foreground dark:text-muted-foreground";
 
 function getInitials(name: string) {
   return (
@@ -114,14 +114,14 @@ function Info({
 }) {
   return (
     <div className="flex items-start gap-3">
-      <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-slate-500 ring-1 ring-slate-100 dark:bg-slate-800 dark:text-slate-300 dark:ring-slate-700">
+      <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-muted text-muted-foreground ring-1 ring-border">
         {icon}
       </div>
 
       <div className="min-w-0 flex-1">
-        <p className="text-xs text-slate-400 dark:text-slate-500">{label}</p>
+        <p className="text-xs text-muted-foreground">{label}</p>
 
-        <p className="mt-1 break-words text-sm font-semibold text-slate-800 dark:text-slate-100">
+        <p className="mt-1 break-words text-sm font-semibold text-foreground">
           {value?.trim() || "Not provided"}
         </p>
       </div>
@@ -353,9 +353,9 @@ export default function ProfilePage() {
   if (query.isPending) {
     return (
       <div className="mx-auto max-w-7xl animate-pulse space-y-6">
-        <div className="h-8 w-52 rounded-lg bg-slate-200 dark:bg-slate-800" />
-        <div className="h-64 rounded-3xl bg-slate-100 dark:bg-slate-800" />
-        <div className="h-80 rounded-3xl bg-slate-100 dark:bg-slate-800" />
+        <div className="h-8 w-52 rounded-lg bg-muted" />
+        <div className="h-64 rounded-3xl bg-muted" />
+        <div className="h-80 rounded-3xl bg-muted" />
       </div>
     );
   }
@@ -363,13 +363,13 @@ export default function ProfilePage() {
   if (query.isError || !user) {
     return (
       <div className="flex min-h-[50vh] flex-col items-center justify-center text-center">
-        <CircleUserRound className="mb-4 size-12 text-slate-300" />
+        <CircleUserRound className="mb-4 size-12 text-muted-foreground" />
 
-        <h1 className="text-xl font-bold text-slate-900 dark:text-white">
+        <h1 className="text-xl font-bold text-foreground dark:text-white">
           Profile unavailable
         </h1>
 
-        <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
+        <p className="mt-2 text-sm text-muted-foreground">
           We couldn&apos;t load your account details.
         </p>
 
@@ -391,9 +391,9 @@ export default function ProfilePage() {
       {/* Page heading */}
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <p className="mb-3 text-xs font-medium text-slate-400">
+          <p className="mb-3 text-xs font-medium text-muted-foreground">
             Workspace /{" "}
-            <span className="text-slate-600 dark:text-slate-300">
+            <span className="text-muted-foreground">
               My profile
             </span>
           </p>
@@ -406,7 +406,7 @@ export default function ProfilePage() {
             </div>
 
             <div>
-              <h1 className="text-2xl font-bold tracking-tight text-slate-950 dark:text-white sm:text-3xl">
+              <h1 className="text-2xl font-bold tracking-tight text-foreground dark:text-white sm:text-3xl">
                 Profile &amp; workspace
               </h1>
 
@@ -487,12 +487,12 @@ export default function ProfilePage() {
                 {name}
               </h2>
 
-              <p className="mt-2 flex items-center gap-2 break-all text-sm text-slate-400">
+              <p className="mt-2 flex items-center gap-2 break-all text-sm text-muted-foreground">
                 <Mail className="size-4 shrink-0" />
                 {user.email || "No email available"}
               </p>
 
-              <p className="mt-3 text-xs text-slate-500">
+              <p className="mt-3 text-xs text-muted-foreground">
                 Member since {formatDate(user.createdAt)}
               </p>
             </div>
@@ -503,7 +503,7 @@ export default function ProfilePage() {
               <Building2 className="size-5 text-orange-300" />
 
               <div>
-                <p className="text-xs text-slate-400">Workspace</p>
+                <p className="text-xs text-muted-foreground">Workspace</p>
                 <p className="text-sm font-semibold">
                   {isMerchant ? "Merchant account" : `${role} account`}
                 </p>
@@ -514,7 +514,7 @@ export default function ProfilePage() {
               <LockKeyhole className="size-5 text-emerald-300" />
 
               <div>
-                <p className="text-xs text-slate-400">Account access</p>
+                <p className="text-xs text-muted-foreground">Account access</p>
                 <p className="text-sm font-semibold">Role protected</p>
               </div>
             </div>
@@ -526,7 +526,7 @@ export default function ProfilePage() {
       <div className="grid items-start gap-6 xl:grid-cols-[minmax(0,1.4fr)_minmax(300px,0.8fr)]">
         {isMerchant && (
           <section className={cardClass}>
-            <div className="flex items-center justify-between border-b border-slate-100 p-5 dark:border-slate-700 sm:p-7">
+            <div className="flex items-center justify-between border-b border-border p-5 sm:p-7">
               <div>
                 <h2 className={headingClass}>Business information</h2>
                 <p className={descriptionClass}>
@@ -537,7 +537,7 @@ export default function ProfilePage() {
               <button
                 type="button"
                 onClick={openEditor}
-                className="rounded-xl px-3 py-2 text-xs font-semibold text-orange-600 hover:bg-orange-50 dark:text-orange-400 dark:hover:bg-slate-800"
+                className="rounded-xl px-3 py-2 text-xs font-semibold text-orange-600 dark:text-orange-400 hover:bg-orange-500/10"
               >
                 Edit <Pencil className="inline size-3.5" />
               </button>
@@ -569,7 +569,7 @@ export default function ProfilePage() {
 
         {isRider && (
           <section className={cardClass}>
-            <div className="flex items-center justify-between border-b border-slate-100 p-5 dark:border-slate-700 sm:p-7">
+            <div className="flex items-center justify-between border-b border-border p-5 sm:p-7">
               <div>
                 <h2 className={headingClass}>Rider information</h2>
                 <p className={descriptionClass}>
@@ -580,7 +580,7 @@ export default function ProfilePage() {
               <button
                 type="button"
                 onClick={openEditor}
-                className="rounded-xl px-3 py-2 text-xs font-semibold text-orange-600 hover:bg-orange-50 dark:text-orange-400 dark:hover:bg-slate-800"
+                className="rounded-xl px-3 py-2 text-xs font-semibold text-orange-600 dark:text-orange-400 hover:bg-orange-500/10"
               >
                 Edit <Pencil className="inline size-3.5" />
               </button>
@@ -617,12 +617,12 @@ export default function ProfilePage() {
         )}
 
         {!canEditProfile && (
-          <section className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <section className="rounded-3xl border border-border bg-card p-6 shadow-sm">
             <ShieldCheck className="mb-3 size-6 text-orange-500" />
 
             <h2 className={headingClass}>Administrator account</h2>
 
-            <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
               You can update your profile image. Profile information editing is
               not available for this role.
             </p>
@@ -631,13 +631,13 @@ export default function ProfilePage() {
 
         {/* Account overview and logout */}
         <div className="space-y-6">
-          <section className="rounded-3xl border border-slate-200/80 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900 sm:p-6">
+          <section className="rounded-3xl border border-border/80 bg-card p-5 shadow-sm sm:p-6">
             <div className="mb-5 flex items-center gap-3">
-              <CircleUserRound className="size-5 text-slate-700 dark:text-slate-200" />
+              <CircleUserRound className="size-5 text-foreground" />
 
               <div>
                 <h2 className={headingClass}>Account overview</h2>
-                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                <p className="mt-1 text-xs text-muted-foreground">
                   Your registered details
                 </p>
               </div>
@@ -663,19 +663,19 @@ export default function ProfilePage() {
               />
             </div>
 
-            <div className="my-6 border-t border-slate-100 dark:border-slate-700" />
+            <div className="my-6 border-t border-border" />
 
             <div className="flex items-start gap-3">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-red-50 text-red-600 dark:bg-red-950/40 dark:text-red-400">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-red-500/10 text-red-600 dark:text-red-400 dark:bg-red-950/40 dark:text-red-400">
                 <LogOut className="size-4" />
               </div>
 
               <div className="min-w-0 flex-1">
-                <h3 className="text-sm font-semibold text-slate-900 dark:text-slate-100">
+                <h3 className="text-sm font-semibold text-foreground">
                   Sign out
                 </h3>
 
-                <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">
                   Sign out of your SwiftDrop account on this device.
                 </p>
 
@@ -684,7 +684,7 @@ export default function ProfilePage() {
                   variant="outline"
                   disabled={isLoggingOut}
                   onClick={() => setLogoutOpen(true)}
-                  className="mt-3 gap-2 border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950/40"
+                  className="mt-3 gap-2 border-red-500/20 text-red-600 dark:text-red-400 hover:bg-red-500/10 hover:text-red-700 dark:text-red-400 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950/40"
                 >
                   <LogOut className="size-4" />
                   Logout
@@ -730,13 +730,13 @@ export default function ProfilePage() {
 
       {/* Logout confirmation dialog */}
       <Dialog open={logoutOpen} onOpenChange={setLogoutOpen}>
-        <DialogContent className="rounded-2xl border border-slate-200 bg-white dark:border-slate-700 dark:bg-slate-900 sm:max-w-md">
+        <DialogContent className="rounded-2xl border border-border bg-card sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="text-slate-900 dark:text-slate-100">
+            <DialogTitle className="text-foreground">
               Confirm logout
             </DialogTitle>
 
-            <DialogDescription className="text-slate-500 dark:text-slate-400">
+            <DialogDescription className="text-muted-foreground">
               Are you sure you want to log out of your SwiftDrop account?
             </DialogDescription>
           </DialogHeader>
@@ -758,7 +758,7 @@ export default function ProfilePage() {
               className="gap-2 bg-red-600 text-white hover:bg-red-700"
             >
               {isLoggingOut ? (
-                "Logging out..."
+"Logging out..."
               ) : (
                 <>
                   <LogOut className="size-4" />
@@ -772,14 +772,14 @@ export default function ProfilePage() {
 
       {/* Edit profile dialog */}
       <Dialog open={editOpen} onOpenChange={setEditOpen}>
-        <DialogContent className="max-h-[90vh] overflow-y-auto rounded-2xl border border-slate-200 bg-white p-0 dark:border-slate-700 dark:bg-slate-900 sm:max-w-xl">
-          <div className="border-b border-slate-100 bg-slate-50/80 px-6 py-5 dark:border-slate-700 dark:bg-slate-800/70">
+        <DialogContent className="max-h-[90vh] overflow-y-auto rounded-2xl border border-border bg-card p-0 sm:max-w-xl">
+          <div className="border-b border-border bg-muted/80 px-6 py-5">
             <DialogHeader>
-              <DialogTitle className="text-xl font-bold text-slate-900 dark:text-slate-100">
+              <DialogTitle className="text-xl font-bold text-foreground">
                 {isRider ? "Edit rider profile" : "Edit business profile"}
               </DialogTitle>
 
-              <DialogDescription className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+              <DialogDescription className="mt-1 text-sm text-muted-foreground">
                 Changes will be saved to your SwiftDrop account.
               </DialogDescription>
             </DialogHeader>
@@ -793,7 +793,7 @@ export default function ProfilePage() {
                 event.stopPropagation();
                 void merchantForm.handleSubmit();
               }}
-              className="space-y-5 px-6 py-6 text-slate-900 dark:text-slate-100"
+              className="space-y-5 px-6 py-6 text-foreground"
             >
               <merchantForm.Field name="businessName">
                 {(field) => (
@@ -904,7 +904,7 @@ export default function ProfilePage() {
                 event.stopPropagation();
                 void riderForm.handleSubmit();
               }}
-              className="space-y-5 px-6 py-6 text-slate-900 dark:text-slate-100"
+              className="space-y-5 px-6 py-6 text-foreground"
             >
               <riderForm.Field name="phone">
                 {(field) => (
@@ -1044,17 +1044,17 @@ export default function ProfilePage() {
 
       {/* Selected image upload panel */}
       {imageFile && (
-        <div className="fixed bottom-5 right-5 z-40 flex max-w-[calc(100vw-40px)] items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3 shadow-xl dark:border-slate-700 dark:bg-slate-900">
-          <div className="flex size-10 items-center justify-center rounded-xl bg-orange-50 text-orange-600 dark:bg-orange-950/40 dark:text-orange-400">
+        <div className="fixed bottom-5 right-5 z-40 flex max-w-[calc(100vw-40px)] items-center gap-3 rounded-2xl border border-border bg-card p-3 shadow-xl">
+          <div className="flex size-10 items-center justify-center rounded-xl bg-orange-500/10 text-orange-600 dark:text-orange-400 dark:bg-orange-950/40">
             <ImagePlus className="size-5" />
           </div>
 
           <div className="min-w-0 flex-1">
-            <p className="max-w-40 truncate text-xs font-semibold text-slate-900 dark:text-slate-100">
+            <p className="max-w-40 truncate text-xs font-semibold text-foreground">
               {imageFile.name}
             </p>
 
-            <p className="text-[11px] text-slate-400">
+            <p className="text-[11px] text-muted-foreground">
               {imageMutation.isPending ? "Uploading..." : "Ready to upload"}
             </p>
           </div>
@@ -1080,7 +1080,7 @@ export default function ProfilePage() {
             disabled={imageMutation.isPending}
             aria-label="Remove selected image"
             onClick={() => setImageFile(null)}
-            className="flex size-8 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
+            className="flex size-8 items-center justify-center rounded-lg text-muted-foreground hover:bg-muted"
           >
             <X className="size-4" />
           </button>

@@ -47,21 +47,21 @@ function getStatusStyle(status: string) {
   switch (status.toUpperCase()) {
     case "PAID":
     case "COMPLETED":
-      return "border-emerald-200 bg-emerald-50 text-emerald-700";
+      return "border-emerald-500/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-400";
 
     case "PENDING":
-      return "border-amber-200 bg-amber-50 text-amber-700";
+      return "border-amber-500/20 bg-amber-500/10 text-amber-700 dark:text-amber-400";
 
     case "FAILED":
     case "CANCELLED":
-      return "border-rose-200 bg-rose-50 text-rose-700";
+      return "border-rose-500/20 bg-rose-500/10 text-rose-700 dark:text-rose-400";
 
     case "REFUNDED":
     case "PARTIALLY_REFUNDED":
-      return "border-violet-200 bg-violet-50 text-violet-700";
+      return "border-violet-500/20 bg-violet-500/10 text-violet-700 dark:text-violet-400";
 
     default:
-      return "border-slate-200 bg-slate-100 text-slate-700";
+      return "border-border bg-muted text-foreground";
   }
 }
 
@@ -80,31 +80,31 @@ function PaymentRow({ payment }: { payment: Payment }) {
     payment.merchantInvoiceNumber || payment.id.slice(0, 8).toUpperCase();
 
   return (
-    <tr className="border-b border-slate-100 transition hover:bg-orange-50/30 last:border-0">
+    <tr className="border-b border-border transition hover:bg-orange-500/10/30 last:border-0">
       <td className="px-5 py-4">
-        <div className="font-semibold text-slate-900">{invoice}</div>
-        <div className="mt-1 text-xs text-slate-500">
+        <div className="font-semibold text-foreground">{invoice}</div>
+        <div className="mt-1 text-xs text-muted-foreground">
           {formatDate(payment.createdAt)}
         </div>
       </td>
 
       <td className="px-5 py-4">
-        <div className="font-medium text-slate-800">
+        <div className="font-medium text-foreground">
           {payment.shipment?.trackingId || "—"}
         </div>
-        <div className="mt-1 text-xs text-slate-500">
+        <div className="mt-1 text-xs text-muted-foreground">
           {payment.shipment?.recipientName || "Shipment payment"}
         </div>
       </td>
 
       <td className="px-5 py-4">
-        <span className="font-semibold text-slate-900">
+        <span className="font-semibold text-foreground">
           {formatMoney(payment.amount, payment.currency || "BDT")}
         </span>
       </td>
 
       <td className="px-5 py-4">
-        <span className="font-medium text-slate-700">
+        <span className="font-medium text-foreground">
           {payment.paymentGateway || "—"}
         </span>
       </td>
@@ -117,7 +117,7 @@ function PaymentRow({ payment }: { payment: Payment }) {
         <Link
           href={`/merchant/payments/${payment.id}`}
           aria-label={`View payment ${invoice}`}
-          className="inline-flex size-9 items-center justify-center rounded-xl border border-slate-200 text-slate-600 transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-600"
+          className="inline-flex size-9 items-center justify-center rounded-xl border border-border text-muted-foreground transition hover:border-orange-500/40 hover:bg-orange-500/10 hover:text-orange-600 dark:text-orange-400"
         >
           <Eye className="size-4" />
         </Link>
@@ -206,20 +206,20 @@ export default function MerchantPaymentsPage() {
   }
 
   return (
-    <main className="min-h-screen space-y-7 bg-slate-50/70 p-4 sm:p-6 lg:p-8">
+    <main className="min-h-screen space-y-7 bg-muted/70 p-4 sm:p-6 lg:p-8">
       {/* Header */}
       <section className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center">
         <div>
-          <div className="mb-2 flex items-center gap-2 text-sm font-medium text-orange-600">
+          <div className="mb-2 flex items-center gap-2 text-sm font-medium text-orange-600 dark:text-orange-400">
             <Wallet className="size-4" />
             Finance & transactions
           </div>
 
-          <h1 className="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">
+          <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
             Payments
           </h1>
 
-          <p className="mt-2 max-w-xl text-sm leading-6 text-slate-500">
+          <p className="mt-2 max-w-xl text-sm leading-6 text-muted-foreground">
             Track shipment payments, review transaction references, and check
             payment status in one place.
           </p>
@@ -229,7 +229,7 @@ export default function MerchantPaymentsPage() {
           type="button"
           onClick={() => void refetch()}
           disabled={isFetching}
-          className="inline-flex h-10 items-center justify-center gap-2 self-start rounded-xl border border-slate-200 bg-white px-4 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-orange-300 hover:text-orange-600 disabled:opacity-60 sm:self-auto"
+          className="inline-flex h-10 items-center justify-center gap-2 self-start rounded-xl border border-border bg-card px-4 text-sm font-semibold text-foreground shadow-sm transition hover:border-orange-500/40 hover:text-orange-600 dark:text-orange-400 disabled:opacity-60 sm:self-auto"
         >
           <RefreshCw className={`size-4 ${isFetching ? "animate-spin" : ""}`} />
           Refresh
@@ -238,67 +238,67 @@ export default function MerchantPaymentsPage() {
 
       {/* Summary cards */}
       <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+        <div className="rounded-2xl border border-border/80 bg-card p-5 shadow-sm">
           <div className="flex items-center justify-between">
-            <div className="flex size-11 items-center justify-center rounded-xl bg-orange-50 text-orange-600">
+            <div className="flex size-11 items-center justify-center rounded-xl bg-orange-500/10 text-orange-600 dark:text-orange-400">
               <CreditCard className="size-5" />
             </div>
-            <span className="text-xs font-medium text-slate-400">
+            <span className="text-xs font-medium text-muted-foreground">
               All records
             </span>
           </div>
 
-          <p className="mt-5 text-sm font-medium text-slate-500">
+          <p className="mt-5 text-sm font-medium text-muted-foreground">
             Total payments
           </p>
-          <p className="mt-1 text-3xl font-bold tracking-tight text-slate-950">
+          <p className="mt-1 text-3xl font-bold tracking-tight text-foreground">
             {payments.length}
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+        <div className="rounded-2xl border border-border/80 bg-card p-5 shadow-sm">
           <div className="flex items-center justify-between">
-            <div className="flex size-11 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600">
+            <div className="flex size-11 items-center justify-center rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
               <ArrowUpRight className="size-5" />
             </div>
-            <span className="text-xs font-medium text-emerald-600">
+            <span className="text-xs font-medium text-emerald-600 dark:text-emerald-400">
               Paid / completed
             </span>
           </div>
 
-          <p className="mt-5 text-sm font-medium text-slate-500">
+          <p className="mt-5 text-sm font-medium text-muted-foreground">
             Successful payment amount
           </p>
-          <p className="mt-1 text-2xl font-bold tracking-tight text-slate-950">
+          <p className="mt-1 text-2xl font-bold tracking-tight text-foreground">
             {formatMoney(paidAmount)}
           </p>
         </div>
 
-        <div className="rounded-2xl border border-slate-200/80 bg-white p-5 shadow-sm">
+        <div className="rounded-2xl border border-border/80 bg-card p-5 shadow-sm">
           <div className="flex items-center justify-between">
-            <div className="flex size-11 items-center justify-center rounded-xl bg-amber-50 text-amber-600">
+            <div className="flex size-11 items-center justify-center rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400">
               <ArrowDownRight className="size-5" />
             </div>
-            <span className="text-xs font-medium text-amber-600">
+            <span className="text-xs font-medium text-amber-600 dark:text-amber-400">
               Awaiting payment
             </span>
           </div>
 
-          <p className="mt-5 text-sm font-medium text-slate-500">
+          <p className="mt-5 text-sm font-medium text-muted-foreground">
             Pending amount
           </p>
-          <p className="mt-1 text-2xl font-bold tracking-tight text-slate-950">
+          <p className="mt-1 text-2xl font-bold tracking-tight text-foreground">
             {formatMoney(pendingAmount)}
           </p>
         </div>
       </section>
 
       {/* Payments table */}
-      <section className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-sm">
-        <div className="flex flex-col gap-4 border-b border-slate-100 p-5 lg:flex-row lg:items-center lg:justify-between">
+      <section className="overflow-hidden rounded-2xl border border-border/80 bg-card shadow-sm">
+        <div className="flex flex-col gap-4 border-b border-border p-5 lg:flex-row lg:items-center lg:justify-between">
           <div>
-            <h2 className="font-bold text-slate-900">Transaction history</h2>
-            <p className="mt-1 text-sm text-slate-500">
+            <h2 className="font-bold text-foreground">Transaction history</h2>
+            <p className="mt-1 text-sm text-muted-foreground">
               {filteredPayments.length} matching payment
               {filteredPayments.length === 1 ? "" : "s"}
             </p>
@@ -306,19 +306,19 @@ export default function MerchantPaymentsPage() {
 
           <div className="flex flex-col gap-3 sm:flex-row">
             <div className="relative min-w-0 sm:w-72">
-              <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
               <input
                 value={search}
                 onChange={(event) => handleSearch(event.target.value)}
                 placeholder="Search invoice, tracking ID..."
-                className="h-10 w-full rounded-xl border border-slate-200 bg-slate-50 pl-9 pr-3 text-sm outline-none transition placeholder:text-slate-400 focus:border-orange-300 focus:bg-white focus:ring-4 focus:ring-orange-500/10"
+                className="h-10 w-full rounded-xl border border-border bg-muted pl-9 pr-3 text-sm outline-none transition placeholder:text-muted-foreground focus:border-orange-500/40 focus:bg-card focus:ring-4 focus:ring-orange-500/10"
               />
             </div>
 
             <select
               value={status}
               onChange={(event) => handleStatus(event.target.value)}
-              className="h-10 rounded-xl border border-slate-200 bg-white px-3 text-sm text-slate-700 outline-none focus:border-orange-300 focus:ring-4 focus:ring-orange-500/10"
+              className="h-10 rounded-xl border border-border bg-card px-3 text-sm text-foreground outline-none focus:border-orange-500/40 focus:ring-4 focus:ring-orange-500/10"
             >
               <option value="ALL">All statuses</option>
               <option value="PENDING">Pending</option>
@@ -335,17 +335,17 @@ export default function MerchantPaymentsPage() {
         {isPending ? (
           <div className="flex min-h-72 flex-col items-center justify-center gap-3">
             <LoaderCircle className="size-8 animate-spin text-orange-500" />
-            <p className="text-sm text-slate-500">Loading your payments...</p>
+            <p className="text-sm text-muted-foreground">Loading your payments...</p>
           </div>
         ) : isError ? (
           <div className="flex min-h-72 flex-col items-center justify-center px-5 text-center">
-            <div className="flex size-12 items-center justify-center rounded-2xl bg-rose-50 text-rose-600">
+            <div className="flex size-12 items-center justify-center rounded-2xl bg-rose-500/10 text-rose-600 dark:text-rose-400">
               <CreditCard className="size-6" />
             </div>
-            <h3 className="mt-4 font-semibold text-slate-900">
+            <h3 className="mt-4 font-semibold text-foreground">
               Unable to load payments
             </h3>
-            <p className="mt-1 max-w-sm text-sm text-slate-500">
+            <p className="mt-1 max-w-sm text-sm text-muted-foreground">
               Please check your connection and try again.
             </p>
             <button
@@ -358,13 +358,13 @@ export default function MerchantPaymentsPage() {
           </div>
         ) : filteredPayments.length === 0 ? (
           <div className="flex min-h-72 flex-col items-center justify-center px-5 text-center">
-            <div className="flex size-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-500">
+            <div className="flex size-14 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
               <Wallet className="size-7" />
             </div>
-            <h3 className="mt-4 font-semibold text-slate-900">
+            <h3 className="mt-4 font-semibold text-foreground">
               No payments found
             </h3>
-            <p className="mt-1 max-w-sm text-sm text-slate-500">
+            <p className="mt-1 max-w-sm text-sm text-muted-foreground">
               {search || status !== "ALL"
                 ? "Try changing your search or status filter."
                 : "Your shipment payments will appear here."}
@@ -374,8 +374,8 @@ export default function MerchantPaymentsPage() {
           <>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[850px] text-left">
-                <thead className="bg-slate-50/80">
-                  <tr className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+                <thead className="bg-muted/80">
+                  <tr className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                     <th className="px-5 py-3.5">Invoice / Date</th>
                     <th className="px-5 py-3.5">Shipment</th>
                     <th className="px-5 py-3.5">Amount</th>
@@ -393,8 +393,8 @@ export default function MerchantPaymentsPage() {
               </table>
             </div>
 
-            <div className="flex flex-col gap-3 border-t border-slate-100 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm text-slate-500">
+            <div className="flex flex-col gap-3 border-t border-border px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+              <p className="text-sm text-muted-foreground">
                 Showing{" "}
                 {Math.min(
                   (currentPage - 1) * PAGE_SIZE + 1,
@@ -410,12 +410,12 @@ export default function MerchantPaymentsPage() {
                   type="button"
                   disabled={currentPage === 1}
                   onClick={() => setPage((value) => Math.max(1, value - 1))}
-                  className="h-9 rounded-lg border border-slate-200 px-3 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="h-9 rounded-lg border border-border px-3 text-sm font-medium text-foreground hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   Previous
                 </button>
 
-                <span className="min-w-16 text-center text-sm font-semibold text-slate-700">
+                <span className="min-w-16 text-center text-sm font-semibold text-foreground">
                   {currentPage} / {totalPages}
                 </span>
 
@@ -425,7 +425,7 @@ export default function MerchantPaymentsPage() {
                   onClick={() =>
                     setPage((value) => Math.min(totalPages, value + 1))
                   }
-                  className="inline-flex h-9 items-center gap-1 rounded-lg border border-slate-200 px-3 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="inline-flex h-9 items-center gap-1 rounded-lg border border-border px-3 text-sm font-medium text-foreground hover:bg-muted disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   Next <ArrowRight className="size-3.5" />
                 </button>

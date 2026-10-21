@@ -63,7 +63,7 @@ export default function AssignRiderPanel({ shipment }: AssignRiderPanelProps) {
 
   if (!canAssign) {
     return (
-      <p className="text-sm text-zinc-500">
+      <p className="text-sm text-muted-foreground">
         Rider assignment is unavailable for this shipment status.
       </p>
     );
@@ -72,16 +72,16 @@ export default function AssignRiderPanel({ shipment }: AssignRiderPanelProps) {
   return (
     <div className="space-y-4">
       {shipment.rider && (
-        <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
-          <p className="text-xs font-medium uppercase tracking-wide text-zinc-500">
+        <div className="rounded-xl border border-border bg-muted p-4">
+          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
             Currently assigned
           </p>
 
-          <p className="mt-2 font-semibold text-zinc-900">
+          <p className="mt-2 font-semibold text-foreground">
             {shipment.rider.user?.name ?? "Assigned rider"}
           </p>
 
-          <p className="mt-1 text-sm text-zinc-500">
+          <p className="mt-1 text-sm text-muted-foreground">
             {shipment.rider.phone} · {shipment.rider.vehicleType}
           </p>
         </div>
@@ -90,7 +90,7 @@ export default function AssignRiderPanel({ shipment }: AssignRiderPanelProps) {
       <div>
         <label
           htmlFor="rider"
-          className="mb-2 block text-sm font-medium text-zinc-700"
+          className="mb-2 block text-sm font-medium text-foreground"
         >
           {shipment.rider ? "Select replacement rider" : "Select a rider"}
         </label>
@@ -100,7 +100,7 @@ export default function AssignRiderPanel({ shipment }: AssignRiderPanelProps) {
           value={riderId}
           onChange={(event) => setRiderId(event.target.value)}
           disabled={ridersLoading || ridersError || assignment.isPending}
-          className="h-12 w-full rounded-xl border border-zinc-200 bg-white px-3 text-sm outline-none focus:border-orange-400 disabled:opacity-60"
+          className="h-12 w-full rounded-xl border border-border bg-card px-3 text-sm outline-none focus:border-orange-400 disabled:opacity-60"
         >
           <option value="">
             {ridersLoading ? "Loading riders..." : "Choose an available rider"}
@@ -115,13 +115,13 @@ export default function AssignRiderPanel({ shipment }: AssignRiderPanelProps) {
         </select>
 
         {ridersError && (
-          <p className="mt-2 text-sm text-red-600">
+          <p className="mt-2 text-sm text-red-600 dark:text-red-400">
             Could not load riders. Please refresh and try again.
           </p>
         )}
 
         {!ridersLoading && !ridersError && eligibleRiders.length === 0 && (
-          <p className="mt-2 text-sm text-amber-700">
+          <p className="mt-2 text-sm text-amber-700 dark:text-amber-400">
             No active, eligible riders are available.
           </p>
         )}
@@ -146,7 +146,7 @@ export default function AssignRiderPanel({ shipment }: AssignRiderPanelProps) {
             : "Assign rider"}
       </button>
 
-      <p className="text-xs leading-5 text-zinc-500">
+      <p className="text-xs leading-5 text-muted-foreground">
         Only active, non-suspended riders are shown. The server remains
         responsible for validating shipment status and assignment rules.
       </p>
