@@ -17,7 +17,7 @@ Courier operations involve many handoffs between merchants, riders, and administ
 
 ## Core Workflow
 
-```
+```text
 Merchant creates shipment → Payment / COD → Admin assigns rider → Rider accepts & delivers → Tracking updates
 ```
 
@@ -28,6 +28,10 @@ Merchant creates shipment → Payment / COD → Admin assigns rider → Rider ac
 - **Payment handling:** bKash Tokenized Checkout, payment retry/refund handling, and separate Cash on Delivery (COD) tracking.
 - **Rider workflow:** Admin assignment, then rider-managed acceptance, pickup, transit, and delivery/failure updates.
 - **Tracking & accountability:** Shipment tracking events and audit logs for operational visibility.
+- **AI Logistics Insights:** AI-generated administrative insights based on aggregated analytics, helping admins understand key metrics and identify operational trends.
+- **AI Customer Support:** An authenticated AI support assistant for merchants that answers questions using authorized shipment-tracking context.
+- **Public AI Support Chatbot:** A public-facing AI assistant for general SwiftDrop questions and public shipment tracking without requiring users to log in.
+- **Modern UI & theming:** Responsive SaaS interface with Dark Mode and Light Mode support.
 - **Reliable APIs:** Zod validation, Prisma transactions, pagination, filtering, soft deletion, and status/permission checks.
 
 ## Demo Accounts
@@ -36,7 +40,7 @@ Merchant creates shipment → Payment / COD → Admin assigns rider → Rider ac
 |---|---|---|
 | Merchant | qoxuqy@mailinator.com | Tester@user1 |
 | Rider | tujykawon@mailinator.com | Tester@rider1 |
-| Admin | testeradmin@gmail.com | Tester@Admin123  |
+| Admin | testeradmin@gmail.com | Tester@Admin123 |
 
 > bKash runs in sandbox mode. No real money is charged.
 
@@ -44,10 +48,11 @@ Merchant creates shipment → Payment / COD → Admin assigns rider → Rider ac
 
 | Layer | Technologies |
 |---|---|
-| Frontend | Next.js, TypeScript, Tailwind CSS, shadcn/ui, TanStack Query |
+| Frontend | Next.js, TypeScript, Tailwind CSS, shadcn/ui, TanStack Query, React Markdown |
 | Backend | Node.js, Express.js, TypeScript |
 | Database | PostgreSQL, Prisma ORM |
 | Auth & Validation | JWT, Google OAuth, OTP, Zod |
+| AI Integration | Google Gemini API |
 | Integrations | bKash, Redis, Cloudinary, Nodemailer |
 | Deployment | Vercel |
 
@@ -57,15 +62,19 @@ Merchant creates shipment → Payment / COD → Admin assigns rider → Rider ac
 - **Transactions:** Related operations (for example payment confirmation and shipment updates) are saved together or not at all.
 - **Server-side fee calculation:** The client cannot tamper with delivery prices.
 - **Ownership and role checks:** Users can only access and change what belongs to them.
+- **AI with controlled context:** AI responses use relevant analytics or explicitly permitted shipment data instead of unrestricted database access.
 - **Soft deletion and audit logs:** Records stay traceable.
+- **Theme support:** Dark and Light modes provide a more flexible and comfortable interface across the application.
 
 ## Getting Started
 
+```bash
 git clone https://github.com/Rakibstack/SwiftDrop-Frontend
 cd SwiftDrop-Frontend
 bun install
 cp .env.example .env.local
 bun run dev
+```
 
 ### Environment Variables
 
@@ -87,4 +96,5 @@ This is an MVP. Planned or out-of-scope items:
 ## Author
 
 **Rakibul Hassan Rakib**, Full Stack Developer
+
 GitHub: https://github.com/Rakibstack | LinkedIn: https://www.linkedin.com/in/rakibul-hasan-rakib-dev
