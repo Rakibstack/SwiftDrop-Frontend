@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { FormEvent, useState } from "react";
@@ -50,9 +48,7 @@ export default function AISupportChat() {
     mutate(
       {
         question: trimmedQuestion,
-        ...(trimmedTrackingId
-          ? { trackingId: trimmedTrackingId }
-          : {}),
+        ...(trimmedTrackingId ? { trackingId: trimmedTrackingId } : {}),
       },
       {
         onSuccess: (response) => {
@@ -90,9 +86,7 @@ export default function AISupportChat() {
         </div>
 
         <div className="min-w-0 flex-1">
-          <h1 className="font-semibold tracking-tight">
-            SwiftDrop AI Support
-          </h1>
+          <h1 className="font-semibold tracking-tight">SwiftDrop AI Support</h1>
           <p className="text-sm text-muted-foreground">
             Shipment guidance, powered by AI
           </p>
@@ -116,8 +110,8 @@ export default function AISupportChat() {
             </h2>
 
             <p className="mt-2 max-w-md text-sm leading-6 text-muted-foreground">
-              Ask about shipment tracking, parcel status, or what to expect
-              next in the delivery process.
+              Ask about shipment tracking, parcel status, or what to expect next
+              in the delivery process.
             </p>
 
             <div className="mt-6 flex w-full max-w-lg flex-wrap justify-center gap-2">
@@ -160,7 +154,10 @@ export default function AISupportChat() {
         )}
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-3 border-t bg-muted/20 p-4 sm:p-5">
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-3 border-t bg-muted/20 p-4 sm:p-5"
+      >
         <div className="flex gap-2">
           <Truck className="mt-2.5 size-4 shrink-0 text-muted-foreground" />
 
